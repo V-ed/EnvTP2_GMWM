@@ -24,9 +24,16 @@ public class Database {
 		
 	}
 	
-	public ResultSet executeQuery(String query) throws SQLException{
+	public ResultSet executeQuery(String query){
 		
-		return objetRequetes.executeQuery(query);
+		ResultSet results = null;
+		
+		try{
+			results = objetRequetes.executeQuery(query);
+		}
+		catch(SQLException e){}
+		
+		return results;
 		
 	}
 	
@@ -40,42 +47,61 @@ public class Database {
 		
 	}
 	
-	public Object[] getAllContentOfColumn(ResultSet donnees, String columnName)
-			throws SQLException{
+	public Object[] getAllContentOfColumn(ResultSet donnees, String columnName){
+		
+		Object[] results = null;
 		
 		ArrayList<Object> allContentList = new ArrayList<>();
 		
-		while(donnees.next()){
+		try{
 			
-			allContentList.add(donnees.getString(columnName));
+			while(donnees.next()){
+				
+				allContentList.add(donnees.getString(columnName));
+				
+			}
+			
+			results = allContentList.toArray(new Object[allContentList.size()]);
 			
 		}
+		catch(SQLException e){}
 		
-		return allContentList.toArray(new String[allContentList.size()]);
+		return results;
 		
 	}
 	
-	public ResultSet selectEverythingFrom(String tableName) throws SQLException{
+	public ResultSet selectEverythingFrom(String tableName){
 		return executeQuery("SELECT * FROM " + tableName);
 	}
 	
-	public ArrayList<Object[]> getAllContentofTable(String tableName)
-			throws SQLException{
-		
-		ResultSet result = selectEverythingFrom(tableName);
-		
-		int nCol = result.getMetaData().getColumnCount();
+	public ArrayList<Object[]> getAllContentofTable(String tableName){
 		
 		ArrayList<Object[]> table = new ArrayList<>();
-		while(result.next()){
+		
+		ResultSet queryResults = selectEverythingFrom(tableName);
+		
+		if(queryResults != null){
 			
-			String[] row = new String[nCol];
-			for(int iCol = 1; iCol <= nCol; iCol++){
-				Object obj = result.getObject(iCol);
-				row[iCol - 1] = (obj == null) ? null : obj.toString();
+			try{
+				
+				int nCol;
+				nCol = queryResults.getMetaData().getColumnCount();
+				while(queryResults.next()){
+					
+					String[] row = new String[nCol];
+					
+					for(int iCol = 1; iCol <= nCol; iCol++){
+						Object obj = queryResults.getObject(iCol);
+						row[iCol - 1] = (obj == null) ? null : obj.toString();
+					}
+					
+					table.add(row);
+					
+				}
+				
 			}
+			catch(SQLException e){}
 			
-			table.add(row);
 		}
 		
 		return table;
@@ -120,9 +146,7 @@ public class Database {
 				success = true;
 				
 			}
-			catch(SQLException e){
-				e.printStackTrace();
-			}
+			catch(SQLException e){}
 			
 		}
 		
@@ -144,9 +168,7 @@ public class Database {
 			success = true;
 			
 		}
-		catch(SQLException e){
-			e.printStackTrace();
-		}
+		catch(SQLException e){}
 		
 		return success;
 		

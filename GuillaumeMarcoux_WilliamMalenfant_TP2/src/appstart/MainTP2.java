@@ -20,8 +20,8 @@ public class MainTP2 {
 			
 			Database database = new Database("gestionalbums", password);
 			
-			Artiste test = new Artiste(database, "Test Method name",
-					"Test method first name", "0");
+			//			Artiste test = new Artiste(database, "Test Method name",
+			//					"Test method first name", "0");
 			
 			//			test.addToDatabase();
 			

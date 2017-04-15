@@ -2,8 +2,20 @@ package outils;
 
 public interface Constantes {
 	
-	final String[] COLUMNS_ARTISTES = {"nom", "prenom", "estMembre"};
-	final String[] COLUMNS_ALBUMS = {};
+	final String[] COLUMNS_ARTISTES =
+	{
+		"nom", "prenom", "estMembre", "image"
+	};
+	final String[] COLUMNS_ALBUMS =
+	{
+		"titre",
+		"prix",
+		"genre",
+		"anneeSortie",
+		"maisonDistribution",
+		"image",
+		"idArtiste"
+	};
 	
 	final String TABLE_NAME_ARTISTES = "artiste";
 	final String TABLE_NAME_ALBUMS = "album";
