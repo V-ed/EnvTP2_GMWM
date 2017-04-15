@@ -18,8 +18,8 @@ public class MainTP2 {
 			
 			Database database = new Database("gestionalbums", password);
 			
-			String[] parameters = {"nom", "prenom", "estMembre"};
-			String[] values = {"Test Method name", "Test method first name", "0"};
+//			String[] parameters = {"nom", "prenom", "estMembre"};
+//			String[] values = {"Test Method name", "Test method first name", "0"};
 			
 //			database.addToTable("artiste", parameters, values);
 			
