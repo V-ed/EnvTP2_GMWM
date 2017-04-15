@@ -2,10 +2,12 @@ package appstart;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import outils.Database;
+import outils.Constantes;
+import objects.*;
 
 public class MainTP2 {
 	
@@ -18,18 +20,22 @@ public class MainTP2 {
 			
 			Database database = new Database("gestionalbums", password);
 			
-//			String[] parameters = {"nom", "prenom", "estMembre"};
-//			String[] values = {"Test Method name", "Test method first name", "0"};
+			Artiste test = new Artiste(database, "Test Method name",
+					"Test method first name", "0");
 			
-//			database.addToTable("artiste", parameters, values);
+			//			test.addToDatabase();
 			
-			ResultSet artistsData = database
-					.executeQuery("SELECT * FROM artiste");
+			//			database.removeFromTable(Constantes.TABLE_NAME_ARTISTES,
+			//					Constantes.ID_COLUMN_NAME_ARTISTES, 5);
 			
-			String[] noms = database.getAllContentOfColumn(artistsData, "prenom");
+			ArrayList<Object[]> contenuArtistes = database
+					.getAllContentofTable(Constantes.TABLE_NAME_ARTISTES);
 			
-			for(int i = 0; i < noms.length; i++){
-				System.out.println(noms[i]);
+			for(int i = 0; i < contenuArtistes.size(); i++){
+				for(int j = 0; j < contenuArtistes.get(i).length; j++){
+					System.out.print(contenuArtistes.get(i)[j] + " | ");
+				}
+				System.out.println("\n");
 			}
 			
 		}
