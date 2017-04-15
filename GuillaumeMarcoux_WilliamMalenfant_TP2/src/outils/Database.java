@@ -50,8 +50,6 @@ public class Database {
 		
 		boolean success = false;
 		
-		// TODO addToTable();
-		
 		if(tableParameters.length == values.length){
 			
 			String sqlRequest = "INSERT INTO ";
