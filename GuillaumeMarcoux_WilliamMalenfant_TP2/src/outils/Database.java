@@ -45,11 +45,51 @@ public class Database {
 		
 	}
 	
-	public boolean addToTable(){
+	public boolean addToTable(String tableName, String[] tableParameters,
+			String[] values){
 		
-		boolean success = true;
+		boolean success = false;
 		
 		// TODO addToTable();
+		
+		if(tableParameters.length == values.length){
+			
+			String sqlRequest = "INSERT INTO ";
+			
+			sqlRequest += tableName;
+			
+			sqlRequest += "(";
+			
+			for(int i = 0; i < tableParameters.length; i++){
+				sqlRequest += tableParameters[i];
+				
+				if(i != tableParameters.length - 1)
+					sqlRequest += ", ";
+			}
+			
+			sqlRequest += ") VALUES (";
+			
+			for(int i = 0; i < values.length; i++){
+				sqlRequest += "'" + values[i] + "'";
+				
+				if(i != values.length - 1)
+					sqlRequest += ", ";
+			}
+			
+			sqlRequest += ")";
+			
+			try{
+				
+				objetRequetes.execute(sqlRequest);
+				
+				success = true;
+				
+			}
+			catch(SQLException e){
+				System.out.println("Error of " + e.getClass().getSimpleName());
+			}
+			
+		}
 		
 		return success;
 		

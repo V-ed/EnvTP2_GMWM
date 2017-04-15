@@ -18,6 +18,11 @@ public class MainTP2 {
 			
 			Database database = new Database("gestionalbums", password);
 			
+			String[] parameters = {"nom", "prenom", "estMembre"};
+			String[] values = {"Test Method name", "Test method first name", "0"};
+			
+//			database.addToTable("artiste", parameters, values);
+			
 			ResultSet artistsData = database
 					.executeQuery("SELECT * FROM artiste");
 			
@@ -36,5 +41,4 @@ public class MainTP2 {
 		}
 		
 	}
-	
 }
