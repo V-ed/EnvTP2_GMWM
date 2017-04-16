@@ -141,10 +141,14 @@ public class Database {
 			
 			try{
 				
-				idCreated = objetRequetes.executeUpdate(sqlRequest,
+				objetRequetes.executeUpdate(sqlRequest,
 						Statement.RETURN_GENERATED_KEYS);
 				
-				// TODO See why that doesn't work.
+				ResultSet rs = objetRequetes.getGeneratedKeys();
+				
+				if(rs.next()){
+					idCreated = rs.getInt(1);
+				}
 				
 			}
 			catch(SQLException e){}
@@ -161,6 +165,31 @@ public class Database {
 		boolean success = false;
 		
 		// TODO modifyObject()
+		
+		String sqlRequest = "UPDATE FROM " + tableName;
+		
+		sqlRequest += " SET ";
+		
+		for(int i = 0; i < columnNames.length; i++){
+			
+			sqlRequest += columnNames[i] + " = '" + values[i] + "'";
+			
+			if(i < columnNames.length - 1){
+				sqlRequest += ", ";
+			}
+			
+		}
+		
+		sqlRequest += " WHERE " + idColumnName + " = '" + id + "'";
+		
+		try{
+			
+			objetRequetes.executeUpdate(sqlRequest);
+			
+			success = true;
+			
+		}
+		catch(SQLException e){}
 		
 		return success;
 		

@@ -56,6 +56,13 @@ public abstract class TableObject implements Constantes {
 		
 	}
 	
+	public void modifyItem(String... values){
+		if(idObject != -1){
+			database.modifyObject(tableName, idColumnName, idObject,
+					columnNames, values);
+		}
+	}
+	
 	public void removeFromDatabase(){
 		
 		if(idObject != -1){

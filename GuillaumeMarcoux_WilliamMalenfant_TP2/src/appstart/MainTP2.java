@@ -24,6 +24,8 @@ public class MainTP2 {
 			
 			lol.addToDatabase();
 			
+			lol.modifyItem("Famille modif", "Nope.avi", "1", null);
+			
 			ArrayList<Object[]> contenuArtistes = database
 					.getAllContentofTable(Constantes.TABLE_NAME_ARTISTES);
 			
