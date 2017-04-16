@@ -52,7 +52,7 @@ public abstract class TableObject implements Constantes {
 	
 	public void addToDatabase(){
 		
-		database.addToTable(tableName, columnNames, values);
+		idObject = database.addToTable(tableName, columnNames, values);
 		
 	}
 	

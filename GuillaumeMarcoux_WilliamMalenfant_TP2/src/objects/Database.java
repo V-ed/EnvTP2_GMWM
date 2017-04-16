@@ -108,10 +108,10 @@ public class Database {
 		
 	}
 	
-	public boolean addToTable(String tableName, String[] columnNames,
+	public int addToTable(String tableName, String[] columnNames,
 			String[] values){
 		
-		boolean success = false;
+		int idCreated = -1;
 		
 		if(columnNames.length == values.length){
 			
@@ -141,25 +141,36 @@ public class Database {
 			
 			try{
 				
-				objetRequetes.execute(sqlRequest);
+				idCreated = objetRequetes.executeUpdate(sqlRequest,
+						Statement.RETURN_GENERATED_KEYS);
 				
-				success = true;
+				// TODO See why that doesn't work.
 				
 			}
 			catch(SQLException e){}
 			
 		}
 		
+		return idCreated;
+		
+	}
+	
+	public boolean modifyObject(String tableName, String idColumnName,
+			Object id, String[] columnNames, String[] values){
+		
+		boolean success = false;
+		
+		// TODO modifyObject()
+		
 		return success;
 		
 	}
 	
-	public boolean removeFromTable(String tableName, String idColumnName, int id){
+	public boolean removeFromTable(String tableName, String condition){
 		
 		boolean success = false;
 		
-		String sqlRequest = "DELETE FROM " + tableName + " WHERE "
-				+ idColumnName + " = " + id;
+		String sqlRequest = "DELETE FROM " + tableName + " WHERE " + condition;
 		
 		try{
 			
@@ -171,6 +182,15 @@ public class Database {
 		catch(SQLException e){}
 		
 		return success;
+		
+	}
+	
+	public boolean removeFromTable(String tableName, String idColumnName,
+			Object id){
+		
+		String condition = idColumnName + " = '" + id + "'";
+		
+		return removeFromTable(tableName, condition);
 		
 	}
 	
