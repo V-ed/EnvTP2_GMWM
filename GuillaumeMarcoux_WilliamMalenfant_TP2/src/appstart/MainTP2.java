@@ -21,9 +21,9 @@ public class MainTP2 {
 			
 			Artiste lol = new Artiste(database, "Nom de Famille", "Prénom",
 					"0", null);
-			
+//			
 			lol.addToDatabase();
-			
+//			
 			lol.modifyItem("Famille modif", "Nope.avi", "1", null);
 			
 			ArrayList<Object[]> contenuArtistes = database

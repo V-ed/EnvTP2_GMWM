@@ -164,9 +164,7 @@ public class Database {
 		
 		boolean success = false;
 		
-		// TODO modifyObject()
-		
-		String sqlRequest = "UPDATE FROM " + tableName;
+		String sqlRequest = "UPDATE " + tableName;
 		
 		sqlRequest += " SET ";
 		
