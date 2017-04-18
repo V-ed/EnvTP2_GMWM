@@ -27,7 +27,9 @@ public class MySQLDatabase {
 	 * @param databaseName
 	 *            Name of the database itself.
 	 * @param user
+	 *            The user name required to access the database.
 	 * @param password
+	 *            The password used to access the database.
 	 * @throws ClassNotFoundException
 	 *             The drivers for MySQL are not installed. <a
 	 *             href="https://dev.mysql.com/downloads/connector/j/">Click
