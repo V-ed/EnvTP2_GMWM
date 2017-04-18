@@ -17,10 +17,11 @@ public class MainTP2 {
 		
 		try{
 			
-			Database database = new Database("gestionalbums", password);
+			MySQLDatabase database = new MySQLDatabase("localhost",
+					"gestionalbums", "root", password);
 			
 			Artiste lol = new Artiste(database, "Nom de Famille", "Prénom",
-					"0", null);
+					true, null);
 			
 			lol.addToDatabase();
 			

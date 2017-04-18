@@ -4,17 +4,17 @@ import outils.Constantes;
 
 public abstract class TableObject implements Constantes {
 	
-	protected Database database;
+	protected MySQLDatabase database;
 	protected String tableName;
 	
 	protected String idColumnName;
 	protected int idObject = -1;
 	
 	protected String[] columnNames;
-	protected String[] values;
+	protected Object[] values;
 	
-	protected TableObject(Database database, String tableName,
-			String idColumnName, String[] columnNames, String... values){
+	protected TableObject(MySQLDatabase database, String tableName,
+			String idColumnName, String[] columnNames, Object... values){
 		
 		this.database = database;
 		
@@ -46,7 +46,21 @@ public abstract class TableObject implements Constantes {
 		return columnNames;
 	}
 	
-	public String[] getValues(){
+	public String[] getAllColumnNames(){
+		
+		String[] allColumns = new String[columnNames.length + 1];
+		
+		allColumns[0] = idColumnName;
+		
+		for(int i = 0; i < columnNames.length; i++){
+			allColumns[i + 1] = columnNames[i];
+		}
+		
+		return allColumns;
+		
+	}
+	
+	public Object[] getValues(){
 		return values;
 	}
 	
@@ -56,7 +70,7 @@ public abstract class TableObject implements Constantes {
 		
 	}
 	
-	public void modifyItem(String... values){
+	public void modifyItem(Object... values){
 		
 		this.values = values;
 		
