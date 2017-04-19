@@ -19,7 +19,9 @@ public class MySQLDatabase {
 	private Statement objetRequetes;
 	
 	/**
-	 * Constructor for the Database object.
+	 * Constructor for the MySQLDatabase object. This object is never closing,
+	 * which means you shouldn't need to open this object for the same database
+	 * twice.
 	 * 
 	 * @param ip
 	 *            Address required to access the MySQL database. <i>Ex.

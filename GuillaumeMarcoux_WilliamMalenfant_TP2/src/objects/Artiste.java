@@ -2,14 +2,29 @@ package objects;
 
 public class Artiste extends TableObject {
 	
+	public Artiste(MySQLDatabase database, Object[] values){
+		super(database, TABLE_NAME_ARTISTES, COLUMNS_ARTISTES[ID_COLUMN],
+				COLUMNS_ARTISTES, values);
+	}
+	
 	public Artiste(MySQLDatabase database, String nom, String prenom,
-			boolean estMembre, String image){
+			boolean estMembre, String imageURL){
 		
-		super(database, TABLE_NAME_ARTISTES, ID_COLUMN_NAME_ARTISTES,
+		super(database, TABLE_NAME_ARTISTES, COLUMNS_ARTISTES[ID_COLUMN],
 				COLUMNS_ARTISTES, new Object[]
 				{
-					nom, prenom, estMembre ? 1 : 0, image
+					nom, prenom, estMembre ? 1 : 0, imageURL
 				});
+		
+	}
+	
+	public void modifyItem(String nom, String prenom, boolean estMembre,
+			String imageURL){
+		
+		super.modifyItem(new Object[]
+		{
+			nom, prenom, estMembre ? 1 : 0, imageURL
+		});
 		
 	}
 	

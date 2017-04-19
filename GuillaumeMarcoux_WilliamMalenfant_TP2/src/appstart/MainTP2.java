@@ -25,7 +25,10 @@ public class MainTP2 {
 			
 			lol.addToDatabase();
 			
-			lol.modifyItem("Famille modif", "Nope.avi", "1", null);
+			lol.modifyItem("Famille modif", "Nope.avi", false, null);
+			
+			database.removeFromTable(Constantes.TABLE_NAME_ARTISTES,
+					Constantes.COLUMNS_ARTISTES[Constantes.ID_COLUMN], 3);
 			
 			ArrayList<Object[]> contenuArtistes = database
 					.getAllContentofTable(Constantes.TABLE_NAME_ARTISTES);

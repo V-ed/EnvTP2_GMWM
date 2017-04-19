@@ -46,18 +46,15 @@ public abstract class TableObject implements Constantes {
 		return columnNames;
 	}
 	
-	public String[] getAllColumnNames(){
+	public String[] getColumnNamesWithoutID(){
 		
-		String[] allColumns = new String[columnNames.length + 1];
+		String[] columnsWithoutID = new String[columnNames.length - 1];
 		
-		allColumns[0] = idColumnName;
-		
-		for(int i = 0; i < columnNames.length; i++){
-			allColumns[i + 1] = columnNames[i];
+		for(int i = 0; i < columnsWithoutID.length; i++){
+			columnsWithoutID[i] = columnNames[i + 1];
 		}
 		
-		return allColumns;
-		
+		return columnsWithoutID;
 	}
 	
 	public Object[] getValues(){
@@ -66,18 +63,19 @@ public abstract class TableObject implements Constantes {
 	
 	public void addToDatabase(){
 		
-		idObject = database.addToTable(tableName, columnNames, values);
+		idObject = database.addToTable(tableName, getColumnNamesWithoutID(),
+				values);
 		
 	}
 	
-	public void modifyItem(Object... values){
+	protected void modifyItem(Object... values){
 		
 		this.values = values;
 		
 		if(idObject != -1){
 			
 			database.modifyObject(tableName, idColumnName, idObject,
-					columnNames, values);
+					getColumnNamesWithoutID(), values);
 			
 		}
 		
@@ -91,6 +89,11 @@ public abstract class TableObject implements Constantes {
 			
 		}
 		
+	}
+	
+	@Override
+	public String toString(){
+		return "" + idObject;
 	}
 	
 }

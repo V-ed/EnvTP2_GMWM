@@ -2,15 +2,15 @@ package outils;
 
 public interface Constantes {
 	
-	final static String ID_COLUMN_NAME_ARTISTES = "idArtiste";
-	final static String ID_COLUMN_NAME_ALBUMS = "idAlbum";
+	final static int ID_COLUMN = 0;
 	
 	final String[] COLUMNS_ARTISTES =
 	{
-		"nom", "prenom", "estMembre", "image"
+		"idArtiste", "nom", "prenom", "estMembre", "image"
 	};
 	final String[] COLUMNS_ALBUMS =
 	{
+		"idAlbum",
 		"titre",
 		"prix",
 		"genre",
