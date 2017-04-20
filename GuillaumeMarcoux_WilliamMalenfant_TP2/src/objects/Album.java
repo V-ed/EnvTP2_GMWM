@@ -29,7 +29,7 @@ public class Album extends TableObject {
 	
 	public void modifyItem(String titre, double prix, String genre,
 			Date anneeSortie, String maisonDistribution, String imageURL,
-			int idArtiste){
+			Artiste artiste){
 		
 		super.modifyItem(new Object[]
 		{
@@ -39,7 +39,7 @@ public class Album extends TableObject {
 			anneeSortie,
 			maisonDistribution,
 			imageURL,
-			idArtiste
+			artiste
 		});
 		
 	}
