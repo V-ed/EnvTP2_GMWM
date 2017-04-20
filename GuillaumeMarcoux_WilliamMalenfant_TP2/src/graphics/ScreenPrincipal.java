@@ -57,7 +57,11 @@ public class ScreenPrincipal extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				setVisible(false);
 				
+				new ScreenVueArtistes(database, ScreenPrincipal.this);
+				
+				setVisible(true);
 				
 			}
 		});
