@@ -31,6 +31,7 @@ public class ScreenConnect extends JFrame {
 	private JButton btnQuitter = new JButton("Quitter");
 
 	public ScreenConnect() {
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 250);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -71,22 +72,27 @@ public class ScreenConnect extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					
 					MySQLDatabase database = new MySQLDatabase("localhost",
 							"gestionalbums", getUsername(), getPassword());
 					
 					dispose();
 					
+					new ScreenPrincipal(database);
+					
 				} catch (ClassNotFoundException e1) {
-					
 					e1.printStackTrace();
-					
 				} catch (SQLException e1) {
-					
 					e1.printStackTrace();
-					
 				}
 				
+			}
+		});
+		
+		btnQuitter.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 			}
 		});
 		
@@ -98,7 +104,7 @@ public class ScreenConnect extends JFrame {
 	}
 	
 	public String getPassword(){
-		return passwordField.getPassword().toString();
+		return String.valueOf(passwordField.getPassword());
 	}
 	
 }
