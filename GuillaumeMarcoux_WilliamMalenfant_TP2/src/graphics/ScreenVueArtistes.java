@@ -9,7 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
 
-public class ScreenVueArtistes extends JFrame {
+public class ScreenVueArtistes extends JDialog {
 	
 	private JLabel labelNoArtisteSelected = new JLabel(
 			"Veuillez s\u00E9lectionner un artiste!");
@@ -35,6 +35,8 @@ public class ScreenVueArtistes extends JFrame {
 	public ScreenVueArtistes(MySQLDatabase database){
 		
 		this.database = database;
+		
+		setSize(600, 400);
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]
@@ -78,6 +80,7 @@ public class ScreenVueArtistes extends JFrame {
 		labelNoArtisteSelected.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNoArtisteSelected.setBounds(357, 70, 180, 29);
 		
+		setVisible(true);
 	}
 	
 	private JPanel createOperationsPanel(){
