@@ -3,13 +3,20 @@ package graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import objects.MySQLDatabase;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.SwingConstants;
 
-public class ScreenPrincipal extends JFrame {
+public class ScreenPrincipal extends JFrame{
 	
+	private MySQLDatabase database;
 	private JPanel contentPane;
 	private JLabel lblArtiste = new JLabel("Artiste");
 	private JLabel lblAlbum = new JLabel("Album");
@@ -18,7 +25,9 @@ public class ScreenPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ScreenPrincipal(){
+	public ScreenPrincipal(MySQLDatabase database){
+		this.database = database;
+		
 		setBounds(100, 100, 450, 331);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -39,5 +48,25 @@ public class ScreenPrincipal extends JFrame {
 		
 		btnQuitter.setBounds(167, 245, 107, 36);
 		contentPane.add(btnQuitter);
+		
+		lblArtiste.addMouseListener( new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				
+				
+			}
+		});
+		
+		lblAlbum.addMouseListener( new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				
+				
+			}
+		});
+		
+		setVisible(true);
 	}
 }
