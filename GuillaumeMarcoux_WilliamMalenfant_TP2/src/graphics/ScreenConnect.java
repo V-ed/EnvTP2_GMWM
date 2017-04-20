@@ -6,8 +6,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import objects.MySQLDatabase;
+
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
@@ -58,10 +65,40 @@ public class ScreenConnect extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(202, 110, 157, 20);
 		contentPane.add(passwordField);
+		
+		btnValider.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					
+					MySQLDatabase database = new MySQLDatabase("localhost",
+							"gestionalbums", getUsername(), getPassword());
+					
+					dispose();
+					
+				} catch (ClassNotFoundException e1) {
+					
+					e1.printStackTrace();
+					
+				} catch (SQLException e1) {
+					
+					e1.printStackTrace();
+					
+				}
+				
+			}
+		});
+		
+		setVisible(true);
 	}
 	
-	public static void main(String[] args){
-		ScreenConnect test = new ScreenConnect();
-		test.setVisible(true);
+	public String getUsername(){
+		return textField.getText();
 	}
+	
+	public String getPassword(){
+		return passwordField.getPassword().toString();
+	}
+	
 }
