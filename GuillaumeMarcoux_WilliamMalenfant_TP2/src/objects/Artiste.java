@@ -28,4 +28,8 @@ public class Artiste extends TableObject {
 		
 	}
 	
+	public String getFullName(){
+		return values[1] + " " + values[0];
+	}
+	
 }
