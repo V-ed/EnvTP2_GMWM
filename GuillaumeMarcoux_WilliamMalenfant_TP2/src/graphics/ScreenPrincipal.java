@@ -6,7 +6,7 @@ import objects.*;
 
 public class ScreenPrincipal extends JFrame {
 	
-	private JPanel panel = new JPanel();
+	private JPanel panneauPrincipal = new JPanel();
 	
 	private JComboBox<?> choixArtiste = new JComboBox<Artiste>();
 	private JMenuBar menuBar = new JMenuBar();
@@ -43,42 +43,42 @@ public class ScreenPrincipal extends JFrame {
 		setJMenuBar(menuBar);
 		
 		// Contenu
-		getContentPane().add(panel);
-		panel.setLayout(null);
+		getContentPane().add(panneauPrincipal);
+		panneauPrincipal.setLayout(null);
 		
 		labelNoArtisteSelected.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNoArtisteSelected.setBounds(357, 70, 180, 29);
 		
 		labelArtisteImage.setBounds(95, 150, 86, 20);
-		panel.add(labelArtisteImage);
+		panneauPrincipal.add(labelArtisteImage);
 		
 		labelArtisteImage.setHorizontalAlignment(SwingConstants.CENTER);
 		checkBoxEstMembre.setBounds(225, 120, 20, 20);
-		panel.add(checkBoxEstMembre);
+		panneauPrincipal.add(checkBoxEstMembre);
 		
 		labelArtisteMembre.setBounds(20, 120, 188, 20);
-		panel.add(labelArtisteMembre);
+		panneauPrincipal.add(labelArtisteMembre);
 		
 		textArtistePrenom.setBounds(126, 90, 119, 20);
-		panel.add(textArtistePrenom);
+		panneauPrincipal.add(textArtistePrenom);
 		
 		textArtisteNom.setBounds(126, 60, 119, 20);
-		panel.add(textArtisteNom);
+		panneauPrincipal.add(textArtisteNom);
 		
 		labelSelectionArtistes.setBounds(20, 20, 50, 20);
-		panel.add(labelSelectionArtistes);
+		panneauPrincipal.add(labelSelectionArtistes);
 		
 		choixArtiste.setBounds(95, 20, 150, 20);
-		panel.add(choixArtiste);
+		panneauPrincipal.add(choixArtiste);
 		
 		labelArtisteNom.setBounds(20, 60, 86, 20);
-		panel.add(labelArtisteNom);
+		panneauPrincipal.add(labelArtisteNom);
 		
 		labelArtistePrenom.setBounds(20, 90, 96, 20);
-		panel.add(labelArtistePrenom);
+		panneauPrincipal.add(labelArtistePrenom);
 		
 		imageArtisteAffichage.setBounds(20, 180, 225, 145);
-		panel.add(imageArtisteAffichage);
+		panneauPrincipal.add(imageArtisteAffichage);
 		
 	}
 }
