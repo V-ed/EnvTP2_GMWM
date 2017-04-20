@@ -38,6 +38,8 @@ public class ScreenVueArtistes extends JDialog {
 		
 		this.database = database;
 		
+		setSize(600, 400);
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]
 		{
@@ -80,6 +82,7 @@ public class ScreenVueArtistes extends JDialog {
 		labelNoArtisteSelected.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNoArtisteSelected.setBounds(357, 70, 180, 29);
 		
+		setVisible(true);
 	}
 	
 	private JPanel createOperationsPanel(){

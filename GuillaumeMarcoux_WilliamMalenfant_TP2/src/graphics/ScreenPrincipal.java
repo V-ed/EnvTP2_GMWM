@@ -8,7 +8,11 @@ import objects.MySQLDatabase;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -62,8 +66,15 @@ public class ScreenPrincipal extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				//new ScreenVueAlbums(database);
 				
-				
+			}
+		});
+		
+		btnQuitter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 			}
 		});
 		

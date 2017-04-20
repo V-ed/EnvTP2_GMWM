@@ -17,6 +17,7 @@ import java.sql.SQLException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPasswordField;
 
 public class ScreenConnect extends JFrame {
