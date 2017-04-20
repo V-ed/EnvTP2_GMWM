@@ -150,6 +150,8 @@ public class ScreenVueArtistes extends JFrame {
 		
 		JPanel panelChoixArtiste = new JPanel();
 		
+		
+		
 		return panelChoixArtiste;
 		
 	}
