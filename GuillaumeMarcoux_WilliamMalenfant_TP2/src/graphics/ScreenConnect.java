@@ -37,6 +37,7 @@ public class ScreenConnect extends JFrame {
 		
 		lblConnexionAuProgramme.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		lblConnexionAuProgramme.setBounds(50, 11, 335, 41);
+		
 		contentPane.add(lblConnexionAuProgramme);
 		
 		lblMotDePasse.setFont(new Font("Times New Roman", Font.PLAIN, 18));
