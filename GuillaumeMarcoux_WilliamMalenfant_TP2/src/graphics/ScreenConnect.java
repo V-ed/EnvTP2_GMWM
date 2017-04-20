@@ -29,6 +29,7 @@ public class ScreenConnect extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		
 		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 18));
@@ -57,5 +58,10 @@ public class ScreenConnect extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(202, 110, 157, 20);
 		contentPane.add(passwordField);
+	}
+	
+	public static void main(String[] args){
+		ScreenConnect test = new ScreenConnect();
+		test.setVisible(true);
 	}
 }
