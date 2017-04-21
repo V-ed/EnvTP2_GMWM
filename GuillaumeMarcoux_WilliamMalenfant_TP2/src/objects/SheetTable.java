@@ -65,7 +65,7 @@ public abstract class SheetTable extends AbstractTableModel {
 	@Override
 	public abstract Object getValueAt(int rowIndex, int columnIndex);
 	
-	public abstract void actionOnSelect();
+	protected abstract void actionOnSelect();
 	
 	@Override
 	public String getColumnName(int columnIndex){
@@ -98,6 +98,14 @@ public abstract class SheetTable extends AbstractTableModel {
 	
 	public Object getItem(int index){
 		return items.get(index);
+	}
+	
+	public void setSelectedItem(int index){
+		
+		if(tableItems.getRowCount() != 0){
+			tableItems.setRowSelectionInterval(index, index);
+		}
+		
 	}
 	
 }

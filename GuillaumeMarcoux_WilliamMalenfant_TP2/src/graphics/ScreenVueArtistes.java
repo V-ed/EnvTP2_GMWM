@@ -3,6 +3,7 @@ package graphics;
 import javax.swing.*;
 
 import outils.Constantes;
+import outils.ConstantesAffichage;
 import outils.OutilsFichiers;
 import objects.Artiste;
 import objects.MySQLDatabase;
@@ -13,28 +14,32 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ScreenVueArtistes extends JDialog implements Constantes {
+public class ScreenVueArtistes extends JDialog implements Constantes,
+		ConstantesAffichage {
 	
 	private JLabel labelNoArtisteSelected = new JLabel(
 			"Veuillez s\u00E9lectionner un artiste!");
 	
 	ImageIcon imageArtiste = new ImageIcon();
-	private JButton btnAjouter = new JButton("Ajouter");
-	private JButton btnModifier = new JButton("Modifier");
-	private JButton btnSupprimer = new JButton("Supprimer");
-	private JButton btnRechercher = new JButton("Rechercher");
-	private JButton btnQuitter = new JButton("Quitter");
-	private final JLabel labelArtisteNumero = new JLabel("Num\u00E9ro :");
-	private final JLabel textArtisteNumero = new JLabel("[dynamic]");
-	private final JLabel labelArtisteNom = new JLabel("Nom :");
-	private final JLabel textArtisteNom = new JLabel("[dynamic]");
-	private final JLabel labelArtisteEstMembre = new JLabel("Membre?");
-	private final JCheckBox checkBoxArtisteEstMembre = new JCheckBox("");
-	private final JButton buttonArtisteAlbums = new JButton("Albums");
-	private JLabel imageArtisteAffichage = new JLabel(
-			"<HTML><I>image</I></HTML>", SwingConstants.CENTER);
+	private JButton btnAjouter = new JButton(VIEW_OPERATIONS_AJOUTER);
+	private JButton btnModifier = new JButton(VIEW_OPERATIONS_MODIFIER);
+	private JButton btnSupprimer = new JButton(VIEW_OPERATIONS_SUPPRIMER);
+	private JButton btnRechercher = new JButton(VIEW_OPERATIONS_RECHERCHER);
+	private JButton btnQuitter = new JButton(VIEW_OPERATIONS_QUITTER);
+	private JLabel labelArtisteNumero = new JLabel(VIEW_ARTISTE_LABEL_NUMERO);
+	private JLabel textArtisteNumero = new JLabel();
+	private JLabel labelArtisteNom = new JLabel(VIEW_ARTISTE_LABEL_NOM);
+	private JLabel textArtisteNom = new JLabel();
+	private JLabel labelArtisteEstMembre = new JLabel(
+			VIEW_ARTISTE_LABEL_EST_MEMBRE);
+	private JCheckBox checkBoxArtisteEstMembre = new JCheckBox("");
+	private JButton buttonArtisteAlbums = new JButton(
+			VIEW_ARTISTE_BUTTON_ALBUMS);
+	private JLabel imageArtisteAffichage = new JLabel("", SwingConstants.CENTER);
 	private SheetTable tableArtistes;
 	
 	private MySQLDatabase database;
@@ -95,6 +100,8 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		labelNoArtisteSelected.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNoArtisteSelected.setBounds(357, 70, 180, 29);
 		
+		tableArtistes.setSelectedItem(0);
+		
 		setVisible(true);
 		
 	}
@@ -103,6 +110,15 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		
 		JPanel panelOperations = new JPanel();
 		panelOperations.setLayout(new GridLayout(5, 1, 0, 0));
+		
+		GestionPanneauOperations gestionnaire = new GestionPanneauOperations(
+				this);
+		
+		btnAjouter.addActionListener(gestionnaire);
+		btnModifier.addActionListener(gestionnaire);
+		btnSupprimer.addActionListener(gestionnaire);
+		btnRechercher.addActionListener(gestionnaire);
+		btnQuitter.addActionListener(gestionnaire);
 		
 		panelOperations.add(btnAjouter);
 		panelOperations.add(btnModifier);
@@ -120,21 +136,6 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		
 		GridBagLayout gbl_panelAffichageArtiste = new GridBagLayout();
 		panelAffichageArtiste.setLayout(gbl_panelAffichageArtiste);
-		
-		GridBagConstraints gbc_imageArtisteAffichage = new GridBagConstraints();
-		gbc_imageArtisteAffichage.fill = GridBagConstraints.BOTH;
-		gbc_imageArtisteAffichage.weighty = 1.0;
-		gbc_imageArtisteAffichage.weightx = 1.0;
-		gbc_imageArtisteAffichage.gridwidth = 3;
-		gbc_imageArtisteAffichage.gridheight = 4;
-		gbc_imageArtisteAffichage.gridx = 2;
-		gbc_imageArtisteAffichage.gridy = 0;
-		
-		imageArtisteAffichage.setBorder(BorderFactory
-				.createLineBorder(Color.BLACK));
-		
-		panelAffichageArtiste.add(imageArtisteAffichage,
-				gbc_imageArtisteAffichage);
 		
 		GridBagConstraints gbc_labelArtisteNumero = new GridBagConstraints();
 		gbc_labelArtisteNumero.weighty = 1.0;
@@ -173,6 +174,22 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		panelAffichageArtiste.add(labelArtisteEstMembre,
 				gbc_labelArtisteEstMembre);
 		
+		GridBagConstraints gbc_imageArtisteAffichage = new GridBagConstraints();
+		gbc_imageArtisteAffichage.insets = new Insets(0, 0, 5, 0);
+		gbc_imageArtisteAffichage.fill = GridBagConstraints.BOTH;
+		gbc_imageArtisteAffichage.weighty = 1.0;
+		gbc_imageArtisteAffichage.weightx = 1.0;
+		gbc_imageArtisteAffichage.gridwidth = 2;
+		gbc_imageArtisteAffichage.gridheight = 5;
+		gbc_imageArtisteAffichage.gridx = 2;
+		gbc_imageArtisteAffichage.gridy = 0;
+		
+		imageArtisteAffichage.setBorder(BorderFactory
+				.createLineBorder(Color.BLACK));
+		
+		panelAffichageArtiste.add(imageArtisteAffichage,
+				gbc_imageArtisteAffichage);
+		
 		GridBagConstraints gbc_checkBoxArtisteEstMembre = new GridBagConstraints();
 		gbc_checkBoxArtisteEstMembre.weighty = 1.0;
 		gbc_checkBoxArtisteEstMembre.weightx = 1.0;
@@ -183,11 +200,10 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		
 		GridBagConstraints gbc_buttonArtisteAlbums = new GridBagConstraints();
 		gbc_buttonArtisteAlbums.fill = GridBagConstraints.BOTH;
-		gbc_buttonArtisteAlbums.gridheight = 2;
 		gbc_buttonArtisteAlbums.weighty = 1.0;
 		gbc_buttonArtisteAlbums.weightx = 1.0;
-		gbc_buttonArtisteAlbums.gridx = 4;
-		gbc_buttonArtisteAlbums.gridy = 4;
+		gbc_buttonArtisteAlbums.gridx = 2;
+		gbc_buttonArtisteAlbums.gridy = 5;
 		panelAffichageArtiste.add(buttonArtisteAlbums, gbc_buttonArtisteAlbums);
 		
 		return panelAffichageArtiste;
@@ -221,7 +237,7 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 				case 1:
 					return artiste.getFullName();
 				case 2:
-					return artiste.isMembre();
+					return artiste.isMembre() ? "oui" : "non";
 				default:
 					return null;
 				}
@@ -229,7 +245,7 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 			}
 			
 			@Override
-			public void actionOnSelect(){
+			protected void actionOnSelect(){
 				
 				Artiste artisteSelectionne = (Artiste)getSelectedItem();
 				
@@ -254,6 +270,60 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		
 		imageArtiste = OutilsFichiers.getImageFromFile(nouvelArtiste
 				.getImagePath());
+		
+	}
+	
+	public void actionAjouter(){
+		
+	}
+	
+	public void actionModifier(){
+		
+	}
+	
+	public void actionSupprimer(){
+		
+	}
+	
+	public void actionRechercher(){
+		
+	}
+	
+}
+
+class GestionPanneauOperations implements ActionListener, ConstantesAffichage {
+	
+	private ScreenVueArtistes vue;
+	
+	public GestionPanneauOperations(ScreenVueArtistes vue){
+		super();
+		this.vue = vue;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e){
+		
+		String buttonText = ((JButton)e.getSource()).getText();
+		
+		switch(buttonText){
+		case VIEW_OPERATIONS_AJOUTER:
+			vue.actionAjouter();
+			break;
+		case VIEW_OPERATIONS_MODIFIER:
+			vue.actionModifier();
+			break;
+		case VIEW_OPERATIONS_SUPPRIMER:
+			vue.actionSupprimer();
+			break;
+		case VIEW_OPERATIONS_RECHERCHER:
+			vue.actionRechercher();
+			break;
+		case VIEW_OPERATIONS_QUITTER:
+			vue.dispose();
+			break;
+		default:
+			break;
+		}
 		
 	}
 }
