@@ -160,23 +160,28 @@ public class MySQLDatabase {
 	 */
 	public ArrayList<Object[]> getAllContentofTable(String tableName){
 		
-		ArrayList<Object[]> table = new ArrayList<>();
+		ArrayList<Object[]> table = null;
 		
 		ResultSet queryResults = selectEverythingFrom(tableName);
 		
 		if(queryResults != null){
 			
+			table = new ArrayList<>();
+			
 			try{
 				
-				int nCol;
-				nCol = queryResults.getMetaData().getColumnCount();
+				int nCol = queryResults.getMetaData().getColumnCount();
 				while(queryResults.next()){
 					
-					String[] row = new String[nCol];
+					Object[] row = new Object[nCol];
 					
 					for(int iCol = 1; iCol <= nCol; iCol++){
 						Object obj = queryResults.getObject(iCol);
-						row[iCol - 1] = (obj == null) ? null : obj.toString();
+						
+						if(obj instanceof Boolean)
+							obj = (boolean)obj ? 1 : 0;
+						
+						row[iCol - 1] = (obj == null) ? null : obj;
 					}
 					
 					table.add(row);
@@ -184,7 +189,9 @@ public class MySQLDatabase {
 				}
 				
 			}
-			catch(SQLException e){}
+			catch(SQLException e){
+				table = null;
+			}
 			
 		}
 		

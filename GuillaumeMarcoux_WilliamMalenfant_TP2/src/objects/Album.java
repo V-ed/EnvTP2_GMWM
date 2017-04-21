@@ -6,7 +6,7 @@ public class Album extends TableObject {
 	
 	public Album(MySQLDatabase database, Object[] values){
 		super(database, TABLE_NAME_ALBUMS, COLUMNS_ALBUMS[ID_COLUMN],
-				COLUMNS_ALBUMS, values);
+				COLUMNS_ALBUMS, true, values);
 	}
 	
 	public Album(MySQLDatabase database, String titre, double prix,
@@ -14,8 +14,9 @@ public class Album extends TableObject {
 			String imageURL, Artiste artiste){
 		
 		super(database, TABLE_NAME_ALBUMS, COLUMNS_ALBUMS[ID_COLUMN],
-				COLUMNS_ALBUMS, new Object[]
+				COLUMNS_ALBUMS, false, new Object[]
 				{
+					-1,
 					titre,
 					prix,
 					genre,

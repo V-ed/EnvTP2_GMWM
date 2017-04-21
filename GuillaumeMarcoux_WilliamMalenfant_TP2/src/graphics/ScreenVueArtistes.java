@@ -2,14 +2,19 @@ package graphics;
 
 import javax.swing.*;
 
+import outils.Constantes;
+import objects.Artiste;
 import objects.MySQLDatabase;
+import objects.SheetTable;
 
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
-public class ScreenVueArtistes extends JDialog {
+public class ScreenVueArtistes extends JDialog implements Constantes {
 	
 	private JLabel labelNoArtisteSelected = new JLabel(
 			"Veuillez s\u00E9lectionner un artiste!");
@@ -20,17 +25,19 @@ public class ScreenVueArtistes extends JDialog {
 	private JButton btnSupprimer = new JButton("Supprimer");
 	private JButton btnRechercher = new JButton("Rechercher");
 	private JButton btnQuitter = new JButton("Quitter");
-	private final JLabel label = new JLabel("Num\u00E9ro :");
-	private final JLabel label_1 = new JLabel("[dynamic]");
-	private final JLabel label_2 = new JLabel("Nom :");
-	private final JLabel label_3 = new JLabel("[dynamic]");
-	private final JLabel label_4 = new JLabel(
-			"Membre de l\u2019Association des artistes?");
-	private final JCheckBox checkBox = new JCheckBox("");
-	private final JButton button = new JButton("Albums");
-	private final JLabel label_5 = new JLabel("test", SwingConstants.CENTER);
+	private final JLabel labelArtisteNumero = new JLabel("Num\u00E9ro :");
+	private final JLabel textArtisteNumero = new JLabel("[dynamic]");
+	private final JLabel labelArtisteNom = new JLabel("Nom :");
+	private final JLabel textArtisteNom = new JLabel("[dynamic]");
+	private final JLabel labelArtisteEstMembre = new JLabel("Membre?");
+	private final JCheckBox checkBoxArtisteEstMembre = new JCheckBox("");
+	private final JButton buttonArtisteAlbums = new JButton("Albums");
+	private JLabel imageArtisteAffichage = new JLabel(
+			"<HTML><I>image</I></HTML>", SwingConstants.CENTER);
+	private SheetTable tableArtistes;
 	
 	private MySQLDatabase database;
+	private ArrayList<Object> artistes = new ArrayList<>();
 	
 	public ScreenVueArtistes(MySQLDatabase database, JFrame parentFrame){
 		
@@ -43,7 +50,7 @@ public class ScreenVueArtistes extends JDialog {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]
 		{
-			199, 341, 0
+			138, 341, 0
 		};
 		gridBagLayout.rowHeights = new int[]
 		{
@@ -51,38 +58,42 @@ public class ScreenVueArtistes extends JDialog {
 		};
 		gridBagLayout.columnWeights = new double[]
 		{
-			1.0, 1.0, Double.MIN_VALUE
+			0.0, 1.0, Double.MIN_VALUE
 		};
 		gridBagLayout.rowWeights = new double[]
 		{
 			1.0, 1.0, Double.MIN_VALUE
 		};
-		setLayout(gridBagLayout);
+		getContentPane().setLayout(gridBagLayout);
 		
 		GridBagConstraints gbc_panelOperations = new GridBagConstraints();
+		gbc_panelOperations.weighty = 1.0;
 		gbc_panelOperations.gridheight = 2;
 		gbc_panelOperations.insets = new Insets(15, 15, 15, 15);
 		gbc_panelOperations.fill = GridBagConstraints.BOTH;
 		gbc_panelOperations.gridx = 0;
 		gbc_panelOperations.gridy = 0;
-		add(createOperationsPanel(), gbc_panelOperations);
+		getContentPane().add(createOperationsPanel(), gbc_panelOperations);
 		
 		GridBagConstraints gbc_panelVueArtiste = new GridBagConstraints();
 		gbc_panelVueArtiste.fill = GridBagConstraints.BOTH;
 		gbc_panelVueArtiste.gridx = 1;
 		gbc_panelVueArtiste.gridy = 0;
-		add(createArtisteView(), gbc_panelVueArtiste);
+		getContentPane().add(createArtisteView(), gbc_panelVueArtiste);
 		
 		GridBagConstraints gbc_panelChoixArtiste = new GridBagConstraints();
+		gbc_panelChoixArtiste.weighty = 1.0;
+		gbc_panelChoixArtiste.weightx = 1.0;
 		gbc_panelChoixArtiste.fill = GridBagConstraints.BOTH;
 		gbc_panelChoixArtiste.gridx = 1;
 		gbc_panelChoixArtiste.gridy = 1;
-		add(createChoixArtisteView(), gbc_panelChoixArtiste);
+		getContentPane().add(createChoixArtisteView(), gbc_panelChoixArtiste);
 		
 		labelNoArtisteSelected.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNoArtisteSelected.setBounds(357, 70, 180, 29);
 		
 		setVisible(true);
+		
 	}
 	
 	private JPanel createOperationsPanel(){
@@ -103,65 +114,85 @@ public class ScreenVueArtistes extends JDialog {
 	private JPanel createArtisteView(){
 		
 		JPanel panelAffichageArtiste = new JPanel();
+		
 		GridBagLayout gbl_panelAffichageArtiste = new GridBagLayout();
 		panelAffichageArtiste.setLayout(gbl_panelAffichageArtiste);
-		GridBagConstraints gbc_label_5 = new GridBagConstraints();
-		gbc_label_5.weighty = 1.0;
-		gbc_label_5.weightx = 1.0;
-		gbc_label_5.gridwidth = 2;
-		gbc_label_5.gridheight = 3;
-		gbc_label_5.insets = new Insets(0, 0, 5, 0);
-		gbc_label_5.gridx = 2;
-		gbc_label_5.gridy = 0;
-		panelAffichageArtiste.add(label_5, gbc_label_5);
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.weighty = 1.0;
-		gbc_label.weightx = 1.0;
-		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.gridx = 0;
-		gbc_label.gridy = 1;
-		panelAffichageArtiste.add(label, gbc_label);
-		GridBagConstraints gbc_label_1 = new GridBagConstraints();
-		gbc_label_1.weighty = 1.0;
-		gbc_label_1.weightx = 1.0;
-		gbc_label_1.insets = new Insets(0, 0, 5, 5);
-		gbc_label_1.gridx = 1;
-		gbc_label_1.gridy = 1;
-		panelAffichageArtiste.add(label_1, gbc_label_1);
-		GridBagConstraints gbc_label_2 = new GridBagConstraints();
-		gbc_label_2.weighty = 1.0;
-		gbc_label_2.weightx = 1.0;
-		gbc_label_2.insets = new Insets(0, 0, 5, 5);
-		gbc_label_2.gridx = 0;
-		gbc_label_2.gridy = 3;
-		panelAffichageArtiste.add(label_2, gbc_label_2);
-		GridBagConstraints gbc_label_3 = new GridBagConstraints();
-		gbc_label_3.weighty = 1.0;
-		gbc_label_3.weightx = 1.0;
-		gbc_label_3.insets = new Insets(0, 0, 5, 5);
-		gbc_label_3.gridx = 1;
-		gbc_label_3.gridy = 3;
-		panelAffichageArtiste.add(label_3, gbc_label_3);
-		GridBagConstraints gbc_label_4 = new GridBagConstraints();
-		gbc_label_4.weighty = 1.0;
-		gbc_label_4.weightx = 1.0;
-		gbc_label_4.insets = new Insets(0, 0, 0, 5);
-		gbc_label_4.gridx = 0;
-		gbc_label_4.gridy = 5;
-		panelAffichageArtiste.add(label_4, gbc_label_4);
-		GridBagConstraints gbc_checkBox = new GridBagConstraints();
-		gbc_checkBox.weighty = 1.0;
-		gbc_checkBox.weightx = 1.0;
-		gbc_checkBox.insets = new Insets(0, 0, 0, 5);
-		gbc_checkBox.gridx = 1;
-		gbc_checkBox.gridy = 5;
-		panelAffichageArtiste.add(checkBox, gbc_checkBox);
-		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.weighty = 2.0;
-		gbc_button.weightx = 1.0;
-		gbc_button.gridx = 3;
-		gbc_button.gridy = 5;
-		panelAffichageArtiste.add(button, gbc_button);
+		
+		GridBagConstraints gbc_imageArtisteAffichage = new GridBagConstraints();
+		gbc_imageArtisteAffichage.fill = GridBagConstraints.BOTH;
+		gbc_imageArtisteAffichage.weighty = 1.0;
+		gbc_imageArtisteAffichage.weightx = 1.0;
+		gbc_imageArtisteAffichage.gridwidth = 3;
+		gbc_imageArtisteAffichage.gridheight = 4;
+		gbc_imageArtisteAffichage.insets = new Insets(0, 0, 5, 0);
+		gbc_imageArtisteAffichage.gridx = 2;
+		gbc_imageArtisteAffichage.gridy = 0;
+		
+		imageArtisteAffichage.setBorder(BorderFactory
+				.createLineBorder(Color.BLACK));
+		
+		panelAffichageArtiste.add(imageArtisteAffichage,
+				gbc_imageArtisteAffichage);
+		
+		GridBagConstraints gbc_labelArtisteNumero = new GridBagConstraints();
+		gbc_labelArtisteNumero.weighty = 1.0;
+		gbc_labelArtisteNumero.weightx = 1.0;
+		gbc_labelArtisteNumero.insets = new Insets(0, 0, 5, 5);
+		gbc_labelArtisteNumero.gridx = 0;
+		gbc_labelArtisteNumero.gridy = 1;
+		panelAffichageArtiste.add(labelArtisteNumero, gbc_labelArtisteNumero);
+		
+		GridBagConstraints gbc_textArtisteNumero = new GridBagConstraints();
+		gbc_textArtisteNumero.weighty = 1.0;
+		gbc_textArtisteNumero.weightx = 1.0;
+		gbc_textArtisteNumero.insets = new Insets(0, 0, 5, 5);
+		gbc_textArtisteNumero.gridx = 1;
+		gbc_textArtisteNumero.gridy = 1;
+		panelAffichageArtiste.add(textArtisteNumero, gbc_textArtisteNumero);
+		
+		GridBagConstraints gbc_labelArtisteNom = new GridBagConstraints();
+		gbc_labelArtisteNom.weighty = 1.0;
+		gbc_labelArtisteNom.weightx = 1.0;
+		gbc_labelArtisteNom.insets = new Insets(0, 0, 5, 5);
+		gbc_labelArtisteNom.gridx = 0;
+		gbc_labelArtisteNom.gridy = 4;
+		panelAffichageArtiste.add(labelArtisteNom, gbc_labelArtisteNom);
+		
+		GridBagConstraints gbc_textArtisteNom = new GridBagConstraints();
+		gbc_textArtisteNom.gridwidth = 3;
+		gbc_textArtisteNom.weighty = 1.0;
+		gbc_textArtisteNom.weightx = 1.0;
+		gbc_textArtisteNom.insets = new Insets(0, 0, 5, 5);
+		gbc_textArtisteNom.gridx = 1;
+		gbc_textArtisteNom.gridy = 4;
+		panelAffichageArtiste.add(textArtisteNom, gbc_textArtisteNom);
+		
+		GridBagConstraints gbc_labelArtisteEstMembre = new GridBagConstraints();
+		gbc_labelArtisteEstMembre.weighty = 1.0;
+		gbc_labelArtisteEstMembre.weightx = 1.0;
+		gbc_labelArtisteEstMembre.insets = new Insets(0, 0, 0, 5);
+		gbc_labelArtisteEstMembre.gridx = 0;
+		gbc_labelArtisteEstMembre.gridy = 5;
+		panelAffichageArtiste.add(labelArtisteEstMembre,
+				gbc_labelArtisteEstMembre);
+		
+		GridBagConstraints gbc_checkBoxArtisteEstMembre = new GridBagConstraints();
+		gbc_checkBoxArtisteEstMembre.weighty = 1.0;
+		gbc_checkBoxArtisteEstMembre.weightx = 1.0;
+		gbc_checkBoxArtisteEstMembre.insets = new Insets(0, 0, 0, 5);
+		gbc_checkBoxArtisteEstMembre.gridx = 1;
+		gbc_checkBoxArtisteEstMembre.gridy = 5;
+		panelAffichageArtiste.add(checkBoxArtisteEstMembre,
+				gbc_checkBoxArtisteEstMembre);
+		
+		GridBagConstraints gbc_buttonArtisteAlbums = new GridBagConstraints();
+		gbc_buttonArtisteAlbums.fill = GridBagConstraints.BOTH;
+		gbc_buttonArtisteAlbums.gridheight = 2;
+		gbc_buttonArtisteAlbums.weighty = 1.0;
+		gbc_buttonArtisteAlbums.weightx = 1.0;
+		gbc_buttonArtisteAlbums.gridx = 4;
+		gbc_buttonArtisteAlbums.gridy = 4;
+		panelAffichageArtiste.add(buttonArtisteAlbums, gbc_buttonArtisteAlbums);
 		
 		return panelAffichageArtiste;
 		
@@ -171,7 +202,57 @@ public class ScreenVueArtistes extends JDialog {
 		
 		JPanel panelChoixArtiste = new JPanel();
 		
+		ArrayList<Object[]> listeObjets = database
+				.getAllContentofTable(TABLE_NAME_ARTISTES);
+		
+		for(int i = 0; i < listeObjets.size(); i++){
+			artistes.add(new Artiste(database, listeObjets.get(i)));
+		}
+		
+		tableArtistes = new SheetTable(artistes, new String[]
+		{
+			"Numéro", "Nom", "Est membre"
+		}){
+			
+			@Override
+			public Object getValueAt(int rowIndex, int columnIndex){
+				
+				Artiste artiste = (Artiste)artistes.get(rowIndex);
+				
+				switch(columnIndex){
+				case 0:
+					return artiste.getID();
+				case 1:
+					return artiste.getFullName();
+				case 2:
+					return artiste.isMembre();
+				default:
+					return null;
+				}
+				
+			}
+			
+			@Override
+			public void actionOnSelect(){
+				
+				Artiste artisteSelectionne = (Artiste)getSelectedItem();
+				
+				updateArtiste(artisteSelectionne);
+				
+			}
+			
+		};
+		
+		panelChoixArtiste.add(tableArtistes.getScrollableTable());
+		
 		return panelChoixArtiste;
 		
 	}
+	
+	private void updateArtiste(Artiste nouvelArtiste){
+		
+		// TODO update les données de l'artiste courant grâce au nouvelArtiste
+		
+	}
+	
 }

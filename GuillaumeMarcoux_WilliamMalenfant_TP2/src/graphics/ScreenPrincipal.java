@@ -4,11 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import objects.Artiste;
 import objects.MySQLDatabase;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -18,7 +18,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingConstants;
 
-public class ScreenPrincipal extends JFrame{
+public class ScreenPrincipal extends JFrame {
 	
 	private MySQLDatabase database;
 	private JPanel contentPane;
@@ -30,6 +30,7 @@ public class ScreenPrincipal extends JFrame{
 	 * Create the frame.
 	 */
 	public ScreenPrincipal(MySQLDatabase database){
+		
 		this.database = database;
 		
 		setBounds(100, 100, 450, 331);
@@ -53,9 +54,9 @@ public class ScreenPrincipal extends JFrame{
 		btnQuitter.setBounds(167, 245, 107, 36);
 		contentPane.add(btnQuitter);
 		
-		lblArtiste.addMouseListener( new MouseAdapter() {
+		lblArtiste.addMouseListener(new MouseAdapter(){
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e){
 				
 				setVisible(false);
 				
@@ -66,22 +67,30 @@ public class ScreenPrincipal extends JFrame{
 			}
 		});
 		
-		lblAlbum.addMouseListener( new MouseAdapter() {
+		lblAlbum.addMouseListener(new MouseAdapter(){
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e){
 				
 				//new ScreenVueAlbums(database);
 				
 			}
 		});
 		
-		btnQuitter.addActionListener(new ActionListener() {
+		btnQuitter.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e){
 				System.exit(0);
 			}
 		});
 		
 		setVisible(true);
+		
+		//TODO Remove test data
+		
+		Artiste artiste = new Artiste(database, "Pierre", "Jean", true,
+				"test.png");
+		
+		artiste.addToDatabase();
+		
 	}
 }

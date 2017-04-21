@@ -14,12 +14,16 @@ public abstract class TableObject implements Constantes {
 	protected Object[] values;
 	
 	protected TableObject(MySQLDatabase database, String tableName,
-			String idColumnName, String[] columnNames, Object... values){
+			String idColumnName, String[] columnNames, boolean isFirstValueID,
+			Object... values){
 		
 		this.database = database;
 		
 		this.tableName = tableName;
 		this.idColumnName = idColumnName;
+		
+		if(isFirstValueID)
+			this.idObject = (int)values[0];
 		
 		this.columnNames = columnNames;
 		this.values = values;
@@ -61,10 +65,22 @@ public abstract class TableObject implements Constantes {
 		return values;
 	}
 	
+	public Object[] getValuesWithoutID(){
+		
+		Object[] values = new Object[this.values.length - 1];
+		
+		for(int i = 0; i < values.length; i++){
+			values[i] = this.values[i + 1];
+		}
+		
+		return values;
+		
+	}
+	
 	public void addToDatabase(){
 		
 		idObject = database.addToTable(tableName, getColumnNamesWithoutID(),
-				values);
+				getValuesWithoutID());
 		
 	}
 	
@@ -75,7 +91,7 @@ public abstract class TableObject implements Constantes {
 		if(idObject != -1){
 			
 			database.modifyObject(tableName, idColumnName, idObject,
-					getColumnNamesWithoutID(), values);
+					getColumnNamesWithoutID(), getValuesWithoutID());
 			
 		}
 		
