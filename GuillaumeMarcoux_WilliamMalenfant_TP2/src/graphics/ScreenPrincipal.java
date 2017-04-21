@@ -34,6 +34,8 @@ public class ScreenPrincipal extends JFrame implements ConstantesAffichage {
 		
 		this.database = database;
 		
+		setResizable(false);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle(VIEW_PRINCIPAL_TITLE);
 		setBounds(100, 100, 450, 331);
 		contentPane = new JPanel();
@@ -60,11 +62,7 @@ public class ScreenPrincipal extends JFrame implements ConstantesAffichage {
 			@Override
 			public void mouseClicked(MouseEvent e){
 				
-				setVisible(false);
-				
 				new ScreenVueArtistes(database, ScreenPrincipal.this);
-				
-				setVisible(true);
 				
 			}
 		});
@@ -86,13 +84,6 @@ public class ScreenPrincipal extends JFrame implements ConstantesAffichage {
 		});
 		
 		setVisible(true);
-		
-		//TODO Remove test data
-		
-		Artiste artiste = new Artiste(database, "Pierre", "Jean", true,
-				"test.png");
-		
-		artiste.addToDatabase();
 		
 	}
 }

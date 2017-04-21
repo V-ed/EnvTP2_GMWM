@@ -8,6 +8,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -33,10 +35,9 @@ public abstract class SheetTable extends AbstractTableModel {
 		
 		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		tableItems.addMouseListener(new MouseAdapter(){
+		tableItems.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e){
-				super.mouseClicked(e);
+			public void valueChanged(ListSelectionEvent e) {
 				
 				actionOnSelect();
 			}
