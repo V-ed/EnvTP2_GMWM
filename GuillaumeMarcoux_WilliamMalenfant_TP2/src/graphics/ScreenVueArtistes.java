@@ -10,6 +10,7 @@ import objects.MySQLDatabase;
 import objects.SheetTable;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -149,6 +150,11 @@ public class ScreenVueArtistes extends JDialog implements Constantes,
 		gbc_textArtisteNumero.weightx = 1.0;
 		gbc_textArtisteNumero.gridx = 1;
 		gbc_textArtisteNumero.gridy = 1;
+		textArtisteNumero.setOpaque(true);
+		textArtisteNumero.setBackground(Color.WHITE);
+		textArtisteNumero
+				.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		textArtisteNumero.setPreferredSize(new Dimension(100, 20));
 		panelAffichageArtiste.add(textArtisteNumero, gbc_textArtisteNumero);
 		
 		GridBagConstraints gbc_labelArtisteNom = new GridBagConstraints();
@@ -159,11 +165,14 @@ public class ScreenVueArtistes extends JDialog implements Constantes,
 		panelAffichageArtiste.add(labelArtisteNom, gbc_labelArtisteNom);
 		
 		GridBagConstraints gbc_textArtisteNom = new GridBagConstraints();
-		gbc_textArtisteNom.gridwidth = 3;
 		gbc_textArtisteNom.weighty = 1.0;
 		gbc_textArtisteNom.weightx = 1.0;
 		gbc_textArtisteNom.gridx = 1;
 		gbc_textArtisteNom.gridy = 4;
+		textArtisteNom.setOpaque(true);
+		textArtisteNom.setBackground(Color.WHITE);
+		textArtisteNom.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		textArtisteNom.setPreferredSize(new Dimension(100, 20));
 		panelAffichageArtiste.add(textArtisteNom, gbc_textArtisteNom);
 		
 		GridBagConstraints gbc_labelArtisteEstMembre = new GridBagConstraints();
