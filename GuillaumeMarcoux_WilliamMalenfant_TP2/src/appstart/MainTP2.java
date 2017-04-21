@@ -1,12 +1,12 @@
 package appstart;
 
-import graphics.ScreenConnect;
+import graphics.VueConnexion;
 
 public class MainTP2 {
 	
 	public static void main(String[] args){
 		
-		new ScreenConnect();
+		new VueConnexion();
 		
 	}
 }

@@ -21,7 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPasswordField;
 
-public class ScreenConnect extends JFrame implements ConstantesAffichage{
+public class VueConnexion extends JFrame implements ConstantesAffichage{
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -32,7 +32,7 @@ public class ScreenConnect extends JFrame implements ConstantesAffichage{
 	private JButton btnValider = new JButton(VIEW_CONNECT_VALIDER);
 	private JButton btnQuitter = new JButton(VIEW_CONNECT_QUITTER);
 
-	public ScreenConnect() {
+	public VueConnexion() {
 		setTitle(VIEW_CONNECT_TITRE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 250);
@@ -80,7 +80,7 @@ public class ScreenConnect extends JFrame implements ConstantesAffichage{
 					
 					dispose();
 					
-					new ScreenPrincipal(database);
+					new VuePrincipal(database);
 					
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();

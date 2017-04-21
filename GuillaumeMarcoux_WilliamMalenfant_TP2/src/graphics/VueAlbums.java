@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ScreenVueAlbums extends ScreenVues {
+public class VueAlbums extends Vues {
 	
 	private JLabel labelNoArtisteSelected = new JLabel(
 			"Veuillez s\u00E9lectionner un artiste!");
@@ -46,7 +46,7 @@ public class ScreenVueAlbums extends ScreenVues {
 	private MySQLDatabase database;
 	private ArrayList<Object> artistes = new ArrayList<>();
 	
-	public ScreenVueAlbums(MySQLDatabase database, JFrame parentFrame){
+	public VueAlbums(MySQLDatabase database, JFrame parentFrame){
 		
 		super(parentFrame, true);
 		

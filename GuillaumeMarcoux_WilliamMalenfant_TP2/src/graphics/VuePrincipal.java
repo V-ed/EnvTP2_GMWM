@@ -19,7 +19,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingConstants;
 
-public class ScreenPrincipal extends JFrame implements ConstantesAffichage {
+public class VuePrincipal extends JFrame implements ConstantesAffichage {
 	
 	private MySQLDatabase database;
 	private JPanel contentPane;
@@ -30,7 +30,7 @@ public class ScreenPrincipal extends JFrame implements ConstantesAffichage {
 	/**
 	 * Create the frame.
 	 */
-	public ScreenPrincipal(MySQLDatabase database){
+	public VuePrincipal(MySQLDatabase database){
 		
 		this.database = database;
 		
@@ -62,7 +62,7 @@ public class ScreenPrincipal extends JFrame implements ConstantesAffichage {
 			@Override
 			public void mouseClicked(MouseEvent e){
 				
-				new ScreenVueArtistes(database, ScreenPrincipal.this);
+				new VueArtistes(database, VuePrincipal.this);
 				
 			}
 		});

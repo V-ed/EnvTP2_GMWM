@@ -9,12 +9,12 @@ import objects.MySQLDatabase;
 import outils.Constantes;
 import outils.ConstantesAffichage;
 
-public abstract class ScreenVues extends JDialog implements Constantes, ConstantesAffichage {
+public abstract class Vues extends JDialog implements Constantes, ConstantesAffichage {
 
 	protected MySQLDatabase database;
 	protected ArrayList<Object> objetsTable = new ArrayList<>();
 	
-	public ScreenVues(JFrame parentFrame, boolean modal) {
+	public Vues(JFrame parentFrame, boolean modal) {
 		super(parentFrame, modal);
 	}
 	

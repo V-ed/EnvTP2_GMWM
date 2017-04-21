@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import graphics.ScreenVues;
+import graphics.Vues;
 
 public class GestionPanneauOperations implements ActionListener, ConstantesAffichage {
 	
-	private ScreenVues vue;
+	private Vues vue;
 	
-	public GestionPanneauOperations(ScreenVues vue){
+	public GestionPanneauOperations(Vues vue){
 		super();
 		this.vue = vue;
 	}
