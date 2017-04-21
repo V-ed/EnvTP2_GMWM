@@ -24,7 +24,7 @@ public interface ConstantesAffichage {
 	final String VIEW_CONNECT_VALIDER = "Valider";
 	final String VIEW_CONNECT_QUITTER = "Quitter";
 	
-	final String VIEW_PRINCIPAL_TITLE = "Page Principal";
+	final String VIEW_PRINCIPAL_TITLE = "Menu Principal";
 	final String VIEW_PRINCIPAL_QUITTER = "Quitter";
 	
 }

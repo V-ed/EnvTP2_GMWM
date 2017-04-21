@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import objects.Artiste;
 import objects.MySQLDatabase;
+import outils.ConstantesAffichage;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -18,13 +19,13 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingConstants;
 
-public class ScreenPrincipal extends JFrame {
+public class ScreenPrincipal extends JFrame implements ConstantesAffichage {
 	
 	private MySQLDatabase database;
 	private JPanel contentPane;
 	private JLabel lblArtiste = new JLabel("Artiste");
 	private JLabel lblAlbum = new JLabel("Album");
-	private JButton btnQuitter = new JButton("Quitter");
+	private JButton btnQuitter = new JButton(VIEW_PRINCIPAL_QUITTER);
 	
 	/**
 	 * Create the frame.
@@ -33,6 +34,7 @@ public class ScreenPrincipal extends JFrame {
 		
 		this.database = database;
 		
+		setTitle(VIEW_PRINCIPAL_TITLE);
 		setBounds(100, 100, 450, 331);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

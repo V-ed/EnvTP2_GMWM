@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import objects.MySQLDatabase;
+import outils.ConstantesAffichage;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -20,18 +21,19 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPasswordField;
 
-public class ScreenConnect extends JFrame {
+public class ScreenConnect extends JFrame implements ConstantesAffichage{
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
-	private JLabel lblNewLabel = new JLabel("Nom d'utilisateur :");
-	private JLabel lblConnexionAuProgramme = new JLabel("Connexion au programme");
-	private JLabel lblMotDePasse = new JLabel("Mot de passe :");
-	private JButton btnValider = new JButton("Valider");
-	private JButton btnQuitter = new JButton("Quitter");
+	private JLabel lblUsername = new JLabel(VIEW_CONNECT_USERNAME);
+	private JLabel lblHeader = new JLabel(VIEW_CONNECT_HEADER);
+	private JLabel lblPassword = new JLabel(VIEW_CONNECT_PASSWORD);
+	private JButton btnValider = new JButton(VIEW_CONNECT_VALIDER);
+	private JButton btnQuitter = new JButton(VIEW_CONNECT_QUITTER);
 
 	public ScreenConnect() {
+		setTitle(VIEW_CONNECT_TITRE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 250);
 		contentPane = new JPanel();
@@ -41,17 +43,17 @@ public class ScreenConnect extends JFrame {
 		setResizable(false);
 		
 		
-		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel.setBounds(60, 63, 132, 24);
-		contentPane.add(lblNewLabel);
+		lblUsername.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		lblUsername.setBounds(60, 63, 132, 24);
+		contentPane.add(lblUsername);
 		
-		lblConnexionAuProgramme.setFont(new Font("Times New Roman", Font.BOLD, 30));
-		lblConnexionAuProgramme.setBounds(50, 11, 335, 41);
-		contentPane.add(lblConnexionAuProgramme);
+		lblHeader.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lblHeader.setBounds(50, 11, 335, 41);
+		contentPane.add(lblHeader);
 		
-		lblMotDePasse.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblMotDePasse.setBounds(60, 106, 132, 24);
-		contentPane.add(lblMotDePasse);
+		lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		lblPassword.setBounds(60, 106, 132, 24);
+		contentPane.add(lblPassword);
 		
 		textField = new JTextField();
 		textField.setBounds(202, 67, 157, 20);
