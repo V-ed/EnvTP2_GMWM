@@ -2,8 +2,6 @@ package graphics;
 
 import javax.swing.*;
 
-import outils.Constantes;
-import outils.ConstantesAffichage;
 import outils.GestionPanneauOperations;
 import outils.OutilsFichiers;
 import objects.Artiste;
@@ -11,13 +9,10 @@ import objects.MySQLDatabase;
 import objects.SheetTable;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VueAlbums extends Vues {
@@ -112,7 +107,8 @@ public class VueAlbums extends Vues {
 		JPanel panelOperations = new JPanel();
 		panelOperations.setLayout(new GridLayout(5, 1, 0, 0));
 		
-		GestionPanneauOperations gestionnaire = new GestionPanneauOperations(this);
+		GestionPanneauOperations gestionnaire = new GestionPanneauOperations(
+				this);
 		
 		btnAjouter.addActionListener(gestionnaire);
 		btnModifier.addActionListener(gestionnaire);
@@ -282,27 +278,27 @@ public class VueAlbums extends Vues {
 				.getImagePath());
 		
 	}
-
+	
 	@Override
-	public void actionAjouter() {
+	public void actionAjouter(){
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
-	public void actionModifier() {
+	public void actionModifier(){
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
-	public void actionSupprimer() {
+	public void actionSupprimer(){
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
-	public void actionRechercher() {
+	public void actionRechercher(){
 		// TODO Auto-generated method stub
 		
 	}

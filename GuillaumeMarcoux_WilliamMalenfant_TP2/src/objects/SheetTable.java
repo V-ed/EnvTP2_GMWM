@@ -35,13 +35,14 @@ public abstract class SheetTable extends AbstractTableModel {
 		
 		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		tableItems.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				
-				actionOnSelect();
-			}
-		});
+		tableItems.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener(){
+					@Override
+					public void valueChanged(ListSelectionEvent e){
+						
+						actionOnSelect();
+					}
+				});
 		
 	}
 	
@@ -83,6 +84,27 @@ public abstract class SheetTable extends AbstractTableModel {
 		//			getTable().getColumnModel().getColumn(i)
 		//					.setCellRenderer(centerRenderer);
 		//		}
+		
+	}
+	
+	public boolean modifyItemAt(int index, Object[]... values){
+		
+		boolean success = true;
+		
+		if(values.length != columns.length){
+			success = false;
+		}
+		else{
+			
+			items.set(index, values);
+			
+			for(int i = 0; i < values.length; i++){
+				tableItems.setValueAt(values[i], index, i);
+			}
+			
+		}
+		
+		return success;
 		
 	}
 	
