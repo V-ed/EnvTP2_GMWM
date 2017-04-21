@@ -71,7 +71,7 @@ public class ScreenPrincipal extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e){
 				
-				//new ScreenVueAlbums(database);
+				//new ScreenVueAlbums(database); // TODO Uncomment when ScreenVueAlbums est complété
 				
 			}
 		});

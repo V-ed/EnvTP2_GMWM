@@ -3,6 +3,7 @@ package graphics;
 import javax.swing.*;
 
 import outils.Constantes;
+import outils.OutilsFichiers;
 import objects.Artiste;
 import objects.MySQLDatabase;
 import objects.SheetTable;
@@ -76,12 +77,14 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		getContentPane().add(createOperationsPanel(), gbc_panelOperations);
 		
 		GridBagConstraints gbc_panelVueArtiste = new GridBagConstraints();
+		gbc_panelVueArtiste.insets = new Insets(5, 5, 5, 5);
 		gbc_panelVueArtiste.fill = GridBagConstraints.BOTH;
 		gbc_panelVueArtiste.gridx = 1;
 		gbc_panelVueArtiste.gridy = 0;
 		getContentPane().add(createArtisteView(), gbc_panelVueArtiste);
 		
 		GridBagConstraints gbc_panelChoixArtiste = new GridBagConstraints();
+		gbc_panelChoixArtiste.insets = new Insets(5, 5, 5, 5);
 		gbc_panelChoixArtiste.weighty = 1.0;
 		gbc_panelChoixArtiste.weightx = 1.0;
 		gbc_panelChoixArtiste.fill = GridBagConstraints.BOTH;
@@ -124,7 +127,6 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		gbc_imageArtisteAffichage.weightx = 1.0;
 		gbc_imageArtisteAffichage.gridwidth = 3;
 		gbc_imageArtisteAffichage.gridheight = 4;
-		gbc_imageArtisteAffichage.insets = new Insets(0, 0, 5, 0);
 		gbc_imageArtisteAffichage.gridx = 2;
 		gbc_imageArtisteAffichage.gridy = 0;
 		
@@ -137,7 +139,6 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		GridBagConstraints gbc_labelArtisteNumero = new GridBagConstraints();
 		gbc_labelArtisteNumero.weighty = 1.0;
 		gbc_labelArtisteNumero.weightx = 1.0;
-		gbc_labelArtisteNumero.insets = new Insets(0, 0, 5, 5);
 		gbc_labelArtisteNumero.gridx = 0;
 		gbc_labelArtisteNumero.gridy = 1;
 		panelAffichageArtiste.add(labelArtisteNumero, gbc_labelArtisteNumero);
@@ -145,7 +146,6 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		GridBagConstraints gbc_textArtisteNumero = new GridBagConstraints();
 		gbc_textArtisteNumero.weighty = 1.0;
 		gbc_textArtisteNumero.weightx = 1.0;
-		gbc_textArtisteNumero.insets = new Insets(0, 0, 5, 5);
 		gbc_textArtisteNumero.gridx = 1;
 		gbc_textArtisteNumero.gridy = 1;
 		panelAffichageArtiste.add(textArtisteNumero, gbc_textArtisteNumero);
@@ -153,7 +153,6 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		GridBagConstraints gbc_labelArtisteNom = new GridBagConstraints();
 		gbc_labelArtisteNom.weighty = 1.0;
 		gbc_labelArtisteNom.weightx = 1.0;
-		gbc_labelArtisteNom.insets = new Insets(0, 0, 5, 5);
 		gbc_labelArtisteNom.gridx = 0;
 		gbc_labelArtisteNom.gridy = 4;
 		panelAffichageArtiste.add(labelArtisteNom, gbc_labelArtisteNom);
@@ -162,7 +161,6 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		gbc_textArtisteNom.gridwidth = 3;
 		gbc_textArtisteNom.weighty = 1.0;
 		gbc_textArtisteNom.weightx = 1.0;
-		gbc_textArtisteNom.insets = new Insets(0, 0, 5, 5);
 		gbc_textArtisteNom.gridx = 1;
 		gbc_textArtisteNom.gridy = 4;
 		panelAffichageArtiste.add(textArtisteNom, gbc_textArtisteNom);
@@ -170,7 +168,6 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		GridBagConstraints gbc_labelArtisteEstMembre = new GridBagConstraints();
 		gbc_labelArtisteEstMembre.weighty = 1.0;
 		gbc_labelArtisteEstMembre.weightx = 1.0;
-		gbc_labelArtisteEstMembre.insets = new Insets(0, 0, 0, 5);
 		gbc_labelArtisteEstMembre.gridx = 0;
 		gbc_labelArtisteEstMembre.gridy = 5;
 		panelAffichageArtiste.add(labelArtisteEstMembre,
@@ -179,7 +176,6 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 		GridBagConstraints gbc_checkBoxArtisteEstMembre = new GridBagConstraints();
 		gbc_checkBoxArtisteEstMembre.weighty = 1.0;
 		gbc_checkBoxArtisteEstMembre.weightx = 1.0;
-		gbc_checkBoxArtisteEstMembre.insets = new Insets(0, 0, 0, 5);
 		gbc_checkBoxArtisteEstMembre.gridx = 1;
 		gbc_checkBoxArtisteEstMembre.gridy = 5;
 		panelAffichageArtiste.add(checkBoxArtisteEstMembre,
@@ -200,7 +196,7 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 	
 	private JPanel createChoixArtisteView(){
 		
-		JPanel panelChoixArtiste = new JPanel();
+		JPanel panelChoixArtiste = new JPanel(new GridLayout());
 		
 		ArrayList<Object[]> listeObjets = database
 				.getAllContentofTable(TABLE_NAME_ARTISTES);
@@ -251,8 +247,13 @@ public class ScreenVueArtistes extends JDialog implements Constantes {
 	
 	private void updateArtiste(Artiste nouvelArtiste){
 		
-		// TODO update les données de l'artiste courant grâce au nouvelArtiste
+		textArtisteNumero.setText("" + nouvelArtiste.getID());
+		textArtisteNom.setText(nouvelArtiste.getFullName());
+		
+		checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
+		
+		imageArtiste = OutilsFichiers.getImageFromFile(nouvelArtiste
+				.getImagePath());
 		
 	}
-	
 }
