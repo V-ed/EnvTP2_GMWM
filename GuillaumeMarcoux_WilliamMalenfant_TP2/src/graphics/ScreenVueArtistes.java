@@ -40,9 +40,6 @@ public class ScreenVueArtistes extends ScreenVues {
 	private JLabel imageArtisteAffichage = new JLabel("", SwingConstants.CENTER);
 	private SheetTable tableArtistes;
 
-	private MySQLDatabase database;
-	private ArrayList<Object> artistes = new ArrayList<>();
-
 	public ScreenVueArtistes(MySQLDatabase database, JFrame parentFrame) {
 
 		super(parentFrame, true);
@@ -208,15 +205,15 @@ public class ScreenVueArtistes extends ScreenVues {
 		ArrayList<Object[]> listeObjets = database.getAllContentofTable(TABLE_NAME_ARTISTES);
 
 		for (int i = 0; i < listeObjets.size(); i++) {
-			artistes.add(new Artiste(database, listeObjets.get(i)));
+			objetsTable.add(new Artiste(database, listeObjets.get(i)));
 		}
 
-		tableArtistes = new SheetTable(artistes, new String[] { "Numéro", "Nom", "Est membre" }) {
+		tableArtistes = new SheetTable(objetsTable, new String[] { "Numéro", "Nom", "Est membre" }) {
 
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
 
-				Artiste artiste = (Artiste) artistes.get(rowIndex);
+				Artiste artiste = (Artiste) objetsTable.get(rowIndex);
 
 				switch (columnIndex) {
 				case 0:
