@@ -206,6 +206,8 @@ public class VueArtistes extends VuesItems {
 		
 		new VuesAjoutArtiste(database, this);
 		
+		tableArtistes.fireTableDataChanged();
+		
 	}
 	
 	@Override

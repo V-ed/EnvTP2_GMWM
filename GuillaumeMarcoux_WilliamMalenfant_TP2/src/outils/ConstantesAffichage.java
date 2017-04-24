@@ -33,7 +33,7 @@ public interface ConstantesAffichage {
 	final String VIEW_AJOUT_LABEL_PRENOM = "Prenom :";
 	final String VIEW_AJOUT_LABEL_MEMBRE = "Est Membre :";
 	final String VIEW_AJOUT_BOUTON_IMAGE = "Choisir Image";
-	final String VIEW_AJOUT_LABEL_PATH = "**PATH**";
+	final String VIEW_AJOUT_LABEL_PATH = "Pas d'image";
 	final String VIEW_AJOUT_BOUTON_AJOUTER = "Ajouter";
 	final String VIEW_AJOUT_BOUTON_ANNULER = "Annuler";
 }
