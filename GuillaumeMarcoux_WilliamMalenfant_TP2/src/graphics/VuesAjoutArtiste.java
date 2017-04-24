@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -22,15 +24,15 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
 public class VuesAjoutArtiste extends JDialog implements ConstantesAffichage{
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textNom;
+	private JTextField textPrenom;
 	private JLabel lblNom = new JLabel(VIEW_AJOUT_LABEL_NOM);
 	private JLabel lblPrnom = new JLabel(VIEW_AJOUT_LABEL_PRENOM);
 	private JLabel lblEstMembre = new JLabel(VIEW_AJOUT_LABEL_MEMBRE);
 	private JLabel lblTemp = new JLabel(VIEW_AJOUT_LABEL_PATH);
 	private JButton btnChooseFile = new JButton(VIEW_AJOUT_BOUTON_IMAGE);
 	private JCheckBox chckbxNewCheckBox = new JCheckBox();
-	private JButton btnNewButton = new JButton(VIEW_AJOUT_BOUTON_AJOUTER);
+	private JButton btnAjout = new JButton(VIEW_AJOUT_BOUTON_AJOUTER);
 	private JButton btnAnnuler = new JButton(VIEW_AJOUT_BOUTON_ANNULER);
 	
 	public VuesAjoutArtiste(MySQLDatabase database, JDialog parentFrame) {
@@ -52,15 +54,15 @@ public class VuesAjoutArtiste extends JDialog implements ConstantesAffichage{
 		gbc_lblPrnom.gridy = 0;
 		getContentPane().add(lblPrnom, gbc_lblPrnom);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 2;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 0;
-		getContentPane().add(textField, gbc_textField);
-		textField.setColumns(10);
+		textPrenom = new JTextField();
+		textPrenom.setColumns(10);
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.gridwidth = 2;
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 2;
+		gbc_textField_1.gridy = 0;
+		getContentPane().add(textPrenom, gbc_textField_1);
 		
 		lblNom.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
@@ -69,15 +71,15 @@ public class VuesAjoutArtiste extends JDialog implements ConstantesAffichage{
 		gbc_lblNom.gridy = 1;
 		getContentPane().add(lblNom, gbc_lblNom);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.gridwidth = 2;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 2;
-		gbc_textField_1.gridy = 1;
-		getContentPane().add(textField_1, gbc_textField_1);
+		textNom = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.gridwidth = 2;
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 2;
+		gbc_textField.gridy = 1;
+		getContentPane().add(textNom, gbc_textField);
+		textNom.setColumns(10);
 		
 		lblEstMembre.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblEstMembre = new GridBagConstraints();
@@ -112,7 +114,7 @@ public class VuesAjoutArtiste extends JDialog implements ConstantesAffichage{
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 4;
-		getContentPane().add(btnNewButton, gbc_btnNewButton);
+		getContentPane().add(btnAjout, gbc_btnNewButton);
 		
 		GridBagConstraints gbc_btnAnnuler = new GridBagConstraints();
 		gbc_btnAnnuler.insets = new Insets(0, 0, 0, 5);
@@ -128,6 +130,28 @@ public class VuesAjoutArtiste extends JDialog implements ConstantesAffichage{
 				
 				dispose();
 				
+			}
+		});
+		
+		btnAjout.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try{
+					String nom = textNom.getText();
+					
+					String prenom = textPrenom.getText();
+					
+					if(!nom.matches("[A-Za-z]+$") && !prenom.matches("[A-Za-z]+$")){
+						throw new Exception();
+					}else{
+						JOptionPane.showMessageDialog(null, "GOOD");
+					}
+					
+				}
+				catch(Exception e1){
+					JOptionPane.showMessageDialog(null, "Entrer un nom et un prenom valide. (lettre uniquement)");
+				}
 			}
 		});
 		
