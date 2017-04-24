@@ -37,7 +37,6 @@ public abstract class SheetTable extends AbstractTableModel {
 				new ListSelectionListener(){
 					@Override
 					public void valueChanged(ListSelectionEvent e){
-						
 						actionOnSelect();
 					}
 				});

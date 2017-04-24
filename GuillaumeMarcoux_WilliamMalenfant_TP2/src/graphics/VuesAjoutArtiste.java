@@ -1,26 +1,24 @@
 package graphics;
 
 import javax.swing.JDialog;
-
-import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JTextField;
 
+import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
-
 import objects.MySQLDatabase;
 import outils.ConstantesAffichage;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-
 public class VuesAjoutArtiste extends JDialog implements ConstantesAffichage {
+	
 	private JTextField textNom;
 	private JTextField textPrenom;
 	private JLabel lblNom = new JLabel(VIEW_AJOUT_LABEL_NOM);
@@ -33,6 +31,7 @@ public class VuesAjoutArtiste extends JDialog implements ConstantesAffichage {
 	private JButton btnAnnuler = new JButton(VIEW_AJOUT_BOUTON_ANNULER);
 	
 	public VuesAjoutArtiste(MySQLDatabase database, JDialog parentFrame){
+		
 		super(parentFrame, true);
 		
 		setBounds(620, 320, 550, 300);
@@ -54,6 +53,24 @@ public class VuesAjoutArtiste extends JDialog implements ConstantesAffichage {
 		{
 			0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE
 		};
+		
+		gridBagLayout.columnWidths = new int[]
+		{
+			0, 87, 0, 87, 0, 0
+		};
+		gridBagLayout.rowHeights = new int[]
+		{
+			50, 50, 50, 60, 39, 0
+		};
+		gridBagLayout.columnWeights = new double[]
+		{
+			0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE
+		};
+		gridBagLayout.rowWeights = new double[]
+		{
+			0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE
+		};
+		
 		getContentPane().setLayout(gridBagLayout);
 		
 		lblPrnom.setFont(new Font("Times New Roman", Font.PLAIN, 16));

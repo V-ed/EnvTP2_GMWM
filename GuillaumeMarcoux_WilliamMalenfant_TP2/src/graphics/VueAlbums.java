@@ -3,7 +3,6 @@ package graphics;
 import javax.swing.*;
 
 import outils.GestionPanneauOperations;
-import outils.OutilsFichiers;
 import objects.*;
 
 import java.awt.Color;
@@ -85,7 +84,7 @@ public class VueAlbums extends Vues {
 		gbc_panelChoixArtiste.fill = GridBagConstraints.BOTH;
 		gbc_panelChoixArtiste.gridx = 1;
 		gbc_panelChoixArtiste.gridy = 1;
-		getContentPane().add(createChoixArtisteView(), gbc_panelChoixArtiste);
+		getContentPane().add(createChoixAlbumView(), gbc_panelChoixArtiste);
 		
 		tableAlbums.setSelectedItem(0);
 		
@@ -207,7 +206,7 @@ public class VueAlbums extends Vues {
 		
 	}
 	
-	private JPanel createChoixArtisteView(){
+	private JPanel createChoixAlbumView(){
 		
 		JPanel panelChoixAlbum = new JPanel(new GridLayout());
 		
@@ -236,7 +235,7 @@ public class VueAlbums extends Vues {
 				case 2:
 					return album.getGenre();
 				case 3:
-					return (new DecimalFormat("#.## $"))
+					return (new DecimalFormat("0.00 $"))
 							.format(album.getPrix());
 				default:
 					return null;

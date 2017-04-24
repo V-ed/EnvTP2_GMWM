@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Artiste extends TableObject {
 	
-	private final int COLUMN_LAST_NAME = 1;
-	private final int COLUMN_FIRST_NAME = 2;
-	private final int COLUMN_IS_MEMBER = 3;
-	private final int COLUMN_IMAGE_URL = 4;
+	public final static int COLUMN_LAST_NAME = 1;
+	public final static int COLUMN_FIRST_NAME = 2;
+	public final static int COLUMN_IS_MEMBER = 3;
+	public final static int COLUMN_IMAGE_URL = 4;
 	
 	public Artiste(MySQLDatabase database, Object[] values){
 		super(database, TABLE_NAME_ARTISTES, COLUMNS_ARTISTES[ID_COLUMN],

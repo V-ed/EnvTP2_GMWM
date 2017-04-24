@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import objects.Artiste;
 import objects.MySQLDatabase;
 import outils.ConstantesAffichage;
 
@@ -21,7 +20,9 @@ import javax.swing.SwingConstants;
 
 public class VuePrincipal extends JFrame implements ConstantesAffichage {
 	
+	@SuppressWarnings("unused")
 	private MySQLDatabase database;
+	
 	private JPanel contentPane;
 	private JLabel lblArtiste = new JLabel("Artiste");
 	private JLabel lblAlbum = new JLabel("Album");
@@ -86,4 +87,5 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage {
 		setVisible(true);
 		
 	}
+	
 }

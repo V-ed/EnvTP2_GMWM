@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Object used to deal with a MySQL Databases.
  * 
- * @version 1.0
+ * @version 1.1
  * @author Guillaume Marcoux
  */
 public class MySQLDatabase {
@@ -105,7 +105,7 @@ public class MySQLDatabase {
 			Object textToMatch){
 		
 		String sqlRequest = "SELECT * FROM " + tableName;
-		sqlRequest += " WHERE " + columnName + " = '" + textToMatch + "'";
+		sqlRequest += " WHERE \"" + columnName + "\" = \"" + textToMatch + "\"";
 		
 		return executeQuery(sqlRequest);
 		
@@ -144,6 +144,54 @@ public class MySQLDatabase {
 		catch(SQLException e){}
 		
 		return results;
+		
+	}
+	
+	/**
+	 * Method to get all of an item's content of a row where a condition will be
+	 * applied.
+	 * 
+	 * @param tableName
+	 *            Name of the table in which the item is located.
+	 * @param columnName
+	 *            Name of the column that will be used for the
+	 *            <code>WHERE</code> considition.
+	 * @param textToMatch
+	 *            Text to search in the <code>WHERE</code> condition.
+	 * @return An <code>Object</code> array containing all of a row's content.
+	 *         If multiple items pass through the condition, only the first item
+	 *         will be returned. Returns <code>null</code> if there's an
+	 *         <code>SQLException</code> error.
+	 */
+	public Object[] getRowContentOfTableWhere(String tableName,
+			String columnName, String textToMatch){
+		
+		Object[] rowContent = null;
+		
+		ResultSet resultSet = getAllContentWhere(tableName, columnName,
+				textToMatch);
+		
+		try{
+			
+			int numberOfColumns = resultSet.getMetaData().getColumnCount();
+			
+			rowContent = new Object[numberOfColumns];
+			
+			for(int iCol = 1; iCol <= numberOfColumns; iCol++){
+				
+				Object object = resultSet.getObject(iCol);
+				
+				if(object instanceof Boolean)
+					object = (boolean)object ? 1 : 0;
+				
+				rowContent[iCol - 1] = (object == null) ? null : object;
+				
+			}
+			
+		}
+		catch(SQLException e){}
+		
+		return rowContent;
 		
 	}
 	
@@ -234,7 +282,7 @@ public class MySQLDatabase {
 			sqlRequest += "(";
 			
 			for(int i = 0; i < columnNames.length; i++){
-				sqlRequest += columnNames[i];
+				sqlRequest += "\"" + columnNames[i] + "\"";
 				
 				if(i != columnNames.length - 1)
 					sqlRequest += ", ";
@@ -243,7 +291,7 @@ public class MySQLDatabase {
 			sqlRequest += ") VALUES (";
 			
 			for(int i = 0; i < values.length; i++){
-				sqlRequest += "'" + values[i] + "'";
+				sqlRequest += "\"" + values[i] + "\"";
 				
 				if(i != values.length - 1)
 					sqlRequest += ", ";
@@ -308,7 +356,7 @@ public class MySQLDatabase {
 		
 		for(int i = 0; i < columnNames.length; i++){
 			
-			sqlRequest += columnNames[i] + " = '" + values[i] + "'";
+			sqlRequest += "\"" + columnNames[i] + "\" = \"" + values[i] + "\"";
 			
 			if(i < columnNames.length - 1){
 				sqlRequest += ", ";
@@ -316,7 +364,7 @@ public class MySQLDatabase {
 			
 		}
 		
-		sqlRequest += " WHERE " + idColumnName + " = '" + id + "'";
+		sqlRequest += " WHERE \"" + idColumnName + "\" = \"" + id + "\"";
 		
 		try{
 			
@@ -349,7 +397,8 @@ public class MySQLDatabase {
 		
 		boolean success = false;
 		
-		String sqlRequest = "DELETE FROM " + tableName + " WHERE " + condition;
+		String sqlRequest = "DELETE FROM " + tableName + " WHERE "
+				+ condition;
 		
 		try{
 			
@@ -383,7 +432,7 @@ public class MySQLDatabase {
 	public boolean removeFromTable(String tableName, String idColumnName,
 			Object id){
 		
-		String condition = idColumnName + " = '" + id + "'";
+		String condition = "\"" + idColumnName + "\" = \"" + id + "\"";
 		
 		return removeFromTable(tableName, condition);
 		
