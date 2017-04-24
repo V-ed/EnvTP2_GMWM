@@ -1,7 +1,5 @@
 package objects;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
@@ -15,7 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public abstract class SheetTable extends AbstractTableModel {
 	
-	private ArrayList<Object> items;
+	private ArrayList<TableObject> items;
 	private String[] columns;
 	
 	private JTable tableItems;
@@ -23,7 +21,7 @@ public abstract class SheetTable extends AbstractTableModel {
 	
 	private DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 	
-	public SheetTable(ArrayList<Object> items, String[] columns){
+	public SheetTable(ArrayList<TableObject> items, String[] columns){
 		
 		this.items = items;
 		this.columns = columns;
@@ -74,7 +72,7 @@ public abstract class SheetTable extends AbstractTableModel {
 		return columns[columnIndex];
 	}
 	
-	public void addItem(Object newItem){
+	public void addItem(TableObject newItem){
 		
 		items.add(newItem);
 		fireTableRowsInserted(items.size() - 1, items.size() - 1);
@@ -87,24 +85,10 @@ public abstract class SheetTable extends AbstractTableModel {
 		
 	}
 	
-	public boolean modifyItemAt(int index, Object[]... values){
+	public void modifyItemAt(int index, TableObject modifiedObject){
 		
-		boolean success = true;
-		
-		if(values.length != columns.length){
-			success = false;
-		}
-		else{
-			
-			items.set(index, values);
-			
-			for(int i = 0; i < values.length; i++){
-				tableItems.setValueAt(values[i], index, i);
-			}
-			
-		}
-		
-		return success;
+		items.set(index, modifiedObject);
+		fireTableRowsUpdated(index, index);
 		
 	}
 	

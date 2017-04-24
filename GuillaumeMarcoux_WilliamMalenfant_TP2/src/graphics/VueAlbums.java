@@ -4,21 +4,17 @@ import javax.swing.*;
 
 import outils.GestionPanneauOperations;
 import outils.OutilsFichiers;
-import objects.Artiste;
-import objects.MySQLDatabase;
-import objects.SheetTable;
+import objects.*;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class VueAlbums extends Vues {
-	
-	private JLabel labelNoArtisteSelected = new JLabel(
-			"Veuillez s\u00E9lectionner un artiste!");
 	
 	ImageIcon imageArtiste = new ImageIcon();
 	private JButton btnAjouter = new JButton(VIEW_OPERATIONS_AJOUTER);
@@ -36,10 +32,8 @@ public class VueAlbums extends Vues {
 	private JButton buttonArtisteAlbums = new JButton(
 			VIEW_ARTISTE_BUTTON_ALBUMS);
 	private JLabel imageArtisteAffichage = new JLabel("", SwingConstants.CENTER);
-	private SheetTable tableArtistes;
 	
-	private MySQLDatabase database;
-	private ArrayList<Object> artistes = new ArrayList<>();
+	private SheetTable tableAlbums;
 	
 	public VueAlbums(MySQLDatabase database, JFrame parentFrame){
 		
@@ -77,12 +71,12 @@ public class VueAlbums extends Vues {
 		gbc_panelOperations.gridy = 0;
 		getContentPane().add(createOperationsPanel(), gbc_panelOperations);
 		
-		GridBagConstraints gbc_panelVueArtiste = new GridBagConstraints();
-		gbc_panelVueArtiste.insets = new Insets(5, 5, 5, 5);
-		gbc_panelVueArtiste.fill = GridBagConstraints.BOTH;
-		gbc_panelVueArtiste.gridx = 1;
-		gbc_panelVueArtiste.gridy = 0;
-		getContentPane().add(createArtisteView(), gbc_panelVueArtiste);
+		GridBagConstraints gbc_panelVueAlbum = new GridBagConstraints();
+		gbc_panelVueAlbum.insets = new Insets(5, 5, 5, 5);
+		gbc_panelVueAlbum.fill = GridBagConstraints.BOTH;
+		gbc_panelVueAlbum.gridx = 1;
+		gbc_panelVueAlbum.gridy = 0;
+		getContentPane().add(createAlbumView(), gbc_panelVueAlbum);
 		
 		GridBagConstraints gbc_panelChoixArtiste = new GridBagConstraints();
 		gbc_panelChoixArtiste.insets = new Insets(5, 5, 5, 5);
@@ -93,10 +87,7 @@ public class VueAlbums extends Vues {
 		gbc_panelChoixArtiste.gridy = 1;
 		getContentPane().add(createChoixArtisteView(), gbc_panelChoixArtiste);
 		
-		labelNoArtisteSelected.setHorizontalAlignment(SwingConstants.CENTER);
-		labelNoArtisteSelected.setBounds(357, 70, 180, 29);
-		
-		tableArtistes.setSelectedItem(0);
+		tableAlbums.setSelectedItem(0);
 		
 		setVisible(true);
 		
@@ -126,19 +117,19 @@ public class VueAlbums extends Vues {
 		
 	}
 	
-	private JPanel createArtisteView(){
+	private JPanel createAlbumView(){
 		
-		JPanel panelAffichageArtiste = new JPanel();
+		JPanel panelAffichageAlbum = new JPanel();
 		
 		GridBagLayout gbl_panelAffichageArtiste = new GridBagLayout();
-		panelAffichageArtiste.setLayout(gbl_panelAffichageArtiste);
+		panelAffichageAlbum.setLayout(gbl_panelAffichageArtiste);
 		
 		GridBagConstraints gbc_labelArtisteNumero = new GridBagConstraints();
 		gbc_labelArtisteNumero.weighty = 1.0;
 		gbc_labelArtisteNumero.weightx = 0;
 		gbc_labelArtisteNumero.gridx = 0;
 		gbc_labelArtisteNumero.gridy = 1;
-		panelAffichageArtiste.add(labelArtisteNumero, gbc_labelArtisteNumero);
+		panelAffichageAlbum.add(labelArtisteNumero, gbc_labelArtisteNumero);
 		
 		GridBagConstraints gbc_textArtisteNumero = new GridBagConstraints();
 		gbc_textArtisteNumero.weighty = 1.0;
@@ -149,14 +140,14 @@ public class VueAlbums extends Vues {
 		gbc_textArtisteNumero.insets = new Insets(0, 10, 0, 15);
 		textArtisteNumero.setEditable(false);
 		textArtisteNumero.setBackground(Color.WHITE);
-		panelAffichageArtiste.add(textArtisteNumero, gbc_textArtisteNumero);
+		panelAffichageAlbum.add(textArtisteNumero, gbc_textArtisteNumero);
 		
 		GridBagConstraints gbc_labelArtisteNom = new GridBagConstraints();
 		gbc_labelArtisteNom.weighty = 1.0;
 		gbc_labelArtisteNom.weightx = 0;
 		gbc_labelArtisteNom.gridx = 0;
 		gbc_labelArtisteNom.gridy = 4;
-		panelAffichageArtiste.add(labelArtisteNom, gbc_labelArtisteNom);
+		panelAffichageAlbum.add(labelArtisteNom, gbc_labelArtisteNom);
 		
 		GridBagConstraints gbc_textArtisteNom = new GridBagConstraints();
 		gbc_textArtisteNom.weighty = 1.0;
@@ -167,14 +158,14 @@ public class VueAlbums extends Vues {
 		gbc_textArtisteNom.insets = new Insets(0, 10, 0, 15);
 		textArtisteNom.setEditable(false);
 		textArtisteNom.setBackground(Color.WHITE);
-		panelAffichageArtiste.add(textArtisteNom, gbc_textArtisteNom);
+		panelAffichageAlbum.add(textArtisteNom, gbc_textArtisteNom);
 		
 		GridBagConstraints gbc_labelArtisteEstMembre = new GridBagConstraints();
 		gbc_labelArtisteEstMembre.weighty = 1.0;
 		gbc_labelArtisteEstMembre.weightx = 0;
 		gbc_labelArtisteEstMembre.gridx = 0;
 		gbc_labelArtisteEstMembre.gridy = 5;
-		panelAffichageArtiste.add(labelArtisteEstMembre,
+		panelAffichageAlbum.add(labelArtisteEstMembre,
 				gbc_labelArtisteEstMembre);
 		
 		GridBagConstraints gbc_imageArtisteAffichage = new GridBagConstraints();
@@ -190,7 +181,7 @@ public class VueAlbums extends Vues {
 		imageArtisteAffichage.setBorder(BorderFactory
 				.createLineBorder(Color.BLACK));
 		
-		panelAffichageArtiste.add(imageArtisteAffichage,
+		panelAffichageAlbum.add(imageArtisteAffichage,
 				gbc_imageArtisteAffichage);
 		
 		GridBagConstraints gbc_checkBoxArtisteEstMembre = new GridBagConstraints();
@@ -201,7 +192,7 @@ public class VueAlbums extends Vues {
 		gbc_checkBoxArtisteEstMembre.anchor = GridBagConstraints.WEST;
 		gbc_checkBoxArtisteEstMembre.insets = new Insets(0, 10, 0, 0);
 		checkBoxArtisteEstMembre.setEnabled(false);
-		panelAffichageArtiste.add(checkBoxArtisteEstMembre,
+		panelAffichageAlbum.add(checkBoxArtisteEstMembre,
 				gbc_checkBoxArtisteEstMembre);
 		
 		GridBagConstraints gbc_buttonArtisteAlbums = new GridBagConstraints();
@@ -210,40 +201,43 @@ public class VueAlbums extends Vues {
 		gbc_buttonArtisteAlbums.weightx = 1.0;
 		gbc_buttonArtisteAlbums.gridx = 2;
 		gbc_buttonArtisteAlbums.gridy = 5;
-		panelAffichageArtiste.add(buttonArtisteAlbums, gbc_buttonArtisteAlbums);
+		panelAffichageAlbum.add(buttonArtisteAlbums, gbc_buttonArtisteAlbums);
 		
-		return panelAffichageArtiste;
+		return panelAffichageAlbum;
 		
 	}
 	
 	private JPanel createChoixArtisteView(){
 		
-		JPanel panelChoixArtiste = new JPanel(new GridLayout());
+		JPanel panelChoixAlbum = new JPanel(new GridLayout());
 		
 		ArrayList<Object[]> listeObjets = database
-				.getAllContentofTable(TABLE_NAME_ARTISTES);
+				.getAllContentofTable(TABLE_NAME_ALBUMS);
 		
 		for(int i = 0; i < listeObjets.size(); i++){
-			artistes.add(new Artiste(database, listeObjets.get(i)));
+			objetsTable.add(new Album(database, listeObjets.get(i)));
 		}
 		
-		tableArtistes = new SheetTable(artistes, new String[]
+		tableAlbums = new SheetTable(objetsTable, new String[]
 		{
-			"Numéro", "Nom", "Est membre"
+			"Titre", "Artiste", "Genre", "Prix"
 		}){
 			
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex){
 				
-				Artiste artiste = (Artiste)artistes.get(rowIndex);
+				Album album = (Album)objetsTable.get(rowIndex);
 				
 				switch(columnIndex){
 				case 0:
-					return artiste.getID();
+					return album.getTitre();
 				case 1:
-					return artiste.getFullName();
+					return album.getArtiste().getFullName();
 				case 2:
-					return artiste.isMembre() ? "oui" : "non";
+					return album.getGenre();
+				case 3:
+					return (new DecimalFormat("#.## $"))
+							.format(album.getPrix());
 				default:
 					return null;
 				}
@@ -253,53 +247,49 @@ public class VueAlbums extends Vues {
 			@Override
 			protected void actionOnSelect(){
 				
-				Artiste artisteSelectionne = (Artiste)getSelectedItem();
+				Album albumSelectionne = (Album)getSelectedItem();
 				
-				updateArtiste(artisteSelectionne);
+				updateAlbum(albumSelectionne);
 				
 			}
 			
 		};
 		
-		panelChoixArtiste.add(tableArtistes.getScrollableTable());
+		panelChoixAlbum.add(tableAlbums.getScrollableTable());
 		
-		return panelChoixArtiste;
+		return panelChoixAlbum;
 		
 	}
 	
-	private void updateArtiste(Artiste nouvelArtiste){
+	private void updateAlbum(Album nouvelAlbum){
 		
-		textArtisteNumero.setText("" + nouvelArtiste.getID());
-		textArtisteNom.setText(nouvelArtiste.getFullName());
-		
-		checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
-		
-		imageArtiste = OutilsFichiers.getImageFromFile(nouvelArtiste
-				.getImagePath());
+		//		textArtisteNumero.setText("" + nouvelArtiste.getID());
+		//		textArtisteNom.setText(nouvelArtiste.getFullName());
+		//		
+		//		checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
+		//		
+		//		imageArtiste = OutilsFichiers.getImageFromFile(nouvelArtiste
+		//				.getImagePath());
 		
 	}
 	
 	@Override
 	public void actionAjouter(){
-		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
 	public void actionModifier(){
-		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
 	public void actionSupprimer(){
-		// TODO Auto-generated method stub
 		
 	}
 	
 	@Override
 	public void actionRechercher(){
-		// TODO Auto-generated method stub
 		
 	}
 	

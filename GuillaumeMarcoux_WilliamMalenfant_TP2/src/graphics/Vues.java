@@ -6,13 +6,14 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import objects.MySQLDatabase;
+import objects.TableObject;
 import outils.Constantes;
 import outils.ConstantesAffichage;
 
 public abstract class Vues extends JDialog implements Constantes, ConstantesAffichage {
 
 	protected MySQLDatabase database;
-	protected ArrayList<Object> objetsTable = new ArrayList<>();
+	protected ArrayList<TableObject> objetsTable = new ArrayList<>();
 	
 	public Vues(JFrame parentFrame, boolean modal) {
 		super(parentFrame, modal);

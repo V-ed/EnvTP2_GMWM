@@ -35,7 +35,7 @@ public class VueConnexion extends JFrame implements ConstantesAffichage{
 	public VueConnexion() {
 		setTitle(VIEW_CONNECT_TITRE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 250);
+		setBounds(600, 300, 450, 250);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
