@@ -46,7 +46,7 @@ public class VueArtistes extends Vues {
 
 		this.database = database;
 
-		setSize(600, 400);
+		setBounds(600, 300, 600, 400);
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 138, 341, 0 };
@@ -258,7 +258,8 @@ public class VueArtistes extends Vues {
 
 	@Override
 	public void actionAjouter() {
-		// TODO Auto-generated method stub
+		
+		new VuesAjoutArtiste(database, this);
 		
 	}
 

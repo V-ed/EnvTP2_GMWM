@@ -1,5 +1,7 @@
 package outils;
 
+import javax.swing.JButton;
+
 public interface ConstantesAffichage {
 	
 	final String PROJECT_TITLE = "Guillaume Marcoux et William Malenfant - TP2";
@@ -27,4 +29,11 @@ public interface ConstantesAffichage {
 	final String VIEW_PRINCIPAL_TITLE = "Menu Principal";
 	final String VIEW_PRINCIPAL_QUITTER = "Quitter";
 	
+	final String VIEW_AJOUT_LABEL_NOM = "Nom :";
+	final String VIEW_AJOUT_LABEL_PRENOM = "Prenom :";
+	final String VIEW_AJOUT_LABEL_MEMBRE = "Est Membre :";
+	final String VIEW_AJOUT_BOUTON_IMAGE = "Choisir Image";
+	final String VIEW_AJOUT_LABEL_PATH = "**PATH**";
+	final String VIEW_AJOUT_BOUTON_AJOUTER = "Ajouter";
+	final String VIEW_AJOUT_BOUTON_ANNULER = "Annuler";
 }

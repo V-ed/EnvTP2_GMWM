@@ -37,7 +37,7 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage {
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle(VIEW_PRINCIPAL_TITLE);
-		setBounds(100, 100, 450, 331);
+		setBounds(600, 300, 450, 331);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -71,7 +71,7 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage {
 			@Override
 			public void mouseClicked(MouseEvent e){
 				
-				//new ScreenVueAlbums(database); // TODO Uncomment when ScreenVueAlbums est complÈtÈ
+				//new ScreenVueAlbums(database); // TODO Uncomment when ScreenVueAlbums est complÈ®ÅÔøΩ
 				
 			}
 		});
