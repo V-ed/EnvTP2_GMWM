@@ -2,7 +2,6 @@ package graphics;
 
 import javax.swing.*;
 
-import outils.GestionPanneauOperations;
 import outils.OutilsFichiers;
 import objects.*;
 
@@ -13,78 +12,23 @@ import java.awt.Insets;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
-public class VueArtistes extends Vues {
+public class VueArtistes extends VuesItems {
 	
-	ImageIcon imageArtiste = new ImageIcon();
-	private JButton btnAjouter = new JButton(VIEW_OPERATIONS_AJOUTER);
-	private JButton btnModifier = new JButton(VIEW_OPERATIONS_MODIFIER);
-	private JButton btnSupprimer = new JButton(VIEW_OPERATIONS_SUPPRIMER);
-	private JButton btnRechercher = new JButton(VIEW_OPERATIONS_RECHERCHER);
-	private JButton btnQuitter = new JButton(VIEW_OPERATIONS_QUITTER);
-	private JLabel labelArtisteNumero = new JLabel(VIEW_ARTISTE_LABEL_NUMERO);
-	private JTextField textArtisteNumero = new JTextField();
-	private JLabel labelArtisteNom = new JLabel(VIEW_ARTISTE_LABEL_NOM);
-	private JTextField textArtisteNom = new JTextField();
-	private JLabel labelArtisteEstMembre = new JLabel(
-			VIEW_ARTISTE_LABEL_EST_MEMBRE);
-	private JCheckBox checkBoxArtisteEstMembre = new JCheckBox("");
-	private JButton buttonArtisteAlbums = new JButton(
-			VIEW_ARTISTE_BUTTON_ALBUMS);
-	private JLabel imageArtisteAffichage = new JLabel("", SwingConstants.CENTER);
+	private ImageIcon imageArtiste;
+	private JLabel labelArtisteNumero;
+	private JTextField textArtisteNumero;
+	private JLabel labelArtisteNom;
+	private JTextField textArtisteNom;
+	private JLabel labelArtisteEstMembre;
+	private JCheckBox checkBoxArtisteEstMembre;
+	private JButton buttonArtisteAlbums;
+	private JLabel imageArtisteAffichage;
 	
 	private SheetTable tableArtistes;
 	
 	public VueArtistes(MySQLDatabase database, JFrame parentFrame){
 		
-		super(parentFrame, true);
-		
-		this.database = database;
-		
-		setBounds(600, 300, 600, 400);
-		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]
-		{
-			138, 341, 0
-		};
-		gridBagLayout.rowHeights = new int[]
-		{
-			158, 177, 0
-		};
-		gridBagLayout.columnWeights = new double[]
-		{
-			0.0, 1.0, Double.MIN_VALUE
-		};
-		gridBagLayout.rowWeights = new double[]
-		{
-			1.0, 1.0, Double.MIN_VALUE
-		};
-		getContentPane().setLayout(gridBagLayout);
-		
-		GridBagConstraints gbc_panelOperations = new GridBagConstraints();
-		gbc_panelOperations.weighty = 1.0;
-		gbc_panelOperations.gridheight = 2;
-		gbc_panelOperations.insets = new Insets(15, 15, 15, 15);
-		gbc_panelOperations.fill = GridBagConstraints.BOTH;
-		gbc_panelOperations.gridx = 0;
-		gbc_panelOperations.gridy = 0;
-		getContentPane().add(createOperationsPanel(), gbc_panelOperations);
-		
-		GridBagConstraints gbc_panelVueArtiste = new GridBagConstraints();
-		gbc_panelVueArtiste.insets = new Insets(5, 5, 5, 5);
-		gbc_panelVueArtiste.fill = GridBagConstraints.BOTH;
-		gbc_panelVueArtiste.gridx = 1;
-		gbc_panelVueArtiste.gridy = 0;
-		getContentPane().add(createArtisteView(), gbc_panelVueArtiste);
-		
-		GridBagConstraints gbc_panelChoixArtiste = new GridBagConstraints();
-		gbc_panelChoixArtiste.insets = new Insets(5, 5, 5, 5);
-		gbc_panelChoixArtiste.weighty = 1.0;
-		gbc_panelChoixArtiste.weightx = 1.0;
-		gbc_panelChoixArtiste.fill = GridBagConstraints.BOTH;
-		gbc_panelChoixArtiste.gridx = 1;
-		gbc_panelChoixArtiste.gridy = 1;
-		getContentPane().add(createChoixArtisteView(), gbc_panelChoixArtiste);
+		super(database, parentFrame, true);
 		
 		tableArtistes.setSelectedItem(0);
 		
@@ -92,36 +36,35 @@ public class VueArtistes extends Vues {
 		
 	}
 	
-	private JPanel createOperationsPanel(){
+	private void updateArtiste(Artiste nouvelArtiste){
 		
-		JPanel panelOperations = new JPanel();
-		panelOperations.setLayout(new GridLayout(5, 1, 0, 0));
+		textArtisteNumero.setText("" + nouvelArtiste.getID());
+		textArtisteNom.setText(nouvelArtiste.getFullName());
 		
-		GestionPanneauOperations gestionnaire = new GestionPanneauOperations(
-				this);
+		checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
 		
-		btnAjouter.addActionListener(gestionnaire);
-		btnModifier.addActionListener(gestionnaire);
-		btnSupprimer.addActionListener(gestionnaire);
-		btnRechercher.addActionListener(gestionnaire);
-		btnQuitter.addActionListener(gestionnaire);
-		
-		panelOperations.add(btnAjouter);
-		panelOperations.add(btnModifier);
-		panelOperations.add(btnSupprimer);
-		panelOperations.add(btnRechercher);
-		panelOperations.add(btnQuitter);
-		
-		return panelOperations;
+		imageArtiste = OutilsFichiers.getImageFromFile(nouvelArtiste
+				.getImagePath());
 		
 	}
 	
-	private JPanel createArtisteView(){
+	@Override
+	protected JPanel createItemsView(){
 		
 		JPanel panelAffichageArtiste = new JPanel();
 		
 		GridBagLayout gbl_panelAffichageArtiste = new GridBagLayout();
 		panelAffichageArtiste.setLayout(gbl_panelAffichageArtiste);
+		
+		imageArtiste = new ImageIcon();
+		labelArtisteNumero = new JLabel(VIEW_ARTISTE_LABEL_NUMERO);
+		textArtisteNumero = new JTextField();
+		labelArtisteNom = new JLabel(VIEW_ARTISTE_LABEL_NOM);
+		textArtisteNom = new JTextField();
+		labelArtisteEstMembre = new JLabel(VIEW_ARTISTE_LABEL_EST_MEMBRE);
+		checkBoxArtisteEstMembre = new JCheckBox("");
+		buttonArtisteAlbums = new JButton(VIEW_ARTISTE_BUTTON_ALBUMS);
+		imageArtisteAffichage = new JLabel("", SwingConstants.CENTER);
 		
 		GridBagConstraints gbc_labelArtisteNumero = new GridBagConstraints();
 		gbc_labelArtisteNumero.weighty = 1.0;
@@ -206,7 +149,8 @@ public class VueArtistes extends Vues {
 		
 	}
 	
-	private JPanel createChoixArtisteView(){
+	@Override
+	protected JPanel createChoixItemView(){
 		
 		JPanel panelChoixArtiste = new JPanel(new GridLayout());
 		
@@ -254,18 +198,6 @@ public class VueArtistes extends Vues {
 		panelChoixArtiste.add(tableArtistes.getScrollableTable());
 		
 		return panelChoixArtiste;
-		
-	}
-	
-	private void updateArtiste(Artiste nouvelArtiste){
-		
-		textArtisteNumero.setText("" + nouvelArtiste.getID());
-		textArtisteNom.setText(nouvelArtiste.getFullName());
-		
-		checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
-		
-		imageArtiste = OutilsFichiers.getImageFromFile(nouvelArtiste
-				.getImagePath());
 		
 	}
 	

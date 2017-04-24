@@ -5,13 +5,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import graphics.Vues;
+import graphics.VuesItems;
 
-public class GestionPanneauOperations implements ActionListener, ConstantesAffichage {
+public class GestionPanneauOperations implements ActionListener,
+		ConstantesAffichage {
 	
-	private Vues vue;
+	private VuesItems vue;
 	
-	public GestionPanneauOperations(Vues vue){
+	public GestionPanneauOperations(VuesItems vue){
 		super();
 		this.vue = vue;
 	}
