@@ -2,7 +2,6 @@ package graphics;
 
 import javax.swing.*;
 
-import outils.Constantes;
 import objects.*;
 
 import java.awt.Color;
@@ -10,7 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
-import java.sql.Date;
 import java.util.ArrayList;
 
 public class VueAlbums extends VuesItems {
@@ -61,6 +59,7 @@ public class VueAlbums extends VuesItems {
 		JPanel panelAffichageAlbum = new JPanel();
 		
 		GridBagLayout gbl_panelAffichageArtiste = new GridBagLayout();
+		gbl_panelAffichageArtiste.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 1.0};
 		gbl_panelAffichageArtiste.columnWeights = new double[]
 		{
 			0.0, 1.0, 0.0, 0.0

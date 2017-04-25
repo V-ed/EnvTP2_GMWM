@@ -177,7 +177,7 @@ public class VueArtistes extends VuesItems {
 				case 1:
 					return artiste.getFullName();
 				case 2:
-					return artiste.isMembre() ? "oui" : "non";
+					return artiste.isMembre();
 				default:
 					return null;
 				}
@@ -190,6 +190,23 @@ public class VueArtistes extends VuesItems {
 				Artiste artisteSelectionne = (Artiste)getSelectedItem();
 				
 				updateArtiste(artisteSelectionne);
+				
+			}
+			
+			@Override
+			public Class<?> getColumnClass(int columnIndex){
+				
+				switch(columnIndex){
+				case 0:
+					return String.class;
+				case 1:
+					return String.class;
+				case 2:
+					return Boolean.class;
+				default:
+					throw new IllegalArgumentException(
+							"Index de colonne invalide: " + columnIndex);
+				}
 				
 			}
 			

@@ -64,6 +64,11 @@ public abstract class SheetTable extends AbstractTableModel {
 	@Override
 	public abstract Object getValueAt(int rowIndex, int columnIndex);
 	
+	@Override
+	public Class<?> getColumnClass(int columnIndex){
+		return super.getColumnClass(columnIndex);
+	}
+	
 	protected abstract void actionOnSelect();
 	
 	@Override
