@@ -17,17 +17,14 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.nio.file.Files;
-import java.util.ArrayList;
 
 import objects.Artiste;
 import objects.MySQLDatabase;
 import outils.Constantes;
 import outils.ConstantesAffichage;
 
-public class VuesAjoutArtiste extends JDialog implements Constantes, ConstantesAffichage {
+public class VuesAjoutArtiste extends JDialog implements Constantes,
+		ConstantesAffichage {
 	
 	private JTextField textNom;
 	private JTextField textPrenom;
@@ -169,44 +166,49 @@ public class VuesAjoutArtiste extends JDialog implements Constantes, ConstantesA
 			}
 		});
 		
-		btnChooseFile.addActionListener(new ActionListener() {
+		btnChooseFile.addActionListener(new ActionListener(){
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e){
 				
 				String filePath = null;
 				
-				JFileChooser filechooser = new JFileChooser(
-						FileSystemView.getFileSystemView().getHomeDirectory()
-								.getAbsolutePath());
-				filechooser.addChoosableFileFilter(
-						new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif", "bmp"));
+				JFileChooser filechooser = new JFileChooser(FileSystemView
+						.getFileSystemView().getHomeDirectory()
+						.getAbsolutePath());
+				filechooser.addChoosableFileFilter(new FileNameExtensionFilter(
+						"Images", "jpg", "jpeg", "png", "gif", "bmp"));
 				filechooser.setAcceptAllFileFilterUsed(false);
-
-				if (filechooser
-						.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-
+				
+				if(filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+					
 					filePath = filechooser.getSelectedFile().getPath();
-
+					
 				}
 				
 				try{
 					
 					File file = new File(filePath);
 					
-					if(file.isFile()) {
+					if(file.isFile()){
 						lblPath.setText(filePath);
-					}else{
+					}
+					else{
 						throw new Exception();
 					}
-				
-				}catch(NullPointerException e1){
+					
+				}
+				catch(NullPointerException e1){
 					
 					lblPath.setText(VIEW_AJOUT_LABEL_PATH);
-				
-				}catch(Exception e2){
 					
-					JOptionPane.showConfirmDialog(null, "Le fichier n'existe pas", "Erreur", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+				}
+				catch(Exception e2){
+					
+					JOptionPane.showConfirmDialog(null,
+							"Le fichier n'existe pas", "Erreur",
+							JOptionPane.DEFAULT_OPTION,
+							JOptionPane.ERROR_MESSAGE);
 					
 				}
 				
@@ -222,17 +224,23 @@ public class VuesAjoutArtiste extends JDialog implements Constantes, ConstantesA
 					
 					String prenom = textPrenom.getText();
 					
-					if(!nom.matches("^[A-Z]([A-Za-z]|-)+$") && !prenom.matches("^[A-Z]([A-Za-z]|-)+$")){
-						throw new Exception("Le nom et le prenom sont invalide. (lettres et \"-\" uniquement)");
+					if(!nom.matches("^[A-Z]([A-Za-z]|-)+$")
+							&& !prenom.matches("^[A-Z]([A-Za-z]|-)+$")){
+						throw new Exception(
+								"Le nom et le prenom sont invalide. (lettres et \"-\" uniquement)");
 					}
 					else if(!nom.matches("^[A-Z]([A-Za-z]|-)+$")){
-						throw new Exception("Le nom est invalide. (lettres et \"-\" uniquement)");
-					}else if(!prenom.matches("^[A-Z]([A-Za-z]|-)+$")){
-						throw new Exception("Le prenom est invalide. (lettres et \"-\" uniquement)");
+						throw new Exception(
+								"Le nom est invalide. (lettres et \"-\" uniquement)");
+					}
+					else if(!prenom.matches("^[A-Z]([A-Za-z]|-)+$")){
+						throw new Exception(
+								"Le prenom est invalide. (lettres et \"-\" uniquement)");
 					}
 					else{
-												
-						new Artiste(database, nom, prenom, estMembre.isSelected(), null).addToDatabase();
+						
+						new Artiste(database, nom, prenom, estMembre
+								.isSelected(), null).addToDatabase();
 						
 					}
 					

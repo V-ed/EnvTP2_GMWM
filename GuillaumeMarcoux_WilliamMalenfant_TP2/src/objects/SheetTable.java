@@ -81,12 +81,6 @@ public abstract class SheetTable extends AbstractTableModel {
 		items.add(newItem);
 		fireTableRowsInserted(items.size() - 1, items.size() - 1);
 		
-		// Set all rows centered
-		//		for(int i = 0; i < getColumnCount(); i++){
-		//			getTable().getColumnModel().getColumn(i)
-		//					.setCellRenderer(centerRenderer);
-		//		}
-		
 	}
 	
 	public void modifyItemAt(int index, TableObject modifiedObject){

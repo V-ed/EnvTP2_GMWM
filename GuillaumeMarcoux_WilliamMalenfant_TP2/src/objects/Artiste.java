@@ -1,7 +1,5 @@
 package objects;
 
-import java.util.ArrayList;
-
 public class Artiste extends TableObject {
 	
 	public final static int COLUMN_LAST_NAME = 1;
@@ -53,18 +51,6 @@ public class Artiste extends TableObject {
 	
 	public String getImagePath(){
 		return (String)values[COLUMN_IMAGE_URL];
-	}
-	
-	public ArrayList<Artiste> fillArrayListFrom(ArrayList<Object[]> objectsList){
-		
-		ArrayList<Artiste> newList = new ArrayList<>();
-		
-		for(int i = 0; i < objectsList.size(); i++){
-			newList.add(new Artiste(database, objectsList.get(i)));
-		}
-		
-		return newList;
-		
 	}
 	
 }

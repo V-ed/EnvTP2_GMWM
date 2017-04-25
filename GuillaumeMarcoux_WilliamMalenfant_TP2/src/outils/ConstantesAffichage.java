@@ -1,7 +1,5 @@
 package outils;
 
-import javax.swing.JButton;
-
 public interface ConstantesAffichage {
 	
 	final String PROJECT_TITLE = "Guillaume Marcoux et William Malenfant - TP2";

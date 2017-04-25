@@ -1,11 +1,13 @@
 package graphics;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import outils.OutilsFichiers;
 import objects.*;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -211,6 +213,13 @@ public class VueArtistes extends VuesItems {
 			}
 			
 		};
+		
+		DefaultTableCellRenderer idRenderer = new DefaultTableCellRenderer();
+		idRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		idRenderer.setFont(idRenderer.getFont().deriveFont(Font.BOLD));
+		
+		tableArtistes.getTable().getColumnModel().getColumn(0)
+				.setCellRenderer(idRenderer);
 		
 		panelChoixArtiste.add(tableArtistes.getScrollableTable());
 		

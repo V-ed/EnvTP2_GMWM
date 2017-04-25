@@ -1,8 +1,5 @@
 package graphics;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -18,11 +15,10 @@ import java.sql.SQLException;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPasswordField;
 
-public class VueConnexion extends JFrame implements ConstantesAffichage{
-
+public class VueConnexion extends JFrame implements ConstantesAffichage {
+	
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
@@ -31,8 +27,8 @@ public class VueConnexion extends JFrame implements ConstantesAffichage{
 	private JLabel lblPassword = new JLabel(VIEW_CONNECT_PASSWORD);
 	private JButton btnValider = new JButton(VIEW_CONNECT_VALIDER);
 	private JButton btnQuitter = new JButton(VIEW_CONNECT_QUITTER);
-
-	public VueConnexion() {
+	
+	public VueConnexion(){
 		setTitle(VIEW_CONNECT_TITRE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(600, 300, 450, 250);
@@ -41,7 +37,6 @@ public class VueConnexion extends JFrame implements ConstantesAffichage{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setResizable(false);
-		
 		
 		lblUsername.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblUsername.setBounds(60, 63, 132, 24);
@@ -70,11 +65,11 @@ public class VueConnexion extends JFrame implements ConstantesAffichage{
 		passwordField.setBounds(202, 110, 157, 20);
 		contentPane.add(passwordField);
 		
-		btnValider.addActionListener( new ActionListener() {
+		btnValider.addActionListener(new ActionListener(){
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
+			public void actionPerformed(ActionEvent e){
+				try{
 					MySQLDatabase database = new MySQLDatabase("localhost",
 							"gestionalbums", getUsername(), getPassword());
 					
@@ -82,19 +77,21 @@ public class VueConnexion extends JFrame implements ConstantesAffichage{
 					
 					new VuePrincipal(database);
 					
-				} catch (ClassNotFoundException e1) {
+				}
+				catch(ClassNotFoundException e1){
 					e1.printStackTrace();
-				} catch (SQLException e1) {
+				}
+				catch(SQLException e1){
 					e1.printStackTrace();
 				}
 				
 			}
 		});
 		
-		btnQuitter.addActionListener( new ActionListener() {
+		btnQuitter.addActionListener(new ActionListener(){
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e){
 				System.exit(0);
 			}
 		});
