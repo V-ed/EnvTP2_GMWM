@@ -2,6 +2,7 @@ package objects;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.DecimalFormat;
 
 public class Album extends TableObject {
 	
@@ -62,6 +63,10 @@ public class Album extends TableObject {
 		return ((BigDecimal)values[COLUMN_PRICE]).doubleValue();
 	}
 	
+	public String getFormattedPrix(){
+		return new DecimalFormat("0.00 $").format(getPrix());
+	}
+	
 	public String getGenre(){
 		return (String)values[COLUMN_GENRE];
 	}
@@ -79,7 +84,8 @@ public class Album extends TableObject {
 	}
 	
 	public Artiste getArtiste(){
-		return new Artiste(database, database.getAllContentofTable(
-				TABLE_NAME_ARTISTES).get((int)values[COLUMN_ARTIST]));
+		return new Artiste(database, database.getRowContentOfTableWhere(
+				TABLE_NAME_ARTISTES, COLUMNS_ARTISTES[ID_COLUMN],
+				String.valueOf((int)values[COLUMN_ARTIST])));
 	}
 }

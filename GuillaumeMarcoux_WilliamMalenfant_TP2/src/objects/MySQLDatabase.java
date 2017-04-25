@@ -105,7 +105,7 @@ public class MySQLDatabase {
 			Object textToMatch){
 		
 		String sqlRequest = "SELECT * FROM " + tableName;
-		sqlRequest += " WHERE \"" + columnName + "\" = \"" + textToMatch + "\"";
+		sqlRequest += " WHERE " + columnName + " = \"" + textToMatch + "\"";
 		
 		return executeQuery(sqlRequest);
 		
@@ -172,6 +172,8 @@ public class MySQLDatabase {
 				textToMatch);
 		
 		try{
+			
+			resultSet.next();
 			
 			int numberOfColumns = resultSet.getMetaData().getColumnCount();
 			
@@ -397,8 +399,7 @@ public class MySQLDatabase {
 		
 		boolean success = false;
 		
-		String sqlRequest = "DELETE FROM " + tableName + " WHERE "
-				+ condition;
+		String sqlRequest = "DELETE FROM " + tableName + " WHERE " + condition;
 		
 		try{
 			

@@ -109,7 +109,7 @@ public abstract class TableObject implements Constantes {
 	
 	@Override
 	public String toString(){
-		return "" + idObject;
+		return String.valueOf(idObject);
 	}
 	
 }

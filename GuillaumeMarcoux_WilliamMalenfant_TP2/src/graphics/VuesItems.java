@@ -13,9 +13,7 @@ import javax.swing.JPanel;
 
 import objects.MySQLDatabase;
 import objects.TableObject;
-import outils.Constantes;
-import outils.ConstantesAffichage;
-import outils.GestionPanneauOperations;
+import outils.*;
 
 public abstract class VuesItems extends JDialog implements Constantes,
 		ConstantesAffichage {
@@ -23,11 +21,12 @@ public abstract class VuesItems extends JDialog implements Constantes,
 	protected MySQLDatabase database;
 	protected ArrayList<TableObject> objetsTable = new ArrayList<>();
 	
-	public VuesItems(MySQLDatabase database, JFrame parentFrame, boolean modal){
+	public VuesItems(MySQLDatabase database, JFrame parentFrame, boolean isModal){
 		
-		super(parentFrame, modal);
+		super(parentFrame, isModal);
 		
-		setBounds(600, 300, 600, 400);
+		setSize(900, 500);
+		setLocationRelativeTo(parentFrame);
 		
 		this.database = database;
 		

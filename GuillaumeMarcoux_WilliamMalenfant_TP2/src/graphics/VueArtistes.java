@@ -38,7 +38,7 @@ public class VueArtistes extends VuesItems {
 	
 	private void updateArtiste(Artiste nouvelArtiste){
 		
-		textArtisteNumero.setText("" + nouvelArtiste.getID());
+		textArtisteNumero.setText(String.valueOf(nouvelArtiste.getID()));
 		textArtisteNom.setText(nouvelArtiste.getFullName());
 		
 		checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
