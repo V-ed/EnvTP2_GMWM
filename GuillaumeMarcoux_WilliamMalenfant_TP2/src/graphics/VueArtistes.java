@@ -3,8 +3,6 @@ package graphics;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import com.mysql.jdbc.EscapeTokenizer;
-
 import outils.OutilsFichiers;
 import objects.*;
 
@@ -158,12 +156,7 @@ public class VueArtistes extends VuesItems {
 		
 		JPanel panelChoixArtiste = new JPanel(new GridLayout());
 		
-		ArrayList<Object[]> listeObjets = database
-				.getAllContentofTable(Artiste.TABLE_NAME);
-		
-		for(int i = 0; i < listeObjets.size(); i++){
-			objetsTable.add(new Artiste(database, listeObjets.get(i)));
-		}
+		objetsTable = Artiste.getAllAsArrayList(database);
 		
 		tableArtistes = new SheetTable(objetsTable, new String[]
 		{

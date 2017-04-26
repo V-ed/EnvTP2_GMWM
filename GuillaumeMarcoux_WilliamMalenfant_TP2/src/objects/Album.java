@@ -3,6 +3,7 @@ package objects;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class Album extends TableObject {
 	
@@ -102,4 +103,21 @@ public class Album extends TableObject {
 				Artiste.TABLE_NAME, Artiste.COLUMN_NAMES[ID_COLUMN],
 				String.valueOf((int)values[COLUMN_ARTIST])));
 	}
+	
+	public static ArrayList<TableObject> getAllAsArrayList(
+			MySQLDatabase database){
+		
+		ArrayList<TableObject> liste = new ArrayList<>();
+		
+		ArrayList<Object[]> listeObjets = database
+				.getAllContentofTable(TABLE_NAME);
+		
+		for(int i = 0; i < listeObjets.size(); i++){
+			liste.add(new Album(database, listeObjets.get(i)));
+		}
+		
+		return liste;
+		
+	}
+	
 }

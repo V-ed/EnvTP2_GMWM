@@ -1,5 +1,7 @@
 package objects;
 
+import java.util.ArrayList;
+
 public class Artiste extends TableObject {
 	
 	public final static String TABLE_NAME = "artiste";
@@ -57,6 +59,22 @@ public class Artiste extends TableObject {
 	
 	public String getImagePath(){
 		return (String)values[COLUMN_IMAGE_URL];
+	}
+	
+	public static ArrayList<TableObject> getAllAsArrayList(
+			MySQLDatabase database){
+		
+		ArrayList<TableObject> liste = new ArrayList<>();
+		
+		ArrayList<Object[]> listeObjets = database
+				.getAllContentofTable(TABLE_NAME);
+		
+		for(int i = 0; i < listeObjets.size(); i++){
+			liste.add(new Artiste(database, listeObjets.get(i)));
+		}
+		
+		return liste;
+		
 	}
 	
 }
