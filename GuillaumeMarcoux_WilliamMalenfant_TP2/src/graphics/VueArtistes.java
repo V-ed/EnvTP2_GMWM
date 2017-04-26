@@ -3,6 +3,8 @@ package graphics;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import com.mysql.jdbc.EscapeTokenizer;
+
 import outils.OutilsFichiers;
 import objects.*;
 
@@ -234,7 +236,7 @@ public class VueArtistes extends VuesItems {
 	@Override
 	public void actionAjouter(){
 		
-		new VuesAjoutArtiste(database, this);
+		new VuesOperationArtiste(database, this, VuesOperationArtiste.AJOUTER, null);
 		
 		objetsTable.clear();
 		
@@ -254,6 +256,10 @@ public class VueArtistes extends VuesItems {
 	@Override
 	public void actionModifier(){
 		
+		VuesOperationArtiste modif = new VuesOperationArtiste(database, this, VuesOperationArtiste.MODIFIER, (Artiste) tableArtistes.getSelectedItem());
+		
+		tableArtistes.fireTableDataChanged();
+		
 	}
 	
 	@Override
@@ -263,6 +269,8 @@ public class VueArtistes extends VuesItems {
 	
 	@Override
 	public void actionRechercher(){
+		
+		VuesOperationArtiste rechercher = new VuesOperationArtiste(database, this, VuesOperationArtiste.RECHERCHER, null);
 		
 	}
 	

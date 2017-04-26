@@ -27,11 +27,13 @@ public interface ConstantesAffichage {
 	final String VIEW_PRINCIPAL_TITLE = "Menu Principal";
 	final String VIEW_PRINCIPAL_QUITTER = "Quitter";
 	
-	final String VIEW_AJOUT_LABEL_NOM = "Nom :";
-	final String VIEW_AJOUT_LABEL_PRENOM = "Prenom :";
-	final String VIEW_AJOUT_LABEL_MEMBRE = "Est Membre :";
-	final String VIEW_AJOUT_BOUTON_IMAGE = "Choisir Image";
-	final String VIEW_AJOUT_LABEL_PATH = "Pas d'image";
-	final String VIEW_AJOUT_BOUTON_AJOUTER = "Ajouter";
-	final String VIEW_AJOUT_BOUTON_ANNULER = "Annuler";
+	final String VIEW_OPERATION_LABEL_NOM = "Nom :";
+	final String VIEW_OPERATION_LABEL_PRENOM = "Prenom :";
+	final String VIEW_OPERATION_LABEL_MEMBRE = "Est Membre :";
+	final String VIEW_OPERATION_BOUTON_IMAGE = "Choisir Image";
+	final String VIEW_OPERATION_LABEL_PATH = "Pas d'image";
+	final String VIEW_OPERATION_BOUTON_AJOUTER = "Ajouter";
+	final String VIEW_OPERATION_BOUTON_RECHERCHER = "Rechercher";
+	final String VIEW_OPERATION_BOUTON_MODIFIER = "Modifier";
+	final String VIEW_OPERATION_BOUTON_ANNULER = "Annuler";
 }

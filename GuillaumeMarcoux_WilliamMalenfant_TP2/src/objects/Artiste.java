@@ -28,7 +28,7 @@ public class Artiste extends TableObject {
 		
 		super.modifyItem(new Object[]
 		{
-			nom, prenom, estMembre ? 1 : 0, imageURL
+			getID(), nom, prenom, estMembre ? 1 : 0, imageURL
 		});
 		
 	}
