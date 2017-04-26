@@ -210,42 +210,43 @@ public class MySQLDatabase {
 	 */
 	public ArrayList<Object[]> getAllContentofTable(String tableName){
 		
-		ArrayList<Object[]> table = null;
-		
 		ResultSet queryResults = selectEverythingFrom(tableName);
 		
-		if(queryResults != null){
+		return convertResultSetToArraylistOfObjects(queryResults);
+		
+	}
+	
+	/**
+	 * Method that returns Objects that matches certain conditions passed in
+	 * parameters.
+	 * 
+	 * @param tableName
+	 *            The name of the table in which reasearch will be made.
+	 * @param conditions
+	 *            A <code>String[]</code> array where all
+	 * @return An <code>ArrayList<Object[]></code> object, each index of the
+	 *         <code>ArrayList</code> represents a row of the results and each
+	 *         column of the <code>Object[]</code>'s array is a column of the
+	 *         table in the database. <code>null</code> if there is an
+	 *         <code>SQLException</code> error.
+	 */
+	public ArrayList<Object[]> getAllContentWhere(String tableName,
+			String... conditions){
+		
+		String sqlRequest = "SELECT * FROM " + tableName + " WHERE ";
+		
+		for(int i = 0; i < conditions.length; i++){
 			
-			table = new ArrayList<>();
+			sqlRequest += conditions[i];
 			
-			try{
-				
-				int nCol = queryResults.getMetaData().getColumnCount();
-				while(queryResults.next()){
-					
-					Object[] row = new Object[nCol];
-					
-					for(int iCol = 1; iCol <= nCol; iCol++){
-						Object obj = queryResults.getObject(iCol);
-						
-						if(obj instanceof Boolean)
-							obj = (boolean)obj ? 1 : 0;
-						
-						row[iCol - 1] = (obj == null) ? null : obj;
-					}
-					
-					table.add(row);
-					
-				}
-				
-			}
-			catch(SQLException e){
-				table = null;
-			}
+			if(i < conditions.length - 1)
+				sqlRequest += " AND ";
 			
 		}
 		
-		return table;
+		ResultSet queryResults = executeQuery(sqlRequest);
+		
+		return convertResultSetToArraylistOfObjects(queryResults);
 		
 	}
 	
@@ -361,7 +362,7 @@ public class MySQLDatabase {
 		
 		for(int i = 0; i < columnNames.length; i++){
 			
-			sqlRequest += "\"" + columnNames[i] + "\" = \"" + values[i] + "\"";
+			sqlRequest += columnNames[i] + " = \"" + values[i] + "\"";
 			
 			if(i < columnNames.length - 1){
 				sqlRequest += ", ";
@@ -439,6 +440,57 @@ public class MySQLDatabase {
 		String condition = "\"" + idColumnName + "\" = \"" + id + "\"";
 		
 		return removeFromTable(tableName, condition);
+		
+	}
+	
+	/**
+	 * Method that converts a ResultSet object into an ArrayList of objects.
+	 * 
+	 * @param queryResults
+	 *            The <code>ResultSet</code> object to convert.
+	 * @return An <code>ArrayList<Object[]></code> object, each index of the
+	 *         <code>ArrayList</code> represents a row of the results and each
+	 *         column of the <code>Object[]</code>'s array is a column of the
+	 *         table in the database. <code>null</code> if there is an
+	 *         <code>SQLException</code> error.
+	 */
+	private ArrayList<Object[]> convertResultSetToArraylistOfObjects(
+			ResultSet queryResults){
+		
+		ArrayList<Object[]> table = null;
+		
+		if(queryResults != null){
+			
+			table = new ArrayList<>();
+			
+			try{
+				
+				int nCol = queryResults.getMetaData().getColumnCount();
+				while(queryResults.next()){
+					
+					Object[] row = new Object[nCol];
+					
+					for(int iCol = 1; iCol <= nCol; iCol++){
+						Object obj = queryResults.getObject(iCol);
+						
+						if(obj instanceof Boolean)
+							obj = (boolean)obj ? 1 : 0;
+						
+						row[iCol - 1] = (obj == null) ? null : obj;
+					}
+					
+					table.add(row);
+					
+				}
+				
+			}
+			catch(SQLException e){
+				table = null;
+			}
+			
+		}
+		
+		return table;
 		
 	}
 	
