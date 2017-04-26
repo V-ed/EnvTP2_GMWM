@@ -159,7 +159,7 @@ public class VueArtistes extends VuesItems {
 		JPanel panelChoixArtiste = new JPanel(new GridLayout());
 		
 		ArrayList<Object[]> listeObjets = database
-				.getAllContentofTable(TABLE_NAME_ARTISTES);
+				.getAllContentofTable(Artiste.TABLE_NAME);
 		
 		for(int i = 0; i < listeObjets.size(); i++){
 			objetsTable.add(new Artiste(database, listeObjets.get(i)));
@@ -191,7 +191,7 @@ public class VueArtistes extends VuesItems {
 			@Override
 			protected void actionOnSelect(){
 				
-				if(tableArtistes.getTable().getSelectedRow() != -1){
+				if(tableArtistes.getSelectedRow() != -1){
 					
 					Artiste artisteSelectionne = (Artiste)getSelectedItem();
 					
@@ -224,8 +224,7 @@ public class VueArtistes extends VuesItems {
 		idRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		idRenderer.setFont(idRenderer.getFont().deriveFont(Font.BOLD));	// TODO Ask why BOLD doesn't work
 		
-		tableArtistes.getTable().getColumnModel().getColumn(0)
-				.setCellRenderer(idRenderer);
+		tableArtistes.getColumnModel().getColumn(0).setCellRenderer(idRenderer);
 		
 		panelChoixArtiste.add(tableArtistes.getScrollableTable());
 		
@@ -236,29 +235,37 @@ public class VueArtistes extends VuesItems {
 	@Override
 	public void actionAjouter(){
 		
-		new VuesOperationArtiste(database, this, VuesOperationArtiste.AJOUTER, null);
+		VuesOperationArtiste vue = new VuesOperationArtiste(database, this,
+				VuesOperationArtiste.AJOUTER, null);
 		
-		objetsTable.clear();
-		
-		ArrayList<Object[]> listeObjets = database
-				.getAllContentofTable(TABLE_NAME_ARTISTES);
-		
-		for(int i = 0; i < listeObjets.size(); i++){
-			objetsTable.add(new Artiste(database, listeObjets.get(i)));
+		if(vue.hasConfirmed()){
+			
+			objetsTable.clear();
+			
+			ArrayList<Object[]> listeObjets = database
+					.getAllContentofTable(Artiste.TABLE_NAME);
+			
+			for(int i = 0; i < listeObjets.size(); i++){
+				objetsTable.add(new Artiste(database, listeObjets.get(i)));
+			}
+			
+			tableArtistes.fireTableDataChanged();
+			
+			tableArtistes.setSelectedItem(tableArtistes.getRowCount() - 1);
+			
 		}
-		
-		tableArtistes.fireTableDataChanged();
-		
-		tableArtistes.setSelectedItem(tableArtistes.getRowCount() - 1);
 		
 	}
 	
 	@Override
 	public void actionModifier(){
 		
-		VuesOperationArtiste modif = new VuesOperationArtiste(database, this, VuesOperationArtiste.MODIFIER, (Artiste) tableArtistes.getSelectedItem());
+		VuesOperationArtiste vue = new VuesOperationArtiste(database, this,
+				VuesOperationArtiste.MODIFIER,
+				(Artiste)tableArtistes.getSelectedItem());
 		
-		tableArtistes.fireTableDataChanged();
+		if(vue.hasConfirmed())
+			tableArtistes.fireTableDataChanged();
 		
 	}
 	
@@ -270,7 +277,8 @@ public class VueArtistes extends VuesItems {
 	@Override
 	public void actionRechercher(){
 		
-		VuesOperationArtiste rechercher = new VuesOperationArtiste(database, this, VuesOperationArtiste.RECHERCHER, null);
+		VuesOperationArtiste rechercher = new VuesOperationArtiste(database,
+				this, VuesOperationArtiste.RECHERCHER, null);
 		
 	}
 	

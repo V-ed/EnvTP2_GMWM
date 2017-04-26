@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Object used to deal with a MySQL Databases.
  * 
- * @version 1.1
+ * @version 1.3
  * @author Guillaume Marcoux
  */
 public class MySQLDatabase {

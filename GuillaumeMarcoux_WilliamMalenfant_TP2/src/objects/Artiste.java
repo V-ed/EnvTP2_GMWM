@@ -2,21 +2,27 @@ package objects;
 
 public class Artiste extends TableObject {
 	
+	public final static String TABLE_NAME = "artiste";
+	public final static String[] COLUMN_NAMES =
+	{
+		"idArtiste", "nom", "prenom", "estMembre", "image"
+	};
+	
 	public final static int COLUMN_LAST_NAME = 1;
 	public final static int COLUMN_FIRST_NAME = 2;
 	public final static int COLUMN_IS_MEMBER = 3;
 	public final static int COLUMN_IMAGE_URL = 4;
 	
 	public Artiste(MySQLDatabase database, Object[] values){
-		super(database, TABLE_NAME_ARTISTES, COLUMNS_ARTISTES[ID_COLUMN],
-				COLUMNS_ARTISTES, true, values);
+		super(database, TABLE_NAME, COLUMN_NAMES[ID_COLUMN], COLUMN_NAMES,
+				true, values);
 	}
 	
 	public Artiste(MySQLDatabase database, String nom, String prenom,
 			boolean estMembre, String imageURL){
 		
-		super(database, TABLE_NAME_ARTISTES, COLUMNS_ARTISTES[ID_COLUMN],
-				COLUMNS_ARTISTES, false, new Object[]
+		super(database, TABLE_NAME, COLUMN_NAMES[ID_COLUMN], COLUMN_NAMES,
+				false, new Object[]
 				{
 					-1, nom, prenom, estMembre ? 1 : 0, imageURL
 				});
@@ -26,9 +32,9 @@ public class Artiste extends TableObject {
 	public void modifyItem(String nom, String prenom, boolean estMembre,
 			String imageURL){
 		
-		super.modifyItem(new Object[]
+		super.modifyItem(false, new Object[]
 		{
-			getID(), nom, prenom, estMembre ? 1 : 0, imageURL
+			nom, prenom, estMembre ? 1 : 0, imageURL
 		});
 		
 	}

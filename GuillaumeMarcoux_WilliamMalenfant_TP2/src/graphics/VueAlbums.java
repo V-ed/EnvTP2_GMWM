@@ -59,7 +59,10 @@ public class VueAlbums extends VuesItems {
 		JPanel panelAffichageAlbum = new JPanel();
 		
 		GridBagLayout gbl_panelAffichageArtiste = new GridBagLayout();
-		gbl_panelAffichageArtiste.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 1.0};
+		gbl_panelAffichageArtiste.rowWeights = new double[]
+		{
+			0.0, 0.0, 0.0, 1.0, 1.0, 1.0
+		};
 		gbl_panelAffichageArtiste.columnWeights = new double[]
 		{
 			0.0, 1.0, 0.0, 0.0
@@ -205,7 +208,7 @@ public class VueAlbums extends VuesItems {
 		JPanel panelChoixAlbum = new JPanel(new GridLayout());
 		
 		ArrayList<Object[]> listeObjets = database
-				.getAllContentofTable(TABLE_NAME_ALBUMS);
+				.getAllContentofTable(Album.TABLE_NAME);
 		
 		for(int i = 0; i < listeObjets.size(); i++){
 			objetsTable.add(new Album(database, listeObjets.get(i)));

@@ -6,6 +6,20 @@ import java.text.DecimalFormat;
 
 public class Album extends TableObject {
 	
+	public final static String TABLE_NAME = "album";
+	
+	public final static String[] COLUMN_NAMES =
+	{
+		"idAlbum",
+		"titre",
+		"prix",
+		"genre",
+		"anneeSortie",
+		"maisonDistribution",
+		"image",
+		"idArtiste"
+	};
+	
 	final int COLUMN_TITLE = 1;
 	final int COLUMN_PRICE = 2;
 	final int COLUMN_GENRE = 3;
@@ -15,16 +29,16 @@ public class Album extends TableObject {
 	final int COLUMN_ARTIST = 7;
 	
 	public Album(MySQLDatabase database, Object[] values){
-		super(database, TABLE_NAME_ALBUMS, COLUMNS_ALBUMS[ID_COLUMN],
-				COLUMNS_ALBUMS, true, values);
+		super(database, TABLE_NAME, COLUMN_NAMES[ID_COLUMN], COLUMN_NAMES,
+				true, values);
 	}
 	
 	public Album(MySQLDatabase database, String titre, double prix,
 			String genre, Date anneeSortie, String maisonDistribution,
 			String imageURL, Artiste artiste){
 		
-		super(database, TABLE_NAME_ALBUMS, COLUMNS_ALBUMS[ID_COLUMN],
-				COLUMNS_ALBUMS, false, new Object[]
+		super(database, TABLE_NAME, COLUMN_NAMES[ID_COLUMN], COLUMN_NAMES,
+				false, new Object[]
 				{
 					-1,
 					titre,
@@ -42,7 +56,7 @@ public class Album extends TableObject {
 			Date anneeSortie, String maisonDistribution, String imageURL,
 			Artiste artiste){
 		
-		super.modifyItem(new Object[]
+		super.modifyItem(false, new Object[]
 		{
 			titre,
 			prix,
@@ -85,7 +99,7 @@ public class Album extends TableObject {
 	
 	public Artiste getArtiste(){
 		return new Artiste(database, database.getRowContentOfTableWhere(
-				TABLE_NAME_ARTISTES, COLUMNS_ARTISTES[ID_COLUMN],
+				Artiste.TABLE_NAME, Artiste.COLUMN_NAMES[ID_COLUMN],
 				String.valueOf((int)values[COLUMN_ARTIST])));
 	}
 }

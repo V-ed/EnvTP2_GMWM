@@ -84,9 +84,24 @@ public abstract class TableObject implements Constantes {
 		
 	}
 	
-	protected void modifyItem(Object... values){
+	protected void modifyItem(boolean hasID, Object... values){
 		
-		this.values = values;
+		if(hasID){
+			this.values = values;
+		}
+		else{
+			
+			Object[] valuesWithID = new Object[values.length + 1];
+			
+			valuesWithID[0] = getID();
+			
+			for(int i = 1; i < values.length; i++){
+				valuesWithID[i] = values[i - 1];
+			}
+			
+			this.values = valuesWithID;
+			
+		}
 		
 		if(idObject != -1){
 			
