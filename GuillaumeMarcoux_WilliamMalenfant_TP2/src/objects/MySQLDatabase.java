@@ -284,7 +284,7 @@ public class MySQLDatabase {
 			sqlRequest += "(";
 			
 			for(int i = 0; i < columnNames.length; i++){
-				sqlRequest += "\"" + columnNames[i] + "\"";
+				sqlRequest += columnNames[i];
 				
 				if(i != columnNames.length - 1)
 					sqlRequest += ", ";
@@ -293,7 +293,10 @@ public class MySQLDatabase {
 			sqlRequest += ") VALUES (";
 			
 			for(int i = 0; i < values.length; i++){
-				sqlRequest += "\"" + values[i] + "\"";
+				if(values[i] == null)
+					sqlRequest += values[i];
+				else
+					sqlRequest += "\"" + values[i] + "\"";
 				
 				if(i != values.length - 1)
 					sqlRequest += ", ";

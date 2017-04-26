@@ -189,9 +189,13 @@ public class VueArtistes extends VuesItems {
 			@Override
 			protected void actionOnSelect(){
 				
-				Artiste artisteSelectionne = (Artiste)getSelectedItem();
-				
-				updateArtiste(artisteSelectionne);
+				if(tableArtistes.getTable().getSelectedRow() != -1){
+					
+					Artiste artisteSelectionne = (Artiste)getSelectedItem();
+					
+					updateArtiste(artisteSelectionne);
+					
+				}
 				
 			}
 			
@@ -216,7 +220,7 @@ public class VueArtistes extends VuesItems {
 		
 		DefaultTableCellRenderer idRenderer = new DefaultTableCellRenderer();
 		idRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-		idRenderer.setFont(idRenderer.getFont().deriveFont(Font.BOLD));
+		idRenderer.setFont(idRenderer.getFont().deriveFont(Font.BOLD));	// TODO Know why BOLD doesn't work
 		
 		tableArtistes.getTable().getColumnModel().getColumn(0)
 				.setCellRenderer(idRenderer);
@@ -232,7 +236,18 @@ public class VueArtistes extends VuesItems {
 		
 		new VuesAjoutArtiste(database, this);
 		
+		objetsTable.clear();
+		
+		ArrayList<Object[]> listeObjets = database
+				.getAllContentofTable(TABLE_NAME_ARTISTES);
+		
+		for(int i = 0; i < listeObjets.size(); i++){
+			objetsTable.add(new Artiste(database, listeObjets.get(i)));
+		}
+		
 		tableArtistes.fireTableDataChanged();
+		
+		tableArtistes.setSelectedItem(tableArtistes.getRowCount() - 1);
 		
 	}
 	

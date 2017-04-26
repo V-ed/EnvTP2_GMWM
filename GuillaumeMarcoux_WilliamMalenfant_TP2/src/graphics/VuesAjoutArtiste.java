@@ -41,7 +41,7 @@ public class VuesAjoutArtiste extends JDialog implements Constantes,
 		
 		super(parentFrame, true);
 		
-		setBounds(620, 320, 550, 300);
+		setSize(550, 300);
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]
@@ -220,6 +220,7 @@ public class VuesAjoutArtiste extends JDialog implements Constantes,
 			@Override
 			public void actionPerformed(ActionEvent e){
 				try{
+					
 					String nom = textNom.getText();
 					
 					String prenom = textPrenom.getText();
@@ -242,11 +243,13 @@ public class VuesAjoutArtiste extends JDialog implements Constantes,
 						new Artiste(database, nom, prenom, estMembre
 								.isSelected(), null).addToDatabase();
 						
+						dispose();
+						
 					}
 					
 				}
-				catch(Exception e1){
-					JOptionPane.showMessageDialog(null, e1.getMessage());
+				catch(Exception error){
+					JOptionPane.showMessageDialog(null, error.getMessage());
 				}
 			}
 		});
