@@ -370,7 +370,7 @@ public class MySQLDatabase {
 			
 		}
 		
-		sqlRequest += " WHERE \"" + idColumnName + "\" = \"" + id + "\"";
+		sqlRequest += " WHERE " + idColumnName + " = \"" + id + "\"";
 		
 		try{
 			
