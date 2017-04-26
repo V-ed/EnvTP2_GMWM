@@ -220,7 +220,7 @@ public class VueArtistes extends VuesItems {
 		
 		DefaultTableCellRenderer idRenderer = new DefaultTableCellRenderer();
 		idRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-		idRenderer.setFont(idRenderer.getFont().deriveFont(Font.BOLD));	// TODO Know why BOLD doesn't work
+		idRenderer.setFont(idRenderer.getFont().deriveFont(Font.BOLD));	// TODO Ask why BOLD doesn't work
 		
 		tableArtistes.getTable().getColumnModel().getColumn(0)
 				.setCellRenderer(idRenderer);

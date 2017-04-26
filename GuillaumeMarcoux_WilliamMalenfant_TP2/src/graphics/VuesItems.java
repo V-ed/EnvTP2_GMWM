@@ -79,7 +79,11 @@ public abstract class VuesItems extends JDialog implements Constantes,
 	protected JPanel createOperationsPanel(){
 		
 		JPanel panelOperations = new JPanel();
-		panelOperations.setLayout(new GridLayout(5, 1, 0, 0));
+		
+		GridLayout operationLayout = new GridLayout(5, 1, 0, 0);
+		operationLayout.setVgap(5);
+		
+		panelOperations.setLayout(operationLayout);
 		
 		JButton btnAjouter = new JButton(VIEW_OPERATIONS_AJOUTER);
 		JButton btnModifier = new JButton(VIEW_OPERATIONS_MODIFIER);
