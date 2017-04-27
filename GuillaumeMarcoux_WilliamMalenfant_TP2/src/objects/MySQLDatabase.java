@@ -241,7 +241,7 @@ public class MySQLDatabase {
 			sqlRequest += conditions[i];
 			
 			if(i < conditions.length - 1)
-				sqlRequest += " OR ";
+				sqlRequest += " AND ";
 			
 		}
 		

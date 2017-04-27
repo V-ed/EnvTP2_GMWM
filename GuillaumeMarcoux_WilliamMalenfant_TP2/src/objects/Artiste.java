@@ -92,4 +92,16 @@ public class Artiste extends TableObject {
 		
 	}
 	
+	public static ArrayList<TableObject> convertToArrayList(
+			MySQLDatabase database, ArrayList<Object[]> rawList){
+		
+		ArrayList<TableObject> newList = new ArrayList<>();
+		
+		for(int i = 0; i < rawList.size(); i++){
+			newList.add(new Artiste(database, rawList.get(i)));
+		}
+		
+		return newList;
+		
+	}
 }

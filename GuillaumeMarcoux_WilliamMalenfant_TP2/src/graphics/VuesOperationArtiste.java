@@ -17,18 +17,20 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import objects.Artiste;
 import objects.MySQLDatabase;
 import outils.Constantes;
 import outils.ConstantesAffichage;
 
-public class VuesOperationArtiste extends JDialog implements Constantes, ConstantesAffichage {
-
+public class VuesOperationArtiste extends JDialog implements Constantes,
+		ConstantesAffichage {
+	
 	public final static int AJOUTER = 0;
 	public final static int MODIFIER = 1;
 	public final static int RECHERCHER = 2;
-
+	
 	private JTextField textNom;
 	private JTextField textPrenom;
 	private JLabel lblNom = new JLabel(VIEW_OPERATION_LABEL_NOM);
@@ -39,36 +41,64 @@ public class VuesOperationArtiste extends JDialog implements Constantes, Constan
 	private JCheckBox estMembre = new JCheckBox();
 	private JButton btnConfirmer = new JButton();
 	private JButton btnAnnuler = new JButton(VIEW_OPERATION_BOUTON_ANNULER);
-
+	
 	private boolean hasConfirmed = false;
-
-	public VuesOperationArtiste(MySQLDatabase database, VueArtistes vueArtiste, int typeOperation, Artiste artiste) {
-
+	
+	private String[] columnNames;
+	private Object[] values;
+	
+	public VuesOperationArtiste(MySQLDatabase database, VueArtistes vueArtiste,
+			int typeOperation, Artiste artiste){
+		
 		super(vueArtiste, true);
-
+		
 		setSize(550, 300);
 		setLocationRelativeTo(vueArtiste);
-
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 87, 0, 87, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 50, 50, 50, 60, 39, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-
-		gridBagLayout.columnWidths = new int[] { 0, 87, 0, 87, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 50, 50, 50, 60, 39, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-
+		gridBagLayout.columnWidths = new int[]
+		{
+			0, 87, 0, 87, 0, 0
+		};
+		gridBagLayout.rowHeights = new int[]
+		{
+			50, 50, 50, 60, 39, 0
+		};
+		gridBagLayout.columnWeights = new double[]
+		{
+			0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE
+		};
+		gridBagLayout.rowWeights = new double[]
+		{
+			0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE
+		};
+		
+		gridBagLayout.columnWidths = new int[]
+		{
+			0, 87, 0, 87, 0, 0
+		};
+		gridBagLayout.rowHeights = new int[]
+		{
+			50, 50, 50, 60, 39, 0
+		};
+		gridBagLayout.columnWeights = new double[]
+		{
+			0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE
+		};
+		gridBagLayout.rowWeights = new double[]
+		{
+			0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE
+		};
+		
 		getContentPane().setLayout(gridBagLayout);
-
+		
 		lblPrnom.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblPrnom = new GridBagConstraints();
 		gbc_lblPrnom.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPrnom.gridx = 1;
 		gbc_lblPrnom.gridy = 0;
 		getContentPane().add(lblPrnom, gbc_lblPrnom);
-
+		
 		textPrenom = new JTextField();
 		textPrenom.setColumns(10);
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
@@ -78,14 +108,14 @@ public class VuesOperationArtiste extends JDialog implements Constantes, Constan
 		gbc_textField_1.gridx = 2;
 		gbc_textField_1.gridy = 0;
 		getContentPane().add(textPrenom, gbc_textField_1);
-
+		
 		lblNom.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
 		gbc_lblNom.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNom.gridx = 1;
 		gbc_lblNom.gridy = 1;
 		getContentPane().add(lblNom, gbc_lblNom);
-
+		
 		textNom = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 2;
@@ -95,26 +125,26 @@ public class VuesOperationArtiste extends JDialog implements Constantes, Constan
 		gbc_textField.gridy = 1;
 		getContentPane().add(textNom, gbc_textField);
 		textNom.setColumns(10);
-
+		
 		lblEstMembre.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblEstMembre = new GridBagConstraints();
 		gbc_lblEstMembre.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEstMembre.gridx = 1;
 		gbc_lblEstMembre.gridy = 2;
 		getContentPane().add(lblEstMembre, gbc_lblEstMembre);
-
+		
 		GridBagConstraints gbc_estMembre = new GridBagConstraints();
 		gbc_estMembre.insets = new Insets(0, 0, 5, 5);
 		gbc_estMembre.gridx = 2;
 		gbc_estMembre.gridy = 2;
 		getContentPane().add(estMembre, gbc_estMembre);
-
+		
 		GridBagConstraints gbc_btnChooseFile = new GridBagConstraints();
 		gbc_btnChooseFile.insets = new Insets(0, 0, 5, 5);
 		gbc_btnChooseFile.gridx = 1;
 		gbc_btnChooseFile.gridy = 3;
 		getContentPane().add(btnChooseFile, gbc_btnChooseFile);
-
+		
 		lblPath.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblPath = new GridBagConstraints();
 		gbc_lblPath.anchor = GridBagConstraints.WEST;
@@ -123,175 +153,223 @@ public class VuesOperationArtiste extends JDialog implements Constantes, Constan
 		gbc_lblPath.gridx = 2;
 		gbc_lblPath.gridy = 3;
 		getContentPane().add(lblPath, gbc_lblPath);
-
+		
 		GridBagConstraints gbc_btnAjout = new GridBagConstraints();
 		gbc_btnAjout.fill = GridBagConstraints.BOTH;
 		gbc_btnAjout.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAjout.gridx = 1;
 		gbc_btnAjout.gridy = 4;
 		getContentPane().add(btnConfirmer, gbc_btnAjout);
-
+		
 		GridBagConstraints gbc_btnAnnuler = new GridBagConstraints();
 		gbc_btnAnnuler.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAnnuler.fill = GridBagConstraints.BOTH;
 		gbc_btnAnnuler.gridx = 3;
 		gbc_btnAnnuler.gridy = 4;
 		getContentPane().add(btnAnnuler, gbc_btnAnnuler);
-
-		btnAnnuler.addActionListener(new ActionListener() {
-
+		
+		btnAnnuler.addActionListener(new ActionListener(){
+			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-
+			public void actionPerformed(ActionEvent e){
+				
 				dispose();
-
+				
 			}
 		});
-
-		btnChooseFile.addActionListener(new ActionListener() {
-
+		
+		btnChooseFile.addActionListener(new ActionListener(){
+			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-
+			public void actionPerformed(ActionEvent e){
+				
 				String filePath = null;
-
-				JFileChooser filechooser = new JFileChooser(
-						FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath());
-				filechooser.addChoosableFileFilter(
-						new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "gif", "bmp"));
+				
+				JFileChooser filechooser = new JFileChooser(FileSystemView
+						.getFileSystemView().getHomeDirectory()
+						.getAbsolutePath());
+				filechooser.addChoosableFileFilter(new FileNameExtensionFilter(
+						"Images", "jpg", "jpeg", "png", "gif", "bmp"));
 				filechooser.setAcceptAllFileFilterUsed(false);
-
-				if (filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-
+				
+				if(filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+					
 					filePath = filechooser.getSelectedFile().getPath();
-
+					
 				}
-
-				try {
-
+				
+				try{
+					
 					File file = new File(filePath);
-
-					if (file.isFile()) {
+					
+					if(file.isFile()){
 						lblPath.setText(filePath);
-					} else {
+					}
+					else{
 						throw new Exception();
 					}
-
-				} catch (NullPointerException e1) {
-
-					lblPath.setText(VIEW_OPERATION_LABEL_PATH);
-
-				} catch (Exception e2) {
-
-					JOptionPane.showConfirmDialog(null, "Le fichier n'existe pas", "Erreur", JOptionPane.DEFAULT_OPTION,
-							JOptionPane.ERROR_MESSAGE);
-
+					
 				}
-
+				catch(NullPointerException e1){
+					
+					lblPath.setText(VIEW_OPERATION_LABEL_PATH);
+					
+				}
+				catch(Exception e2){
+					
+					JOptionPane.showConfirmDialog(null,
+							"Le fichier n'existe pas", "Erreur",
+							JOptionPane.DEFAULT_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+					
+				}
+				
 			}
 		});
-
-		btnConfirmer.addActionListener(new ActionListener() {
-
+		
+		btnConfirmer.addActionListener(new ActionListener(){
+			
 			@Override
-			public void actionPerformed(ActionEvent e) {
-
+			public void actionPerformed(ActionEvent e){
+				
 				String nom = textNom.getText();
-
+				
 				String prenom = textPrenom.getText();
-
+				
 				// TODO Copy image to source project and get filePath;
-
+				
 				String filePath = null;
-
-				try {
-					if (typeOperation != RECHERCHER) {
+				
+				try{
+					if(typeOperation != RECHERCHER){
 						
-						if (!nom.matches("^[A-Z]([A-Za-z]|-)+$") && !prenom.matches("^[A-Z]([A-Za-z]|-)+$")) {
-
-							throw new Exception("Le nom et le prenom sont invalide. (lettres et \"-\" uniquement)");
-
-						} else if (!nom.matches("^[A-Z]([A-Za-z]|-)+$")) {
-
-							throw new Exception("Le nom est invalide. (lettres et \"-\" uniquement)");
-
-						} else if (!prenom.matches("^[A-Z]([A-Za-z]|-)+$")) {
-
-							throw new Exception("Le prenom est invalide. (lettres et \"-\" uniquement)");
-
+						if(!nom.matches("^[A-Z]([A-Za-z]|-)+$")
+								&& !prenom.matches("^[A-Z]([A-Za-z]|-)+$")){
+							
+							throw new Exception(
+									"Le nom et le prenom sont invalide. (lettres et \"-\" uniquement)");
+							
 						}
+						else if(!nom.matches("^[A-Z]([A-Za-z]|-)+$")){
+							
+							throw new Exception(
+									"Le nom est invalide. (lettres et \"-\" uniquement)");
+							
+						}
+						else if(!prenom.matches("^[A-Z]([A-Za-z]|-)+$")){
+							
+							throw new Exception(
+									"Le prenom est invalide. (lettres et \"-\" uniquement)");
+							
+						}
+						
 					}
-
-					switch (typeOperation) {
+					
+					switch(typeOperation){
 					case AJOUTER:
-
-						Artiste nouvArtiste = new Artiste(database, nom, prenom, estMembre.isSelected(), filePath);
+						
+						Artiste nouvArtiste = new Artiste(database, nom,
+								prenom, estMembre.isSelected(), filePath);
 						
 						vueArtiste.getTable().addItem(nouvArtiste);
 						
 						nouvArtiste.addToDatabase();
 						
 						break;
-
+					
 					case MODIFIER:
-
-						artiste.modifyItem(nom, prenom, estMembre.isSelected(), filePath);
-
+						
+						artiste.modifyItem(nom, prenom, estMembre.isSelected(),
+								filePath);
+						
 						break;
-
+					
 					case RECHERCHER:
 						
-						//vueArtiste.objetsTable
+						ArrayList<String> columnList = new ArrayList<>();
+						ArrayList<Object> valuesList = new ArrayList<>();
+						
+						if(!nom.isEmpty()){
+							columnList
+									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_LAST_NAME]);
+							valuesList.add(nom);
+						}
+						if(!prenom.isEmpty()){
+							columnList
+									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_FIRST_NAME]);
+							valuesList.add(prenom);
+						}
+						columnList
+								.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_IS_MEMBER]);
+						valuesList.add(estMembre.isSelected());
+						if(filePath != null){
+							columnList
+									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_IMAGE_URL]);
+							valuesList.add(filePath);
+						}
+						
+						columnNames = columnList.toArray(new String[columnList
+								.size()]);
+						values = valuesList.toArray();
 						
 						break;
 					}
-
+					
 					hasConfirmed = true;
-
+					
 					dispose();
-
-				} catch (Exception error) {
+					
+				}
+				catch(Exception error){
 					JOptionPane.showMessageDialog(null, error.getMessage());
 				}
 			}
 		});
-
-		switch (typeOperation) {
-
+		
+		switch(typeOperation){
+		
 		case AJOUTER:
 			btnConfirmer.setText(VIEW_OPERATION_BOUTON_AJOUTER);
 			setTitle("Ajout d'un artiste");
 			break;
-
+		
 		case MODIFIER:
 			btnConfirmer.setText(VIEW_OPERATION_BOUTON_MODIFIER);
 			setTitle("Modification d'un artiste");
 			setDefaultText(artiste);
 			break;
-
+		
 		case RECHERCHER:
 			btnConfirmer.setText(VIEW_OPERATION_BOUTON_RECHERCHER);
 			setTitle("Recherche d'un artiste");
 			break;
 		}
-
+		
 		setVisible(true);
 	}
-
-	public void setDefaultText(Artiste artiste) {
-
+	
+	public void setDefaultText(Artiste artiste){
+		
 		textNom.setText(artiste.getNom());
-
+		
 		textPrenom.setText(artiste.getPrenom());
-
+		
 		this.estMembre.setSelected(artiste.isMembre());
-
+		
 		lblPath.setText(artiste.getImagePath());
-
+		
 	}
-
-	public boolean hasConfirmed() {
+	
+	public boolean hasConfirmed(){
 		return hasConfirmed;
 	}
-
+	
+	public String[] getColumnNames(){
+		return columnNames;
+	}
+	
+	public Object[] getValues(){
+		return values;
+	}
+	
 }

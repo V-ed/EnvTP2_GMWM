@@ -40,13 +40,19 @@ public abstract class SheetTable extends JTable {
 			
 			@Override
 			public int getColumnCount(){
-				return columns.length;
+				return SheetTable.this.columns.length;
 			}
 			
 			@Override
 			public int getRowCount(){
-				return items.size();
+				return SheetTable.this.items.size();
 			}
+			
+			@Override
+			public String getColumnName(int column){
+				return SheetTable.this.columns[column];
+			}
+			
 		};
 		setModel(tableModel);
 		

@@ -12,6 +12,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 public class VueArtistes extends VuesItems {
 	
@@ -260,12 +261,15 @@ public class VueArtistes extends VuesItems {
 	@Override
 	public void actionSupprimer(){
 		
-		if(JOptionPane.showConfirmDialog(this, "Etes-vous sur de vouloir supprimer cet artiste?",
-				"Supprimer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+		if(JOptionPane.showConfirmDialog(this,
+				"Etes-vous sur de vouloir supprimer cet artiste?", "Supprimer",
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 			
-			((Artiste) tableArtistes.getSelectedItem()).removeFromDatabase();
+			((Artiste)tableArtistes.getSelectedItem()).removeFromDatabase();
 			
 			tableArtistes.removeItem(tableArtistes.getSelectedRow());
+			
+			tableArtistes.setSelectedItem(0);
 			
 		}
 		
@@ -280,6 +284,15 @@ public class VueArtistes extends VuesItems {
 		if(vue.hasConfirmed()){
 			
 			// TODO set the items to the results only and update the table
+			
+			ArrayList<TableObject> artistesFound = Artiste.convertToArrayList(
+					database,
+					database.getAllContentWhere(Artiste.TABLE_NAME,
+							vue.getColumnNames(), vue.getValues(), true));
+			
+			objetsTable = artistesFound;
+			
+			tableArtistes.setObjects(artistesFound);
 			
 		}
 		
