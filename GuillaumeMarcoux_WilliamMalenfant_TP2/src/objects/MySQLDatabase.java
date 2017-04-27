@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Object used to deal with a MySQL Database.
  * 
- * @version 1.4
+ * @version 1.5
  * @author Guillaume Marcoux
  */
 public class MySQLDatabase {
@@ -241,7 +241,7 @@ public class MySQLDatabase {
 			sqlRequest += conditions[i];
 			
 			if(i < conditions.length - 1)
-				sqlRequest += " AND ";
+				sqlRequest += " OR ";
 			
 		}
 		
@@ -339,11 +339,15 @@ public class MySQLDatabase {
 			
 			for(int i = 0; i < columnsToSearch.length; i++){
 				
-				if(!isValuesAbsolute)
+				if(!isValuesAbsolute){
 					valuesToSearch[i] = "%" + valuesToSearch[i] + "%";
-				
-				conditions.add(columnsToSearch[i] + " = \"" + valuesToSearch[i]
-						+ "\"");
+					conditions.add(columnsToSearch[i] + " LIKE \""
+							+ valuesToSearch[i] + "\"");
+				}
+				else{
+					conditions.add(columnsToSearch[i] + " = \""
+							+ valuesToSearch[i] + "\"");
+				}
 				
 			}
 			
