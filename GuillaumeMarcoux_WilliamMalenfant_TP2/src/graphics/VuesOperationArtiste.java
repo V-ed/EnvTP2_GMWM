@@ -49,6 +49,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		super(parentFrame, true);
 		
 		setSize(550, 300);
+		setLocationRelativeTo(parentFrame);
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]
@@ -231,6 +232,10 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 				
 				String prenom = textPrenom.getText();
 				
+				// TODO Copy image to source project and get filePath;
+				
+				String filePath = null;
+				
 				try{
 					if(!nom.matches("^[A-Z]([A-Za-z]|-)+$")
 							&& !prenom.matches("^[A-Z]([A-Za-z]|-)+$")){
@@ -256,18 +261,14 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 					case AJOUTER:
 						
 						new Artiste(database, nom, prenom, estMembre
-								.isSelected(), null).addToDatabase();
-						
-						dispose();
+								.isSelected(), filePath).addToDatabase();
 						
 						break;
 					
 					case MODIFIER:
 						
 						artiste.modifyItem(nom, prenom, estMembre.isSelected(),
-								null);
-						
-						dispose();
+								filePath);
 						
 						break;
 					
@@ -277,6 +278,8 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 					}
 					
 					hasConfirmed = true;
+					
+					dispose();
 					
 				}
 				catch(Exception error){

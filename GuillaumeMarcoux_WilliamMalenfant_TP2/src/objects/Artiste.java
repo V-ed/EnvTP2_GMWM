@@ -41,6 +41,21 @@ public class Artiste extends TableObject {
 		
 	}
 	
+	@Override
+	public void modifyItem(TableObject modifiedObject){
+		
+		Artiste modifiedArtiste = (Artiste)modifiedObject;
+		
+		super.modifyItem(new Object[]
+		{
+			modifiedArtiste.getNom(),
+			modifiedArtiste.getPrenom(),
+			modifiedArtiste.isMembre() ? 1 : 0,
+			modifiedArtiste.getImagePath()
+		});
+		
+	}
+	
 	public String getFullName(){
 		return values[COLUMN_FIRST_NAME] + " " + values[COLUMN_LAST_NAME];
 	}

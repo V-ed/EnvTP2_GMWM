@@ -70,6 +70,24 @@ public class Album extends TableObject {
 		
 	}
 	
+	@Override
+	public void modifyItem(TableObject modifiedObject){
+		
+		Album modifiedAlbum = (Album)modifiedObject;
+		
+		super.modifyItem(new Object[]
+		{
+			modifiedAlbum.getTitre(),
+			modifiedAlbum.getPrix(),
+			modifiedAlbum.getGenre(),
+			modifiedAlbum.getAnneeSortie(),
+			modifiedAlbum.getMaisonDistribution(),
+			modifiedAlbum.getImageURL(),
+			modifiedAlbum.getArtiste()
+		});
+		
+	}
+	
 	public String getTitre(){
 		return (String)values[COLUMN_TITLE];
 	}

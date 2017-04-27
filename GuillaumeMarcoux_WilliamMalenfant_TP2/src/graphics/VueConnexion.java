@@ -29,14 +29,17 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 	private JButton btnQuitter = new JButton(VIEW_CONNECT_QUITTER);
 	
 	public VueConnexion(){
+		
 		setTitle(VIEW_CONNECT_TITRE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(600, 300, 450, 250);
+		setSize(450, 250);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		setResizable(false);
 		
 		lblUsername.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblUsername.setBounds(60, 63, 132, 24);
@@ -75,7 +78,7 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 					
 					dispose();
 					
-					new VuePrincipal(database);
+					new VuePrincipal(database, VueConnexion.this);
 					
 				}
 				catch(ClassNotFoundException e1){
@@ -97,6 +100,7 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 		});
 		
 		setVisible(true);
+		
 	}
 	
 	public String getUsername(){

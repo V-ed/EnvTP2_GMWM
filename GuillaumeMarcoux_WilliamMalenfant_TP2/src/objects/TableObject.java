@@ -84,7 +84,7 @@ public abstract class TableObject implements Constantes {
 		
 	}
 	
-	protected void modifyItem(Object... values){
+	public void modifyItem(Object... values){
 		
 		if(idObject != -1){
 			
@@ -104,6 +104,8 @@ public abstract class TableObject implements Constantes {
 		}
 		
 	}
+	
+	public abstract void modifyItem(TableObject modifiedObject);
 	
 	public void removeFromDatabase(){
 		

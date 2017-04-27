@@ -233,14 +233,7 @@ public class VueArtistes extends VuesItems {
 		
 		if(vue.hasConfirmed()){
 			
-			objetsTable.clear();
-			
-			ArrayList<Object[]> listeObjets = database
-					.getAllContentofTable(Artiste.TABLE_NAME);
-			
-			for(int i = 0; i < listeObjets.size(); i++){
-				objetsTable.add(new Artiste(database, listeObjets.get(i)));
-			}
+			objetsTable = Artiste.getAllAsArrayList(database);
 			
 			tableArtistes.fireTableDataChanged();
 			
@@ -270,8 +263,14 @@ public class VueArtistes extends VuesItems {
 	@Override
 	public void actionRechercher(){
 		
-		VuesOperationArtiste rechercher = new VuesOperationArtiste(database,
-				this, VuesOperationArtiste.RECHERCHER, null);
+		VuesOperationArtiste vue = new VuesOperationArtiste(database, this,
+				VuesOperationArtiste.RECHERCHER, null);
+		
+		if(vue.hasConfirmed()){
+			
+			// TODO set the items to the results only and update the table
+			
+		}
 		
 	}
 	

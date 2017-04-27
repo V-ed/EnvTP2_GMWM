@@ -31,14 +31,15 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage {
 	/**
 	 * Create the frame.
 	 */
-	public VuePrincipal(MySQLDatabase database){
+	public VuePrincipal(MySQLDatabase database, JFrame parentFrame){
 		
 		this.database = database;
 		
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle(VIEW_PRINCIPAL_TITLE);
-		setBounds(600, 300, 450, 331);
+		setSize(450, 331);
+		setLocationRelativeTo(parentFrame);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -46,6 +46,7 @@ public abstract class SheetTable extends JTable {
 				return items.size();
 			}
 		};
+		setModel(tableModel);
 		
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
