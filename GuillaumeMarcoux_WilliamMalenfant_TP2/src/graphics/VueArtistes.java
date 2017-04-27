@@ -1,7 +1,6 @@
 package graphics;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 
 import outils.OutilsFichiers;
 import objects.*;
@@ -217,12 +216,6 @@ public class VueArtistes extends VuesItems {
 			}
 			
 		};
-		
-		DefaultTableCellRenderer idRenderer = new DefaultTableCellRenderer();
-		idRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-		idRenderer.setFont(idRenderer.getFont().deriveFont(Font.BOLD));	// TODO Ask why BOLD doesn't work
-		
-		tableArtistes.getColumnModel().getColumn(0).setCellRenderer(idRenderer);
 		
 		panelChoixArtiste.add(tableArtistes.getScrollableTable());
 		

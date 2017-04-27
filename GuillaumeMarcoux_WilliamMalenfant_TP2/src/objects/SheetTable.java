@@ -1,5 +1,7 @@
 package objects;
 
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -8,8 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -20,8 +20,6 @@ public abstract class SheetTable extends JTable {
 	
 	private AbstractTableModel tableModel;
 	private JScrollPane scrollableTable;
-	
-	private DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 	
 	public SheetTable(ArrayList<TableObject> items, String[] columns){
 		
@@ -58,15 +56,25 @@ public abstract class SheetTable extends JTable {
 		
 		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		getSelectionModel().addListSelectionListener(
-				new ListSelectionListener(){
-					@Override
-					public void valueChanged(ListSelectionEvent e){
-						actionOnSelect();
-					}
-				});
+		getColumn(columns[0]).setCellRenderer(new DefaultTableCellRenderer(){
+			
+			@Override
+			public Component getTableCellRendererComponent(JTable table,
+					Object value, boolean isSelected, boolean hasFocus,
+					int row, int column){
+				
+				Component superRenderer = super.getTableCellRendererComponent(
+						table, value, isSelected, hasFocus, row, column);
+				
+				setHorizontalAlignment(SwingConstants.CENTER);
+				superRenderer.setFont(superRenderer.getFont().deriveFont(
+						Font.BOLD));
+				
+				return superRenderer;
+				
+			}
+			
+		});
 		
 		addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
