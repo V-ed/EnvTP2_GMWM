@@ -239,8 +239,6 @@ public class VueArtistes extends VuesItems {
 			
 			objetsTable = Artiste.getAllAsArrayList(database);
 			
-			tableArtistes.fireTableDataChanged();
-			
 			tableArtistes.setSelectedItem(tableArtistes.getRowCount() - 1);
 			
 		}
@@ -285,6 +283,10 @@ public class VueArtistes extends VuesItems {
 			
 		}
 		
+	}
+	
+	public SheetTable getTable(){
+		return tableArtistes;
 	}
 	
 }

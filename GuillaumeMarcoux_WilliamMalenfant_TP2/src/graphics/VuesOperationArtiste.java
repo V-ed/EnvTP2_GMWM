@@ -225,8 +225,12 @@ public class VuesOperationArtiste extends JDialog implements Constantes, Constan
 					switch (typeOperation) {
 					case AJOUTER:
 
-						new Artiste(database, nom, prenom, estMembre.isSelected(), filePath).addToDatabase();
-
+						Artiste nouvArtiste = new Artiste(database, nom, prenom, estMembre.isSelected(), filePath);
+						
+						vueArtiste.getTable().addItem(nouvArtiste);
+						
+						nouvArtiste.addToDatabase();
+						
 						break;
 
 					case MODIFIER:
