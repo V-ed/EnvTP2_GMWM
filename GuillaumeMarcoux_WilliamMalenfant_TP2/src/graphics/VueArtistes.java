@@ -258,6 +258,15 @@ public class VueArtistes extends VuesItems {
 	@Override
 	public void actionSupprimer(){
 		
+		if(JOptionPane.showConfirmDialog(this, "Etes-vous sur de vouloir supprimer cet artiste?",
+				"Supprimer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+			
+			((Artiste) tableArtistes.getSelectedItem()).removeFromDatabase();
+			
+			tableArtistes.removeItem(tableArtistes.getSelectedRow());
+			
+		}
+		
 	}
 	
 	@Override
