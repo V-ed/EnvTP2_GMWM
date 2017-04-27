@@ -54,6 +54,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		
 		setSize(550, 300);
 		setLocationRelativeTo(vueArtiste);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]
@@ -228,7 +229,6 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		});
 		
 		btnConfirmer.addActionListener(new ActionListener(){
-			
 			@Override
 			public void actionPerformed(ActionEvent e){
 				
@@ -323,6 +323,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 				catch(Exception error){
 					JOptionPane.showMessageDialog(null, error.getMessage());
 				}
+				
 			}
 		});
 		
