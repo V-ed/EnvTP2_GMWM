@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.time.chrono.JapaneseDate;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -263,6 +264,8 @@ public class VueAlbums extends VuesItems {
 	
 	@Override
 	public void actionAjouter(){
+		
+		
 		
 	}
 	
