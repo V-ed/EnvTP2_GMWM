@@ -84,12 +84,9 @@ public abstract class TableObject implements Constantes {
 		
 	}
 	
-	protected void modifyItem(boolean hasID, Object... values){
+	protected void modifyItem(Object... values){
 		
-		if(hasID){
-			this.values = values;
-		}
-		else{
+		if(idObject != -1){
 			
 			Object[] valuesWithID = new Object[values.length + 1];
 			
@@ -100,10 +97,6 @@ public abstract class TableObject implements Constantes {
 			}
 			
 			this.values = valuesWithID;
-			
-		}
-		
-		if(idObject != -1){
 			
 			database.modifyObject(tableName, idColumnName, idObject,
 					getColumnNamesWithoutID(), getValuesWithoutID());

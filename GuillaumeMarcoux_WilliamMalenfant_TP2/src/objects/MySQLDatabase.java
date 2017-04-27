@@ -8,9 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * Object used to deal with a MySQL Databases.
+ * Object used to deal with a MySQL Database.
  * 
- * @version 1.3
+ * @version 1.4
  * @author Guillaume Marcoux
  */
 public class MySQLDatabase {
@@ -229,9 +229,10 @@ public class MySQLDatabase {
 	 *         column of the <code>Object[]</code>'s array is a column of the
 	 *         table in the database. <code>null</code> if there is an
 	 *         <code>SQLException</code> error.
+	 * @see {@link #getAllContentWhere(String tableName, String[] columnsToSearch, Object[] valuesToSearch, boolean isValuesAbsolute)}
 	 */
 	public ArrayList<Object[]> getAllContentWhere(String tableName,
-			String... conditions){
+			Object... conditions){
 		
 		String sqlRequest = "SELECT * FROM " + tableName + " WHERE ";
 		
@@ -247,6 +248,110 @@ public class MySQLDatabase {
 		ResultSet queryResults = executeQuery(sqlRequest);
 		
 		return convertResultSetToArraylistOfObjects(queryResults);
+		
+	}
+	
+	/**
+	 * Method that returns Objects based on conditions that will be created with
+	 * the columns and values to search. It would make the same by using
+	 * {@link #getAllContentWhere(String tableName, Object... conditions)}, but
+	 * this current method creates the <code>conditions</code> parameter for
+	 * you.<br>
+	 * <br>
+	 * Ex.:
+	 * 
+	 * <pre>
+	 * String[] columns =
+	 * {
+	 * 	&quot;name&quot;, &quot;lastName&quot;
+	 * };
+	 * Object[] values =
+	 * {
+	 * 	&quot;Bob&quot;, &quot;Dishen&quot;
+	 * };
+	 * ArrayList&lt;Object[]&gt; ls = database.getAllContentWhere(&quot;persons&quot;, columns,
+	 * 		values, false);
+	 * </pre>
+	 * 
+	 * In this example, this SQL request will be created :
+	 * 
+	 * <pre>
+	 * SELECT * FROM <i>persons</i> WHERE <i>name</i> = "<i>Bob</i>" AND <i>lastName</i> = "<i>Dishen</i>"
+	 * </pre>
+	 * 
+	 * And this would be the return table, if the <i>persons</i> is structured
+	 * with only three columns, <i>id, name, lastName</i> :
+	 * <table border="1">
+	 * <tr>
+	 * <td></td>
+	 * <td>ls.get(0);</td>
+	 * <td>ls.get(1);</td>
+	 * </tr>
+	 * <tr>
+	 * <td><i>ls.get(#)</i>[0]</td>
+	 * <td>1</td>
+	 * <td>2</td>
+	 * </tr>
+	 * <tr>
+	 * <td><i>ls.get(#)</i>[1]</td>
+	 * <td><b>Bob</b></td>
+	 * <td>Robert</td>
+	 * </tr>
+	 * <tr>
+	 * <td><i>ls.get(#)</i>[2]</td>
+	 * <td>Portman</td>
+	 * <td><b>Dishen</b></td>
+	 * </tr>
+	 * </table>
+	 * 
+	 * @param tableName
+	 *            The name of the table in which reasearch will be made.
+	 * @param columnsToSearch
+	 *            A <code>String</code> array that will be used as the searching
+	 *            columns for matching values.
+	 * @param valuesToSearch
+	 *            An <code>Object</code> array that will be used as the values
+	 *            for the condition(s).
+	 * @param isValuesAbsolute
+	 *            Boolean that determines whether values will be <i>absolute</i>
+	 *            (<code>"<u><i>Bob</i></u>", "Under<i>Bob</i>"</code>) if
+	 *            <code>true</code>, or inclusive (
+	 *            <code>"<u><i>Bob</i></u>", "<u>Under<i>Bob</i></u>"</code>) if
+	 *            <code>false</code>.
+	 * @return An <code>ArrayList<Object[]></code> object, each index of the
+	 *         <code>ArrayList</code> represents a row of the results and each
+	 *         column of the <code>Object[]</code>'s array is a column of the
+	 *         table in the database. <code>null</code> if there is an
+	 *         <code>SQLException</code> error.
+	 * @see {@link #getAllContentWhere(String tableName, Object... conditions)}
+	 */
+	public ArrayList<Object[]> getAllContentWhere(String tableName,
+			String[] columnsToSearch, Object[] valuesToSearch,
+			boolean isValuesAbsolute){
+		
+		ArrayList<Object[]> list = null;
+		
+		if(columnsToSearch.length == valuesToSearch.length){
+			
+			list = new ArrayList<>();
+			
+			ArrayList<String> conditions = new ArrayList<>();
+			
+			for(int i = 0; i < columnsToSearch.length; i++){
+				
+				if(!isValuesAbsolute)
+					valuesToSearch[i] = "%" + valuesToSearch[i] + "%";
+				
+				conditions.add(columnsToSearch[i] + " = \"" + valuesToSearch[i]
+						+ "\"");
+				
+			}
+			
+			list = getAllContentWhere(tableName, conditions.toArray());
+			
+		}
+		
+		return list;
 		
 	}
 	
@@ -437,7 +542,7 @@ public class MySQLDatabase {
 	public boolean removeFromTable(String tableName, String idColumnName,
 			Object id){
 		
-		String condition = "\"" + idColumnName + "\" = \"" + id + "\"";
+		String condition = idColumnName + " = \"" + id + "\"";
 		
 		return removeFromTable(tableName, condition);
 		

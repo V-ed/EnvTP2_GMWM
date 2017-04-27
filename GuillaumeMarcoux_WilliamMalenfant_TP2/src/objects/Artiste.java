@@ -34,7 +34,7 @@ public class Artiste extends TableObject {
 	public void modifyItem(String nom, String prenom, boolean estMembre,
 			String imageURL){
 		
-		super.modifyItem(false, new Object[]
+		super.modifyItem(new Object[]
 		{
 			nom, prenom, estMembre ? 1 : 0, imageURL
 		});

@@ -57,7 +57,7 @@ public class Album extends TableObject {
 			Date anneeSortie, String maisonDistribution, String imageURL,
 			Artiste artiste){
 		
-		super.modifyItem(false, new Object[]
+		super.modifyItem(new Object[]
 		{
 			titre,
 			prix,
