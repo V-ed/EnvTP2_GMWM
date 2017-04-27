@@ -52,27 +52,18 @@ public class VuesOperationAlbum extends JDialog {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]
 		{
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+			38, 73, 200, 107, 0, 0
 		};
 		gridBagLayout.rowHeights = new int[]
 		{
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+			74, 64, 53, 52, 55, 56, 79, 42, 0
 		};
 		gridBagLayout.columnWeights = new double[]
 		{
-			0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE
+			0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE
 		};
 		gridBagLayout.rowWeights = new double[]
 		{
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
 			0.0,
 			0.0,
 			0.0,
@@ -91,7 +82,7 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_lblTitre.anchor = GridBagConstraints.EAST;
 		gbc_lblTitre.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTitre.gridx = 1;
-		gbc_lblTitre.gridy = 1;
+		gbc_lblTitre.gridy = 0;
 		getContentPane().add(lblTitre, gbc_lblTitre);
 		
 		textTitre = new JTextField();
@@ -99,7 +90,7 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_textTitre.insets = new Insets(0, 0, 5, 5);
 		gbc_textTitre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textTitre.gridx = 2;
-		gbc_textTitre.gridy = 1;
+		gbc_textTitre.gridy = 0;
 		getContentPane().add(textTitre, gbc_textTitre);
 		textTitre.setColumns(10);
 		
@@ -109,16 +100,16 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_lblPrix.anchor = GridBagConstraints.EAST;
 		gbc_lblPrix.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPrix.gridx = 1;
-		gbc_lblPrix.gridy = 3;
+		gbc_lblPrix.gridy = 1;
 		getContentPane().add(lblPrix, gbc_lblPrix);
 		
 		textPrix = new JTextField();
 		textPrix.setColumns(10);
 		GridBagConstraints gbc_textPrix = new GridBagConstraints();
-		gbc_textPrix.anchor = GridBagConstraints.WEST;
+		gbc_textPrix.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textPrix.insets = new Insets(0, 0, 5, 5);
 		gbc_textPrix.gridx = 2;
-		gbc_textPrix.gridy = 3;
+		gbc_textPrix.gridy = 1;
 		getContentPane().add(textPrix, gbc_textPrix);
 		
 		JLabel lblGenre = new JLabel("Genre :");
@@ -127,7 +118,7 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_lblGenre.anchor = GridBagConstraints.EAST;
 		gbc_lblGenre.insets = new Insets(0, 0, 5, 5);
 		gbc_lblGenre.gridx = 1;
-		gbc_lblGenre.gridy = 5;
+		gbc_lblGenre.gridy = 2;
 		getContentPane().add(lblGenre, gbc_lblGenre);
 		
 		textGenre = new JTextField();
@@ -136,7 +127,7 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_textGenre.insets = new Insets(0, 0, 5, 5);
 		gbc_textGenre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textGenre.gridx = 2;
-		gbc_textGenre.gridy = 5;
+		gbc_textGenre.gridy = 2;
 		getContentPane().add(textGenre, gbc_textGenre);
 		
 		JLabel lblAnneDeSortie = new JLabel("Ann\u00E9e de Sortie :");
@@ -145,7 +136,7 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_lblAnneDeSortie.anchor = GridBagConstraints.EAST;
 		gbc_lblAnneDeSortie.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAnneDeSortie.gridx = 1;
-		gbc_lblAnneDeSortie.gridy = 7;
+		gbc_lblAnneDeSortie.gridy = 3;
 		getContentPane().add(lblAnneDeSortie, gbc_lblAnneDeSortie);
 		
 		UtilDateModel model = new UtilDateModel();
@@ -183,10 +174,10 @@ public class VuesOperationAlbum extends JDialog {
 					
 				});
 		GridBagConstraints gbc_datePicker = new GridBagConstraints();
-		gbc_datePicker.anchor = GridBagConstraints.EAST;
+		gbc_datePicker.fill = GridBagConstraints.HORIZONTAL;
 		gbc_datePicker.insets = new Insets(0, 0, 5, 5);
 		gbc_datePicker.gridx = 2;
-		gbc_datePicker.gridy = 7;
+		gbc_datePicker.gridy = 3;
 		getContentPane().add(datePicker, gbc_datePicker);
 		
 		JLabel lblMaisonDeDistribution = new JLabel("Maison de distribution :");
@@ -196,7 +187,7 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_lblMaisonDeDistribution.anchor = GridBagConstraints.EAST;
 		gbc_lblMaisonDeDistribution.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMaisonDeDistribution.gridx = 1;
-		gbc_lblMaisonDeDistribution.gridy = 9;
+		gbc_lblMaisonDeDistribution.gridy = 4;
 		getContentPane().add(lblMaisonDeDistribution,
 				gbc_lblMaisonDeDistribution);
 		
@@ -206,7 +197,7 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_text.insets = new Insets(0, 0, 5, 5);
 		gbc_text.fill = GridBagConstraints.HORIZONTAL;
 		gbc_text.gridx = 2;
-		gbc_text.gridy = 9;
+		gbc_text.gridy = 4;
 		getContentPane().add(text, gbc_text);
 		
 		JLabel lblArtiste = new JLabel("Artiste :");
@@ -215,16 +206,15 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_lblArtiste.anchor = GridBagConstraints.EAST;
 		gbc_lblArtiste.insets = new Insets(0, 0, 5, 5);
 		gbc_lblArtiste.gridx = 1;
-		gbc_lblArtiste.gridy = 11;
+		gbc_lblArtiste.gridy = 5;
 		getContentPane().add(lblArtiste, gbc_lblArtiste);
 		
 		JComboBox comboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 4;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 11;
+		gbc_comboBox.gridy = 5;
 		getContentPane().add(comboBox, gbc_comboBox);
 		
 		JButton btnChooseFile = new JButton("Choisir Image");
@@ -232,7 +222,7 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_btnChooseFile.anchor = GridBagConstraints.EAST;
 		gbc_btnChooseFile.insets = new Insets(0, 0, 5, 5);
 		gbc_btnChooseFile.gridx = 1;
-		gbc_btnChooseFile.gridy = 13;
+		gbc_btnChooseFile.gridy = 6;
 		getContentPane().add(btnChooseFile, gbc_btnChooseFile);
 		
 		JLabel lblPath = new JLabel("Path");
@@ -241,25 +231,23 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_lblPath.anchor = GridBagConstraints.WEST;
 		gbc_lblPath.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPath.gridx = 2;
-		gbc_lblPath.gridy = 13;
+		gbc_lblPath.gridy = 6;
 		getContentPane().add(lblPath, gbc_lblPath);
 		
 		JButton btnConfirmer = new JButton("Confirmer");
 		GridBagConstraints gbc_btnConfirmer = new GridBagConstraints();
 		gbc_btnConfirmer.fill = GridBagConstraints.BOTH;
-		gbc_btnConfirmer.gridheight = 2;
 		gbc_btnConfirmer.insets = new Insets(0, 0, 0, 5);
 		gbc_btnConfirmer.gridx = 1;
-		gbc_btnConfirmer.gridy = 15;
+		gbc_btnConfirmer.gridy = 7;
 		getContentPane().add(btnConfirmer, gbc_btnConfirmer);
 		
 		JButton btnAnnuler = new JButton("Annuler");
 		GridBagConstraints gbc_btnAnnuler = new GridBagConstraints();
-		gbc_btnAnnuler.gridwidth = 5;
-		gbc_btnAnnuler.gridheight = 2;
+		gbc_btnAnnuler.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAnnuler.fill = GridBagConstraints.BOTH;
 		gbc_btnAnnuler.gridx = 3;
-		gbc_btnAnnuler.gridy = 15;
+		gbc_btnAnnuler.gridy = 7;
 		getContentPane().add(btnAnnuler, gbc_btnAnnuler);
 		
 		btnAnnuler.addActionListener(new ActionListener(){
