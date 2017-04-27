@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Object used to deal with a MySQL Database.
  * 
- * @version 1.5
+ * @version 1.5.1
  * @author Guillaume Marcoux
  */
 public class MySQLDatabase {
@@ -338,6 +338,9 @@ public class MySQLDatabase {
 			ArrayList<String> conditions = new ArrayList<>();
 			
 			for(int i = 0; i < columnsToSearch.length; i++){
+				
+				if(valuesToSearch[i] instanceof Boolean)
+					valuesToSearch[i] = (boolean)valuesToSearch[i] ? 1 : 0;
 				
 				if(!isValuesAbsolute){
 					valuesToSearch[i] = "%" + valuesToSearch[i] + "%";
