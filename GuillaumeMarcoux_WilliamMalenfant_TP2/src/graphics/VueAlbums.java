@@ -248,6 +248,11 @@ public class VueAlbums extends VuesItems {
 				
 			}
 			
+			@Override
+			protected void actionOnDoubleClick(){
+				actionModifier();
+			}
+			
 		};
 		
 		panelChoixAlbum.add(tableAlbums.getScrollableTable());

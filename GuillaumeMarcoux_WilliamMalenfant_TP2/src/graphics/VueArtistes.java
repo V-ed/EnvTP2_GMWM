@@ -12,7 +12,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
-import java.util.ArrayList;
 
 public class VueArtistes extends VuesItems {
 	
@@ -195,6 +194,11 @@ public class VueArtistes extends VuesItems {
 			}
 			
 			@Override
+			protected void actionOnDoubleClick(){
+				actionModifier();
+			}
+			
+			@Override
 			public Class<?> getColumnClass(int columnIndex){
 				
 				switch(columnIndex){
@@ -257,6 +261,15 @@ public class VueArtistes extends VuesItems {
 	
 	@Override
 	public void actionSupprimer(){
+		
+		if(JOptionPane.showConfirmDialog(this, "Etes-vous sur de vouloir supprimer cet artiste?",
+				"Supprimer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+			
+			((Artiste) tableArtistes.getSelectedItem()).removeFromDatabase();
+			
+			tableArtistes.removeItem(tableArtistes.getSelectedRow());
+			
+		}
 		
 	}
 	

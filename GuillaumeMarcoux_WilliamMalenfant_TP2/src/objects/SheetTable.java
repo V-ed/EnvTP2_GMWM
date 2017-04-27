@@ -1,5 +1,7 @@
 package objects;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
@@ -60,6 +62,14 @@ public abstract class SheetTable extends JTable {
 					}
 				});
 		
+		addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+				if(e.getClickCount() == 2){
+					actionOnDoubleClick();
+				}
+			}
+		});
+		
 	}
 	
 	public JScrollPane getScrollableTable(){
@@ -75,6 +85,8 @@ public abstract class SheetTable extends JTable {
 	}
 	
 	protected abstract void actionOnSelect();
+	
+	protected abstract void actionOnDoubleClick();
 	
 	@Override
 	public String getColumnName(int columnIndex){
@@ -116,6 +128,11 @@ public abstract class SheetTable extends JTable {
 			setRowSelectionInterval(index, index);
 		}
 		
+	}
+	
+	public void setObjects(ArrayList<TableObject> items){
+		this.items = items;
+		fireTableDataChanged();
 	}
 	
 	public void fireTableDataChanged(){
