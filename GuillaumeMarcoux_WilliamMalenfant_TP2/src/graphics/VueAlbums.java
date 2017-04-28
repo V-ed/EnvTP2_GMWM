@@ -34,7 +34,7 @@ public class VueAlbums extends VuesItems {
 		
 		super(database, parentFrame, true);
 		
-		setTitle(TITLE_VUE_ALBUMS);
+		setTitle(TITLE_VUE_ALBUMS + " - " + TITLE_PROJECT);
 		
 		this.database = database;
 		
@@ -218,7 +218,7 @@ public class VueAlbums extends VuesItems {
 		
 		tableAlbums = new SheetTable(objetsTable, new String[]
 		{
-			"Titre", "Artiste", "Genre", "Prix"
+			"Numéro", "Titre", "Artiste", "Genre", "Prix"
 		}){
 			
 			@Override
@@ -228,12 +228,14 @@ public class VueAlbums extends VuesItems {
 				
 				switch(columnIndex){
 				case 0:
-					return album.getTitre();
+					return album.getID();
 				case 1:
-					return album.getArtiste().getFullName();
+					return album.getTitre();
 				case 2:
-					return album.getGenre();
+					return album.getArtiste().getFullName();
 				case 3:
+					return album.getGenre();
+				case 4:
 					return album.getFormattedPrix();
 				default:
 					return null;

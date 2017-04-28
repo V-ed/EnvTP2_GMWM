@@ -330,18 +330,18 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		
 		case AJOUTER:
 			btnConfirmer.setText(VIEW_OPERATIONS_AJOUTER);
-			setTitle(TITLE_AJOUT_ARTISTE);
+			setTitle(TITLE_AJOUT_ARTISTE + " - " + TITLE_PROJECT);
 			break;
 		
 		case MODIFIER:
 			btnConfirmer.setText(VIEW_OPERATIONS_MODIFIER);
-			setTitle(TITLE_MODIF_ARTISTE);
+			setTitle(TITLE_MODIF_ARTISTE + " - " + TITLE_PROJECT);
 			setDefaultText(artiste);
 			break;
 		
 		case RECHERCHER:
 			btnConfirmer.setText(VIEW_OPERATIONS_RECHERCHER);
-			setTitle(TITLE_RECHERCHE_ARTISTE);
+			setTitle(TITLE_RECHERCHE_ARTISTE + " - " + TITLE_PROJECT);
 			break;
 		}
 		

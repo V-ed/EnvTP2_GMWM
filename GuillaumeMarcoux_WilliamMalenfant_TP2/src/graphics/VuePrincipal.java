@@ -34,7 +34,7 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage {
 		
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle(TITLE_PRINCIPAL);
+		setTitle(TITLE_PRINCIPAL + " - " + TITLE_PROJECT);
 		setSize(450, 331);
 		setLocationRelativeTo(parentFrame);
 		

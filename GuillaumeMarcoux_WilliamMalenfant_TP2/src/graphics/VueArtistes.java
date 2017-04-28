@@ -31,7 +31,7 @@ public class VueArtistes extends VuesItems {
 		
 		super(database, parentFrame, true);
 		
-		setTitle(TITLE_VUE_ARTISTES);
+		setTitle(TITLE_VUE_ARTISTES + " - " + TITLE_PROJECT);
 		
 		tableArtistes.setSelectedItem(0);
 		
@@ -233,7 +233,7 @@ public class VueArtistes extends VuesItems {
 		
 		if(vue.hasConfirmed()){
 			
-			objetsTable = Artiste.getAllAsArrayList(database);
+			restoreResearch();
 			
 			tableArtistes.setSelectedItem(tableArtistes.getRowCount() - 1);
 			
@@ -297,20 +297,30 @@ public class VueArtistes extends VuesItems {
 								getButtonRechercher().getFont().deriveFont(
 										Font.ITALIC));
 				
+				tableArtistes.setSelectedItem(0);
+				
 			}
 			
 		}
 		else{
 			
-			objetsTable = Artiste.getAllAsArrayList(database);
+			restoreResearch();
 			
-			tableArtistes.setObjects(objetsTable);
-			
-			getButtonRechercher().setText(VIEW_OPERATIONS_RECHERCHER);
-			getButtonRechercher().setFont(
-					getButtonRechercher().getFont().deriveFont(Font.BOLD));
+			tableArtistes.setSelectedItem(0);
 			
 		}
+		
+	}
+	
+	private void restoreResearch(){
+		
+		objetsTable = Artiste.getAllAsArrayList(database);
+		
+		tableArtistes.setObjects(objetsTable);
+		
+		getButtonRechercher().setText(VIEW_OPERATIONS_RECHERCHER);
+		getButtonRechercher().setFont(
+				getButtonRechercher().getFont().deriveFont(Font.BOLD));
 		
 	}
 	

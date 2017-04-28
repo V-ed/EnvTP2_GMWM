@@ -2,8 +2,6 @@ package outils;
 
 public interface ConstantesAffichage {
 	
-	final String PROJECT_TITLE = "Guillaume Marcoux et William Malenfant - TP2";
-	
 	// Views operations button texts
 	final String VIEW_OPERATIONS_AJOUTER = "Ajouter";
 	final String VIEW_OPERATIONS_MODIFIER = "Modifier";
@@ -56,6 +54,7 @@ public interface ConstantesAffichage {
 	final String ERROR_FILE_NOT_EXIST = "Le fichier n'existe pas";
 	
 	// Titles
+	final String TITLE_PROJECT = "GMWM - TP2";
 	final String TITLE_AJOUT_ARTISTE = "Ajout d'un artiste";
 	final String TITLE_MODIF_ARTISTE = "Modification d'un artiste";
 	final String TITLE_RECHERCHE_ARTISTE = "Recherche d'un artiste";

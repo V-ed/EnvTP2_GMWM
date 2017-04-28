@@ -30,7 +30,7 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 	
 	public VueConnexion(){
 		
-		setTitle(TITLE_CONNECT);
+		setTitle(TITLE_CONNECT + " - " + TITLE_PROJECT);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(450, 250);
 		setResizable(false);

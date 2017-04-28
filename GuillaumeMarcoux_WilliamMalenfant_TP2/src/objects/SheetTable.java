@@ -10,6 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -19,7 +21,7 @@ public abstract class SheetTable extends JTable {
 	private String[] columns;
 	
 	private AbstractTableModel tableModel;
-	private JScrollPane scrollableTable;
+	private JScrollPane scrollableTable = null;
 	
 	public SheetTable(ArrayList<TableObject> items, String[] columns){
 		
@@ -28,7 +30,6 @@ public abstract class SheetTable extends JTable {
 		this.items = items;
 		this.columns = columns;
 		
-		this.scrollableTable = new JScrollPane(this);
 		this.tableModel = new AbstractTableModel(){
 			
 			@Override
@@ -76,6 +77,14 @@ public abstract class SheetTable extends JTable {
 			
 		});
 		
+		getSelectionModel().addListSelectionListener(
+				new ListSelectionListener(){
+					@Override
+					public void valueChanged(ListSelectionEvent e){
+						actionOnSelect();
+					}
+				});
+		
 		addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				if(e.getClickCount() == 2){
@@ -87,6 +96,9 @@ public abstract class SheetTable extends JTable {
 	}
 	
 	public JScrollPane getScrollableTable(){
+		if(scrollableTable == null)
+			scrollableTable = new JScrollPane(this);
+		
 		return scrollableTable;
 	}
 	
@@ -140,6 +152,7 @@ public abstract class SheetTable extends JTable {
 		
 		if(getRowCount() != 0){
 			setRowSelectionInterval(index, index);
+			requestFocus();
 		}
 		
 	}
