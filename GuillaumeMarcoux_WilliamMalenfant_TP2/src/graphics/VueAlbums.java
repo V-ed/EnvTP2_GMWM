@@ -31,6 +31,8 @@ public class VueAlbums extends VuesItems {
 	
 	private SheetTable tableAlbums;
 	
+	private Artiste artiste = null;
+	
 	public VueAlbums(MySQLDatabase database, JFrame parentFrame){
 		
 		super(database, parentFrame, true);
@@ -42,6 +44,14 @@ public class VueAlbums extends VuesItems {
 		tableAlbums.setSelectedItem(0);
 		
 		setVisible(true);
+		
+	}
+	
+	public VueAlbums(MySQLDatabase database, JFrame parentFrame, Artiste artiste){
+		
+		this(database, parentFrame);
+		
+		this.artiste = artiste;
 		
 	}
 	
@@ -212,8 +222,21 @@ public class VueAlbums extends VuesItems {
 		
 		JPanel panelChoixAlbum = new JPanel(new GridLayout());
 		
-		ArrayList<Object[]> listeObjets = database
-				.getAllContentofTable(Album.TABLE_NAME);
+		ArrayList<Object[]> listeObjets;
+		
+		if(artiste == null){
+			listeObjets = database.getAllContentofTable(Album.TABLE_NAME);
+		}
+		else{
+			listeObjets = database.getAllContentWhere(Album.TABLE_NAME,
+					new String[]
+					{
+						Album.COLUMN_NAMES[ID_COLUMN]
+					}, new Object[]
+					{
+						artiste.getID()
+					}, true);
+		}
 		
 		for(int i = 0; i < listeObjets.size(); i++){
 			objetsTable.add(new Album(database, listeObjets.get(i)));
@@ -271,23 +294,42 @@ public class VueAlbums extends VuesItems {
 	@Override
 	public void actionAjouter(){
 		
-		new VuesOperationAlbum(database, VueAlbums.this, 1, null);
+		new VuesOperationAlbum(database, VueAlbums.this, AJOUTER, null);
 		
 	}
 	
 	@Override
 	public void actionModifier(){
 		
+		new VuesOperationAlbum(database, VueAlbums.this, MODIFIER, null);
+		
 	}
 	
 	@Override
 	public void actionSupprimer(){
+		
+		if(JOptionPane.showConfirmDialog(this,
+				"Etes-vous sur de vouloir supprimer cet artiste?", "Supprimer",
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+			
+			((Album)tableAlbums.getSelectedItem()).removeFromDatabase();
+			
+			tableAlbums.removeItem(tableAlbums.getSelectedRow());
+			
+			tableAlbums.setSelectedItem(0);
+		}
 		
 	}
 	
 	@Override
 	public void actionRechercher(){
 		
+		new VuesOperationAlbum(database, VueAlbums.this, RECHERCHER, null);
+		
+	}
+	
+	public SheetTable getTable(){
+		return tableAlbums;
 	}
 	
 }

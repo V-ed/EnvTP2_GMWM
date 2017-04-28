@@ -8,6 +8,8 @@ import objects.MySQLDatabase;
 import outils.ConstantesAffichage;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,6 +74,7 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 			
 			@Override
 			public void actionPerformed(ActionEvent e){
+				boolean valide = false;
 				try{
 					MySQLDatabase database = new MySQLDatabase("localhost",
 							"gestionalbums", getUsername(), getPassword());
@@ -82,10 +85,10 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 					
 				}
 				catch(ClassNotFoundException e1){
-					e1.printStackTrace();
+					System.out.println("this one");
 				}
 				catch(SQLException e1){
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Erreur, Connection impossible (verifier l'identifiant et le mot de passe)", "Erreur de connection", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

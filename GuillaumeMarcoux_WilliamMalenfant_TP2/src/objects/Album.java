@@ -93,7 +93,7 @@ public class Album extends TableObject {
 	}
 	
 	public double getPrix(){
-		return ((BigDecimal)values[COLUMN_PRICE]).doubleValue();
+		return (double) values[COLUMN_PRICE];
 	}
 	
 	public String getFormattedPrix(){
@@ -122,10 +122,9 @@ public class Album extends TableObject {
 				String.valueOf((int)values[COLUMN_ARTIST])));
 	}
 	
-	public static ArrayList<TableObject> getAllAsArrayList(
-			MySQLDatabase database){
+	public static ArrayList<Album> getAllAsArrayList(MySQLDatabase database){
 		
-		ArrayList<TableObject> liste = new ArrayList<>();
+		ArrayList<Album> liste = new ArrayList<>();
 		
 		ArrayList<Object[]> listeObjets = database
 				.getAllContentofTable(TABLE_NAME);

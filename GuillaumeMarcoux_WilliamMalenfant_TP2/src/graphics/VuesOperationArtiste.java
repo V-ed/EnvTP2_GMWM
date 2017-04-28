@@ -341,6 +341,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		}
 		
 		setVisible(true);
+		
 	}
 	
 	public void setDefaultText(Artiste artiste){
