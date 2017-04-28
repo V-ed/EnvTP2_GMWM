@@ -44,7 +44,7 @@ public interface ConstantesAffichage {
 	
 	// Views for common operations
 	final String VIEW_OPERATION_COMMON_BOUTON_IMAGE = "Choisir Image";
-	final String VIEW_OPERATION_COMMON_LABEL_PATH = "Pas d'image";
+	final String VIEW_OPERATION_COMMON_LABEL_NO_PATH = "Pas d'image";
 	final String VIEW_OPERATION_COMMON_BOUTON_ANNULER = "Annuler";
 	
 	// Error messages

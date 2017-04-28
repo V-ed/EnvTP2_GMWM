@@ -82,7 +82,7 @@ public class Album extends TableObject {
 			modifiedAlbum.getGenre(),
 			modifiedAlbum.getAnneeSortie(),
 			modifiedAlbum.getMaisonDistribution(),
-			modifiedAlbum.getImageURL(),
+			modifiedAlbum.getImagePath(),
 			modifiedAlbum.getArtiste()
 		});
 		
@@ -112,7 +112,7 @@ public class Album extends TableObject {
 		return (String)values[COLUMN_DISTRIBUTION];
 	}
 	
-	public String getImageURL(){
+	public String getImagePath(){
 		return (String)values[COLUMN_IMAGE_URL];
 	}
 	

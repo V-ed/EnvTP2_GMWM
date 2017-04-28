@@ -13,4 +13,8 @@ public interface Constantes {
 	
 	final String FONT_USED = "Times New Roman";
 	
+	public final static int AJOUTER = 0;
+	public final static int MODIFIER = 1;
+	public final static int RECHERCHER = 2;
+	
 }

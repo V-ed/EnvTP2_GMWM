@@ -1,5 +1,6 @@
 package graphics;
 
+import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -9,8 +10,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Font;
@@ -29,8 +28,7 @@ import javax.swing.JComboBox;
 
 import org.jdatepicker.impl.*;
 
-import outils.Constantes;
-import outils.ConstantesAffichage;
+import outils.*;
 import objects.Album;
 import objects.Artiste;
 import objects.MySQLDatabase;
@@ -142,7 +140,6 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		p.put("text.month", "Month");
 		p.put("text.year", "Year");
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		// Don't know about the formatter, but there it is...
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel,
 				new AbstractFormatter(){
 					
@@ -220,7 +217,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		gbc_btnChooseFile.gridy = 7;
 		getContentPane().add(btnChooseFile, gbc_btnChooseFile);
 		
-		JLabel lblPath = new JLabel("Path");
+		JLabel lblPath = new JLabel(VIEW_OPERATION_COMMON_LABEL_NO_PATH);
 		lblPath.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblPath = new GridBagConstraints();
 		gbc_lblPath.anchor = GridBagConstraints.WEST;
@@ -229,7 +226,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		gbc_lblPath.gridy = 7;
 		getContentPane().add(lblPath, gbc_lblPath);
 		
-		JButton btnConfirmer = new JButton("Confirmer");
+		JButton btnConfirmer = new JButton();
 		GridBagConstraints gbc_btnConfirmer = new GridBagConstraints();
 		gbc_btnConfirmer.fill = GridBagConstraints.BOTH;
 		gbc_btnConfirmer.insets = new Insets(0, 0, 5, 5);
@@ -241,6 +238,8 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 			
 			@Override
 			public void actionPerformed(ActionEvent e){
+				
+				// TODO Confirmer action
 				
 			}
 			
@@ -269,10 +268,83 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 			@Override
 			public void actionPerformed(ActionEvent e){
 				
+				String filePath = null;
+				
+				JFileChooser filechooser = new JFileChooser(FileSystemView
+						.getFileSystemView().getHomeDirectory()
+						.getAbsolutePath());
+				filechooser.addChoosableFileFilter(new FileNameExtensionFilter(
+						"Images", POSSIBLE_EXTENSIONS));
+				filechooser.setAcceptAllFileFilterUsed(false);
+				
+				if(filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+					
+					filePath = filechooser.getSelectedFile().getPath();
+					
+				}
+				
+				try{
+					
+					File file = new File(filePath);
+					
+					if(file.isFile()){
+						lblPath.setText(filePath);
+					}
+					else{
+						throw new Exception();
+					}
+					
+				}
+				catch(NullPointerException e1){
+					
+					lblPath.setText(VIEW_OPERATION_COMMON_LABEL_NO_PATH);
+					
+				}
+				catch(Exception e2){
+					
+					JOptionPane.showConfirmDialog(null, ERROR_FILE_NOT_EXIST,
+							COMMON_ERROR, JOptionPane.DEFAULT_OPTION,
+							JOptionPane.ERROR_MESSAGE);
+					
+				}
+				
 			}
 		});
 		
+		switch(typeOperation){
+		
+		case AJOUTER:
+			btnConfirmer.setText(VIEW_OPERATIONS_AJOUTER);
+			setTitle(TITLE_AJOUT_ARTISTE + " - " + TITLE_PROJECT);
+			break;
+		
+		case MODIFIER:
+			btnConfirmer.setText(VIEW_OPERATIONS_MODIFIER);
+			setTitle(TITLE_MODIF_ARTISTE + " - " + TITLE_PROJECT);
+			setDefaultText(album);
+			break;
+		
+		case RECHERCHER:
+			btnConfirmer.setText(VIEW_OPERATIONS_RECHERCHER);
+			setTitle(TITLE_RECHERCHE_ARTISTE + " - " + TITLE_PROJECT);
+			break;
+		}
+		
 		setVisible(true);
+		
+	}
+	
+	public void setDefaultText(Album album){
+		
+		// TODO setDefaultText for albums
+		
+		//		textNom.setText(artiste.getNom());
+		//		
+		//		textPrenom.setText(artiste.getPrenom());
+		//		
+		//		this.estMembre.setSelected(artiste.isMembre());
+		//		
+		//		lblPath.setText(artiste.getImagePath());
 		
 	}
 	

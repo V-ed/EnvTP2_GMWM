@@ -2,6 +2,7 @@ package graphics;
 
 import javax.swing.*;
 
+import outils.OutilsFichiers;
 import objects.*;
 
 import java.awt.Color;
@@ -52,6 +53,8 @@ public class VueAlbums extends VuesItems {
 		textAlbumGenre.setText(nouvelAlbum.getGenre());
 		textAlbumDateSortie.setText(nouvelAlbum.getAnneeSortie().toString());
 		textAlbumMaison.setText(nouvelAlbum.getMaisonDistribution());
+		imageAlbum = OutilsFichiers
+				.getImageFromFile(nouvelAlbum.getImagePath());
 		
 	}
 	

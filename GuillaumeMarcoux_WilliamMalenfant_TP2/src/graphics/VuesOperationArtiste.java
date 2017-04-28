@@ -21,15 +21,10 @@ import java.util.ArrayList;
 
 import objects.Artiste;
 import objects.MySQLDatabase;
-import outils.Constantes;
-import outils.ConstantesAffichage;
+import outils.*;
 
 public class VuesOperationArtiste extends JDialog implements Constantes,
 		ConstantesAffichage {
-	
-	public final static int AJOUTER = 0;
-	public final static int MODIFIER = 1;
-	public final static int RECHERCHER = 2;
 	
 	private JTextField textNom;
 	private JTextField textPrenom;
@@ -37,7 +32,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 	private JLabel lblPrnom = new JLabel(VIEW_OPERATION_ARTISTE_LABEL_PRENOM);
 	private JLabel lblEstMembre = new JLabel(
 			VIEW_OPERATION_ARTISTE_LABEL_MEMBRE);
-	private JLabel lblPath = new JLabel(VIEW_OPERATION_COMMON_LABEL_PATH);
+	private JLabel lblPath = new JLabel(VIEW_OPERATION_COMMON_LABEL_NO_PATH);
 	private JButton btnChooseFile = new JButton(
 			VIEW_OPERATION_COMMON_BOUTON_IMAGE);
 	private JCheckBox estMembre = new JCheckBox();
@@ -216,7 +211,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 				}
 				catch(NullPointerException e1){
 					
-					lblPath.setText(VIEW_OPERATION_COMMON_LABEL_PATH);
+					lblPath.setText(VIEW_OPERATION_COMMON_LABEL_NO_PATH);
 					
 				}
 				catch(Exception e2){
