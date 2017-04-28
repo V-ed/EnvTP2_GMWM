@@ -34,6 +34,8 @@ public class VueAlbums extends VuesItems {
 		
 		super(database, parentFrame, true);
 		
+		setTitle(TITLE_VUE_ALBUMS);
+		
 		this.database = database;
 		
 		tableAlbums.setSelectedItem(0);

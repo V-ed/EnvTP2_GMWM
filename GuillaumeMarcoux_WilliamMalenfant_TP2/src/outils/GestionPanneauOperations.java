@@ -33,6 +33,7 @@ public class GestionPanneauOperations implements ActionListener,
 			vue.actionSupprimer();
 			break;
 		case VIEW_OPERATIONS_RECHERCHER:
+		case VIEW_OPERATIONS_RECHERCHER_ANNULER:
 			vue.actionRechercher();
 			break;
 		case VIEW_OPERATIONS_QUITTER:

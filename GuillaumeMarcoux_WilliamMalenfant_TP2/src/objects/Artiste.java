@@ -104,4 +104,9 @@ public class Artiste extends TableObject {
 		return newList;
 		
 	}
+	
+	@Override
+	public String toString(){
+		return getFullName();
+	}
 }

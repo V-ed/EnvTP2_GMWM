@@ -33,14 +33,17 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 	
 	private JTextField textNom;
 	private JTextField textPrenom;
-	private JLabel lblNom = new JLabel(VIEW_OPERATION_LABEL_NOM);
-	private JLabel lblPrnom = new JLabel(VIEW_OPERATION_LABEL_PRENOM);
-	private JLabel lblEstMembre = new JLabel(VIEW_OPERATION_LABEL_MEMBRE);
-	private JLabel lblPath = new JLabel(VIEW_OPERATION_LABEL_PATH);
-	private JButton btnChooseFile = new JButton(VIEW_OPERATION_BOUTON_IMAGE);
+	private JLabel lblNom = new JLabel(VIEW_OPERATION_ARTISTE_LABEL_NOM);
+	private JLabel lblPrnom = new JLabel(VIEW_OPERATION_ARTISTE_LABEL_PRENOM);
+	private JLabel lblEstMembre = new JLabel(
+			VIEW_OPERATION_ARTISTE_LABEL_MEMBRE);
+	private JLabel lblPath = new JLabel(VIEW_OPERATION_COMMON_LABEL_PATH);
+	private JButton btnChooseFile = new JButton(
+			VIEW_OPERATION_COMMON_BOUTON_IMAGE);
 	private JCheckBox estMembre = new JCheckBox();
 	private JButton btnConfirmer = new JButton();
-	private JButton btnAnnuler = new JButton(VIEW_OPERATION_BOUTON_ANNULER);
+	private JButton btnAnnuler = new JButton(
+			VIEW_OPERATION_COMMON_BOUTON_ANNULER);
 	
 	private boolean hasConfirmed = false;
 	
@@ -93,7 +96,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		
 		getContentPane().setLayout(gridBagLayout);
 		
-		lblPrnom.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblPrnom.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblPrnom = new GridBagConstraints();
 		gbc_lblPrnom.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPrnom.gridx = 1;
@@ -110,7 +113,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		gbc_textField_1.gridy = 0;
 		getContentPane().add(textPrenom, gbc_textField_1);
 		
-		lblNom.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblNom.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
 		gbc_lblNom.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNom.gridx = 1;
@@ -127,7 +130,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		getContentPane().add(textNom, gbc_textField);
 		textNom.setColumns(10);
 		
-		lblEstMembre.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblEstMembre.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblEstMembre = new GridBagConstraints();
 		gbc_lblEstMembre.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEstMembre.gridx = 1;
@@ -146,7 +149,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		gbc_btnChooseFile.gridy = 3;
 		getContentPane().add(btnChooseFile, gbc_btnChooseFile);
 		
-		lblPath.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblPath.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblPath = new GridBagConstraints();
 		gbc_lblPath.anchor = GridBagConstraints.WEST;
 		gbc_lblPath.gridwidth = 2;
@@ -190,7 +193,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 						.getFileSystemView().getHomeDirectory()
 						.getAbsolutePath());
 				filechooser.addChoosableFileFilter(new FileNameExtensionFilter(
-						"Images", "jpg", "jpeg", "png", "gif", "bmp"));
+						"Images", POSSIBLE_EXTENSIONS));
 				filechooser.setAcceptAllFileFilterUsed(false);
 				
 				if(filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
@@ -213,14 +216,13 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 				}
 				catch(NullPointerException e1){
 					
-					lblPath.setText(VIEW_OPERATION_LABEL_PATH);
+					lblPath.setText(VIEW_OPERATION_COMMON_LABEL_PATH);
 					
 				}
 				catch(Exception e2){
 					
-					JOptionPane.showConfirmDialog(null,
-							"Le fichier n'existe pas", "Erreur",
-							JOptionPane.DEFAULT_OPTION,
+					JOptionPane.showConfirmDialog(null, ERROR_FILE_NOT_EXIST,
+							COMMON_ERROR, JOptionPane.DEFAULT_OPTION,
 							JOptionPane.ERROR_MESSAGE);
 					
 				}
@@ -243,23 +245,20 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 				try{
 					if(typeOperation != RECHERCHER){
 						
-						if(!nom.matches("^[A-Z]([A-Za-z]|-)+$")
-								&& !prenom.matches("^[A-Z]([A-Za-z]|-)+$")){
+						if(!nom.matches(REGEX_NAME)
+								&& !prenom.matches(REGEX_NAME)){
 							
-							throw new Exception(
-									"Le nom et le prenom sont invalide. (lettres et \"-\" uniquement)");
-							
-						}
-						else if(!nom.matches("^[A-Z]([A-Za-z]|-)+$")){
-							
-							throw new Exception(
-									"Le nom est invalide. (lettres et \"-\" uniquement)");
+							throw new Exception(ERROR_INVALID_NOM_PRENOM);
 							
 						}
-						else if(!prenom.matches("^[A-Z]([A-Za-z]|-)+$")){
+						else if(!nom.matches(REGEX_NAME)){
 							
-							throw new Exception(
-									"Le prenom est invalide. (lettres et \"-\" uniquement)");
+							throw new Exception(ERROR_INVALID_NOM);
+							
+						}
+						else if(!prenom.matches(REGEX_NAME)){
+							
+							throw new Exception(ERROR_INVALID_PRENOM);
 							
 						}
 						
@@ -330,19 +329,19 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		switch(typeOperation){
 		
 		case AJOUTER:
-			btnConfirmer.setText(VIEW_OPERATION_BOUTON_AJOUTER);
-			setTitle("Ajout d'un artiste");
+			btnConfirmer.setText(VIEW_OPERATIONS_AJOUTER);
+			setTitle(TITLE_AJOUT_ARTISTE);
 			break;
 		
 		case MODIFIER:
-			btnConfirmer.setText(VIEW_OPERATION_BOUTON_MODIFIER);
-			setTitle("Modification d'un artiste");
+			btnConfirmer.setText(VIEW_OPERATIONS_MODIFIER);
+			setTitle(TITLE_MODIF_ARTISTE);
 			setDefaultText(artiste);
 			break;
 		
 		case RECHERCHER:
-			btnConfirmer.setText(VIEW_OPERATION_BOUTON_RECHERCHER);
-			setTitle("Recherche d'un artiste");
+			btnConfirmer.setText(VIEW_OPERATIONS_RECHERCHER);
+			setTitle(TITLE_RECHERCHE_ARTISTE);
 			break;
 		}
 		

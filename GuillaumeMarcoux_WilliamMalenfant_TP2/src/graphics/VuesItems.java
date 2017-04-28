@@ -21,6 +21,8 @@ public abstract class VuesItems extends JDialog implements Constantes,
 	protected MySQLDatabase database;
 	protected ArrayList<TableObject> objetsTable = new ArrayList<>();
 	
+	private JButton btnRechercher;
+	
 	public VuesItems(MySQLDatabase database, JFrame parentFrame, boolean isModal){
 		
 		super(parentFrame, isModal);
@@ -88,7 +90,7 @@ public abstract class VuesItems extends JDialog implements Constantes,
 		JButton btnAjouter = new JButton(VIEW_OPERATIONS_AJOUTER);
 		JButton btnModifier = new JButton(VIEW_OPERATIONS_MODIFIER);
 		JButton btnSupprimer = new JButton(VIEW_OPERATIONS_SUPPRIMER);
-		JButton btnRechercher = new JButton(VIEW_OPERATIONS_RECHERCHER);
+		btnRechercher = new JButton(VIEW_OPERATIONS_RECHERCHER);
 		JButton btnQuitter = new JButton(VIEW_OPERATIONS_QUITTER);
 		
 		GestionPanneauOperations gestionnaire = new GestionPanneauOperations(
@@ -121,5 +123,9 @@ public abstract class VuesItems extends JDialog implements Constantes,
 	public abstract void actionSupprimer();
 	
 	public abstract void actionRechercher();
+	
+	public JButton getButtonRechercher(){
+		return btnRechercher;
+	}
 	
 }

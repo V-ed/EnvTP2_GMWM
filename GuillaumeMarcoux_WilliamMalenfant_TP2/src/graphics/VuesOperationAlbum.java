@@ -29,11 +29,14 @@ import javax.swing.JComboBox;
 
 import org.jdatepicker.impl.*;
 
+import outils.Constantes;
+import outils.ConstantesAffichage;
 import objects.Album;
 import objects.Artiste;
 import objects.MySQLDatabase;
 
-public class VuesOperationAlbum extends JDialog {
+public class VuesOperationAlbum extends JDialog implements Constantes,
+		ConstantesAffichage {
 	
 	private JTextField textTitre;
 	private JTextField textPrix;
@@ -64,20 +67,12 @@ public class VuesOperationAlbum extends JDialog {
 		};
 		gridBagLayout.rowWeights = new double[]
 		{
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			0.0,
-			Double.MIN_VALUE
+			0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE
 		};
 		getContentPane().setLayout(gridBagLayout);
 		
-		JLabel lblTitre = new JLabel("Titre :");
-		lblTitre.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		JLabel lblTitre = new JLabel(VIEW_OPERATION_ALBUM_LABEL_TITLE);
+		lblTitre.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblTitre = new GridBagConstraints();
 		gbc_lblTitre.anchor = GridBagConstraints.EAST;
 		gbc_lblTitre.insets = new Insets(0, 0, 5, 5);
@@ -94,8 +89,8 @@ public class VuesOperationAlbum extends JDialog {
 		getContentPane().add(textTitre, gbc_textTitre);
 		textTitre.setColumns(10);
 		
-		JLabel lblPrix = new JLabel("Prix :");
-		lblPrix.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		JLabel lblPrix = new JLabel(VIEW_OPERATION_ALBUM_LABEL_PRICE);
+		lblPrix.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblPrix = new GridBagConstraints();
 		gbc_lblPrix.anchor = GridBagConstraints.EAST;
 		gbc_lblPrix.insets = new Insets(0, 0, 5, 5);
@@ -112,8 +107,8 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_textPrix.gridy = 1;
 		getContentPane().add(textPrix, gbc_textPrix);
 		
-		JLabel lblGenre = new JLabel("Genre :");
-		lblGenre.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		JLabel lblGenre = new JLabel(VIEW_OPERATION_ALBUM_LABEL_GENRE);
+		lblGenre.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblGenre = new GridBagConstraints();
 		gbc_lblGenre.anchor = GridBagConstraints.EAST;
 		gbc_lblGenre.insets = new Insets(0, 0, 5, 5);
@@ -130,8 +125,8 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_textGenre.gridy = 2;
 		getContentPane().add(textGenre, gbc_textGenre);
 		
-		JLabel lblAnneDeSortie = new JLabel("Ann\u00E9e de Sortie :");
-		lblAnneDeSortie.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		JLabel lblAnneDeSortie = new JLabel(VIEW_OPERATION_ALBUM_LABEL_ANNEE);
+		lblAnneDeSortie.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblAnneDeSortie = new GridBagConstraints();
 		gbc_lblAnneDeSortie.anchor = GridBagConstraints.EAST;
 		gbc_lblAnneDeSortie.insets = new Insets(0, 0, 5, 5);
@@ -180,9 +175,9 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_datePicker.gridy = 3;
 		getContentPane().add(datePicker, gbc_datePicker);
 		
-		JLabel lblMaisonDeDistribution = new JLabel("Maison de distribution :");
-		lblMaisonDeDistribution.setFont(new Font("Times New Roman", Font.PLAIN,
-				16));
+		JLabel lblMaisonDeDistribution = new JLabel(
+				VIEW_OPERATION_ALBUM_LABEL_MAISON);
+		lblMaisonDeDistribution.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblMaisonDeDistribution = new GridBagConstraints();
 		gbc_lblMaisonDeDistribution.anchor = GridBagConstraints.EAST;
 		gbc_lblMaisonDeDistribution.insets = new Insets(0, 0, 5, 5);
@@ -200,8 +195,8 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_text.gridy = 4;
 		getContentPane().add(text, gbc_text);
 		
-		JLabel lblArtiste = new JLabel("Artiste :");
-		lblArtiste.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		JLabel lblArtiste = new JLabel(VIEW_OPERATION_ALBUM_LABEL_ARTISTE);
+		lblArtiste.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblArtiste = new GridBagConstraints();
 		gbc_lblArtiste.anchor = GridBagConstraints.EAST;
 		gbc_lblArtiste.insets = new Insets(0, 0, 5, 5);
@@ -209,7 +204,7 @@ public class VuesOperationAlbum extends JDialog {
 		gbc_lblArtiste.gridy = 5;
 		getContentPane().add(lblArtiste, gbc_lblArtiste);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<Artiste> comboBox = new JComboBox<Artiste>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -226,7 +221,7 @@ public class VuesOperationAlbum extends JDialog {
 		getContentPane().add(btnChooseFile, gbc_btnChooseFile);
 		
 		JLabel lblPath = new JLabel("Path");
-		lblPath.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblPath.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblPath = new GridBagConstraints();
 		gbc_lblPath.anchor = GridBagConstraints.WEST;
 		gbc_lblPath.insets = new Insets(0, 0, 5, 5);

@@ -48,7 +48,7 @@ public class Album extends TableObject {
 					anneeSortie,
 					maisonDistribution,
 					imageURL,
-					artiste
+					artiste.getID()
 				});
 		
 	}
@@ -136,6 +136,11 @@ public class Album extends TableObject {
 		
 		return liste;
 		
+	}
+	
+	@Override
+	public String toString(){
+		return getTitre();
 	}
 	
 }

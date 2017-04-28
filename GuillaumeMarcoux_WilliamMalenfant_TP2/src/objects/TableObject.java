@@ -118,8 +118,6 @@ public abstract class TableObject implements Constantes {
 	}
 	
 	@Override
-	public String toString(){
-		return String.valueOf(idObject);
-	}
+	public abstract String toString();
 	
 }

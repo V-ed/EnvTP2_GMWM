@@ -31,6 +31,8 @@ public class VueArtistes extends VuesItems {
 		
 		super(database, parentFrame, true);
 		
+		setTitle(TITLE_VUE_ARTISTES);
+		
 		tableArtistes.setSelectedItem(0);
 		
 		setVisible(true);
@@ -271,21 +273,42 @@ public class VueArtistes extends VuesItems {
 	@Override
 	public void actionRechercher(){
 		
-		VuesOperationArtiste vue = new VuesOperationArtiste(database, this,
-				VuesOperationArtiste.RECHERCHER, null);
-		
-		if(vue.hasConfirmed()){
+		if(getButtonRechercher().getText().equals(VIEW_OPERATIONS_RECHERCHER)){
 			
-			// TODO set the items to the results only and update the table
+			VuesOperationArtiste vue = new VuesOperationArtiste(database, this,
+					VuesOperationArtiste.RECHERCHER, null);
 			
-			ArrayList<TableObject> artistesFound = Artiste.convertToArrayList(
-					database,
-					database.getAllContentWhere(Artiste.TABLE_NAME,
-							vue.getColumnNames(), vue.getValues(), true));
+			if(vue.hasConfirmed()){
+				
+				ArrayList<TableObject> artistesFound = Artiste
+						.convertToArrayList(database, database
+								.getAllContentWhere(Artiste.TABLE_NAME,
+										vue.getColumnNames(), vue.getValues(),
+										true));
+				
+				objetsTable = artistesFound;
+				
+				tableArtistes.setObjects(artistesFound);
+				
+				getButtonRechercher().setText(
+						VIEW_OPERATIONS_RECHERCHER_ANNULER);
+				getButtonRechercher()
+						.setFont(
+								getButtonRechercher().getFont().deriveFont(
+										Font.ITALIC));
+				
+			}
 			
-			objetsTable = artistesFound;
+		}
+		else{
 			
-			tableArtistes.setObjects(artistesFound);
+			objetsTable = Artiste.getAllAsArrayList(database);
+			
+			tableArtistes.setObjects(objetsTable);
+			
+			getButtonRechercher().setText(VIEW_OPERATIONS_RECHERCHER);
+			getButtonRechercher().setFont(
+					getButtonRechercher().getFont().deriveFont(Font.BOLD));
 			
 		}
 		

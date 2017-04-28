@@ -24,20 +24,17 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage {
 	private MySQLDatabase database;
 	
 	private JPanel contentPane;
-	private JLabel lblArtiste = new JLabel("Artiste");
-	private JLabel lblAlbum = new JLabel("Album");
+	private JLabel lblArtiste = new JLabel(VIEW_PRINCIPAL_ARTISTES);
+	private JLabel lblAlbum = new JLabel(VIEW_PRINCIPAL_ALBUMS);
 	private JButton btnQuitter = new JButton(VIEW_PRINCIPAL_QUITTER);
 	
-	/**
-	 * Create the frame.
-	 */
 	public VuePrincipal(MySQLDatabase database, JFrame parentFrame){
 		
 		this.database = database;
 		
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle(VIEW_PRINCIPAL_TITLE);
+		setTitle(TITLE_PRINCIPAL);
 		setSize(450, 331);
 		setLocationRelativeTo(parentFrame);
 		
