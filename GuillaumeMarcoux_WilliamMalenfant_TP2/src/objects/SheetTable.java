@@ -81,7 +81,8 @@ public abstract class SheetTable extends JTable {
 				new ListSelectionListener(){
 					@Override
 					public void valueChanged(ListSelectionEvent e){
-						actionOnSelect();
+						if(getRowCount() != 0)
+							actionOnSelect();
 					}
 				});
 		
@@ -160,6 +161,7 @@ public abstract class SheetTable extends JTable {
 	public void setObjects(ArrayList<TableObject> items){
 		this.items = items;
 		fireTableDataChanged();
+		setSelectedItem(0);
 	}
 	
 	public void fireTableDataChanged(){

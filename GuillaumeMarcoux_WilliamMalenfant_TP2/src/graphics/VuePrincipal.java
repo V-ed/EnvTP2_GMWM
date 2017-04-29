@@ -71,7 +71,7 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage {
 			@Override
 			public void mouseClicked(MouseEvent e){
 				
-				new VueAlbums(database, VuePrincipal.this);
+				new VueAlbums(database, VuePrincipal.this).setVisible(true);
 				
 			}
 		});

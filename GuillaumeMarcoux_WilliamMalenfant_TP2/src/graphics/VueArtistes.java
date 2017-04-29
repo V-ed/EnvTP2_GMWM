@@ -76,7 +76,7 @@ public class VueArtistes extends VuesItems {
 			public void actionPerformed(ActionEvent e){
 				
 				new VueAlbums(database, null, (Artiste)tableArtistes
-						.getSelectedItem());
+						.getSelectedItem()).setVisible(true);
 				
 			}
 		});

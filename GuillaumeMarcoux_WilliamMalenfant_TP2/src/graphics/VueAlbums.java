@@ -31,8 +31,6 @@ public class VueAlbums extends VuesItems {
 	
 	private SheetTable tableAlbums;
 	
-	private Artiste artiste = null;
-	
 	public VueAlbums(MySQLDatabase database, JFrame parentFrame){
 		
 		super(database, parentFrame, true);
@@ -43,15 +41,28 @@ public class VueAlbums extends VuesItems {
 		
 		tableAlbums.setSelectedItem(0);
 		
-		setVisible(true);
-		
 	}
 	
 	public VueAlbums(MySQLDatabase database, JFrame parentFrame, Artiste artiste){
 		
 		this(database, parentFrame);
 		
-		this.artiste = artiste;
+		ArrayList<Object[]> listeObjets = database.getAllContentWhere(
+				Album.TABLE_NAME, new String[]
+				{
+					Album.COLUMN_NAMES[Album.COLUMN_ARTIST]
+				}, new Object[]
+				{
+					artiste.getID()
+				}, true);
+		
+		objetsTable.clear();
+		
+		for(int i = 0; i < listeObjets.size(); i++){
+			objetsTable.add(new Album(database, listeObjets.get(i)));
+		}
+		
+		tableAlbums.setObjects(objetsTable);
 		
 	}
 	
@@ -222,21 +233,8 @@ public class VueAlbums extends VuesItems {
 		
 		JPanel panelChoixAlbum = new JPanel(new GridLayout());
 		
-		ArrayList<Object[]> listeObjets;
-		
-		if(artiste == null){
-			listeObjets = database.getAllContentofTable(Album.TABLE_NAME);
-		}
-		else{
-			listeObjets = database.getAllContentWhere(Album.TABLE_NAME,
-					new String[]
-					{
-						Album.COLUMN_NAMES[ID_COLUMN]
-					}, new Object[]
-					{
-						artiste.getID()
-					}, true);
-		}
+		ArrayList<Object[]> listeObjets = database
+				.getAllContentofTable(Album.TABLE_NAME);
 		
 		for(int i = 0; i < listeObjets.size(); i++){
 			objetsTable.add(new Album(database, listeObjets.get(i)));

@@ -1,6 +1,5 @@
 package objects;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -21,13 +20,13 @@ public class Album extends TableObject {
 		"idArtiste"
 	};
 	
-	final int COLUMN_TITLE = 1;
-	final int COLUMN_PRICE = 2;
-	final int COLUMN_GENRE = 3;
-	final int COLUMN_RELEASE_DATE = 4;
-	final int COLUMN_DISTRIBUTION = 5;
-	final int COLUMN_IMAGE_URL = 6;
-	final int COLUMN_ARTIST = 7;
+	public final static int COLUMN_TITLE = 1;
+	public final static int COLUMN_PRICE = 2;
+	public final static int COLUMN_GENRE = 3;
+	public final static int COLUMN_RELEASE_DATE = 4;
+	public final static int COLUMN_DISTRIBUTION = 5;
+	public final static int COLUMN_IMAGE_URL = 6;
+	public final static int COLUMN_ARTIST = 7;
 	
 	public Album(MySQLDatabase database, Object[] values){
 		super(database, TABLE_NAME, COLUMN_NAMES[ID_COLUMN], COLUMN_NAMES,
@@ -93,7 +92,7 @@ public class Album extends TableObject {
 	}
 	
 	public double getPrix(){
-		return (double) values[COLUMN_PRICE];
+		return Double.valueOf(String.valueOf(values[COLUMN_PRICE]));
 	}
 	
 	public String getFormattedPrix(){
@@ -122,9 +121,10 @@ public class Album extends TableObject {
 				String.valueOf((int)values[COLUMN_ARTIST])));
 	}
 	
-	public static ArrayList<Album> getAllAsArrayList(MySQLDatabase database){
+	public static ArrayList<TableObject> getAllAsArrayList(
+			MySQLDatabase database){
 		
-		ArrayList<Album> liste = new ArrayList<>();
+		ArrayList<TableObject> liste = new ArrayList<>();
 		
 		ArrayList<Object[]> listeObjets = database
 				.getAllContentofTable(TABLE_NAME);

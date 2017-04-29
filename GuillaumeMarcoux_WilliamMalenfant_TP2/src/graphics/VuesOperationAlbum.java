@@ -46,7 +46,6 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 	private JComboBox<Artiste> comboBox;
 	private JLabel lblPath;
 	private ArrayList<TableObject> listArtistes;
-	private MySQLDatabase database;
 	
 	private boolean hasConfirmed = false;
 	
@@ -151,31 +150,28 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		p.put("text.month", "Month");
 		p.put("text.year", "Year");
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		datePicker = new JDatePickerImpl(datePanel,
-				new AbstractFormatter(){
-					
-					private String datePattern = "yyyy-MM-dd";
-					private SimpleDateFormat dateFormatter = new SimpleDateFormat(
-							datePattern);
-					
-					@Override
-					public Object stringToValue(String text)
-							throws ParseException{
-						return dateFormatter.parseObject(text);
-					}
-					
-					@Override
-					public String valueToString(Object value)
-							throws ParseException{
-						if(value != null){
-							Calendar cal = (Calendar)value;
-							return dateFormatter.format(cal.getTime());
-						}
-						
-						return "";
-					}
-					
-				});
+		datePicker = new JDatePickerImpl(datePanel, new AbstractFormatter(){
+			
+			private String datePattern = "yyyy-MM-dd";
+			private SimpleDateFormat dateFormatter = new SimpleDateFormat(
+					datePattern);
+			
+			@Override
+			public Object stringToValue(String text) throws ParseException{
+				return dateFormatter.parseObject(text);
+			}
+			
+			@Override
+			public String valueToString(Object value) throws ParseException{
+				if(value != null){
+					Calendar cal = (Calendar)value;
+					return dateFormatter.format(cal.getTime());
+				}
+				
+				return "";
+			}
+			
+		});
 		GridBagConstraints gbc_datePicker = new GridBagConstraints();
 		gbc_datePicker.fill = GridBagConstraints.HORIZONTAL;
 		gbc_datePicker.insets = new Insets(0, 0, 5, 5);
@@ -253,14 +249,16 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 			
 			@Override
 			public void actionPerformed(ActionEvent e){
-
+				
 				String titre = textTitre.getText();
 				
 				double prix = Double.parseDouble(textPrix.getText());
 				
 				String genre = textGenre.getText();
 				
-				Date annee = Date.valueOf(datePicker.getModel().getYear() + "-" + datePicker.getModel().getMonth() + "-" + datePicker.getModel().getDay());
+				Date annee = Date.valueOf(datePicker.getModel().getYear() + "-"
+						+ datePicker.getModel().getMonth() + "-"
+						+ datePicker.getModel().getDay());
 				
 				String maison = textMaison.getText();
 				
@@ -268,31 +266,32 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 				
 				try{
 					
-//					if(typeOperation != RECHERCHER){
-//						
-//						if(!nom.matches(REGEX_NAME)
-//								&& !prenom.matches(REGEX_NAME)){
-//							
-//							throw new Exception(ERROR_INVALID_NOM_PRENOM);
-//							
-//						}
-//						else if(!nom.matches(REGEX_NAME)){
-//							
-//							throw new Exception(ERROR_INVALID_NOM);
-//							
-//						}
-//						else if(!prenom.matches(REGEX_NAME)){
-//							
-//							throw new Exception(ERROR_INVALID_PRENOM);
-//							
-//						}
-//						
-//					}
+					//					if(typeOperation != RECHERCHER){
+					//						
+					//						if(!nom.matches(REGEX_NAME)
+					//								&& !prenom.matches(REGEX_NAME)){
+					//							
+					//							throw new Exception(ERROR_INVALID_NOM_PRENOM);
+					//							
+					//						}
+					//						else if(!nom.matches(REGEX_NAME)){
+					//							
+					//							throw new Exception(ERROR_INVALID_NOM);
+					//							
+					//						}
+					//						else if(!prenom.matches(REGEX_NAME)){
+					//							
+					//							throw new Exception(ERROR_INVALID_PRENOM);
+					//							
+					//						}
+					//						
+					//					}
 					
 					switch(typeOperation){
 					case AJOUTER:
 						
-						Album nouvAlbum = new Album(database, titre, prix, genre, annee, maison, null, artiste);
+						Album nouvAlbum = new Album(database, titre, prix,
+								genre, annee, maison, null, artiste);
 						
 						vueAlbum.getTable().addItem(nouvAlbum);
 						
@@ -300,42 +299,42 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 						
 						break;
 					
-//					case MODIFIER:
-//						
-//						artiste.modifyItem(nom, prenom, estMembre.isSelected(),
-//								filePath);
-//						
-//						break;
-//					
-//					case RECHERCHER:
-//						
-//						ArrayList<String> columnList = new ArrayList<>();
-//						ArrayList<Object> valuesList = new ArrayList<>();
-//						
-//						if(!nom.isEmpty()){
-//							columnList
-//									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_LAST_NAME]);
-//							valuesList.add(nom);
-//						}
-//						if(!prenom.isEmpty()){
-//							columnList
-//									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_FIRST_NAME]);
-//							valuesList.add(prenom);
-//						}
-//						columnList
-//								.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_IS_MEMBER]);
-//						valuesList.add(estMembre.isSelected());
-//						if(filePath != null){
-//							columnList
-//									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_IMAGE_URL]);
-//							valuesList.add(filePath);
-//						}
-//						
-//						columnNames = columnList.toArray(new String[columnList
-//								.size()]);
-//						values = valuesList.toArray();
-//						
-//						break;
+					//					case MODIFIER:
+					//						
+					//						artiste.modifyItem(nom, prenom, estMembre.isSelected(),
+					//								filePath);
+					//						
+					//						break;
+					//					
+					//					case RECHERCHER:
+					//						
+					//						ArrayList<String> columnList = new ArrayList<>();
+					//						ArrayList<Object> valuesList = new ArrayList<>();
+					//						
+					//						if(!nom.isEmpty()){
+					//							columnList
+					//									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_LAST_NAME]);
+					//							valuesList.add(nom);
+					//						}
+					//						if(!prenom.isEmpty()){
+					//							columnList
+					//									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_FIRST_NAME]);
+					//							valuesList.add(prenom);
+					//						}
+					//						columnList
+					//								.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_IS_MEMBER]);
+					//						valuesList.add(estMembre.isSelected());
+					//						if(filePath != null){
+					//							columnList
+					//									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_IMAGE_URL]);
+					//							valuesList.add(filePath);
+					//						}
+					//						
+					//						columnNames = columnList.toArray(new String[columnList
+					//								.size()]);
+					//						values = valuesList.toArray();
+					//						
+					//						break;
 					}
 					
 					hasConfirmed = true;
