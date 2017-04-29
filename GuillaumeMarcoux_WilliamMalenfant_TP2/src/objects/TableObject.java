@@ -92,7 +92,7 @@ public abstract class TableObject implements Constantes {
 			
 			valuesWithID[0] = getID();
 			
-			for(int i = 1; i < values.length; i++){
+			for(int i = 1; i <= values.length; i++){
 				valuesWithID[i] = values[i - 1];
 			}
 			

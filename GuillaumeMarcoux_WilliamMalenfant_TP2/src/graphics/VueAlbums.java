@@ -320,7 +320,11 @@ public class VueAlbums extends VuesItems {
 	@Override
 	public void actionModifier(){
 		
-		new VuesOperationAlbum(database, VueAlbums.this, MODIFIER, null);
+		VuesOperationAlbum vue = new VuesOperationAlbum(database, this, VuesOperationAlbum.MODIFIER,
+				(Album)tableAlbums.getSelectedItem());
+		
+		if(vue.hasConfirmed())
+			tableAlbums.fireTableDataChanged();
 		
 	}
 	

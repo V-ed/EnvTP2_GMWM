@@ -41,6 +41,8 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 	private JTextField textTitre;
 	private JTextField textPrix;
 	private JTextField textGenre;
+	private UtilDateModel model;
+	private JDatePanelImpl datePanel;
 	private JDatePickerImpl datePicker;
 	private JTextField textMaison;
 	private JComboBox<Artiste> comboBox;
@@ -142,14 +144,14 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		gbc_lblAnneDeSortie.gridy = 4;
 		getContentPane().add(lblAnneDeSortie, gbc_lblAnneDeSortie);
 		
-		UtilDateModel model = new UtilDateModel();
+		model = new UtilDateModel();
 		//model.setDate(20,04,2014);
 		// Need this...
 		Properties p = new Properties();
 		p.put("text.today", "Today");
 		p.put("text.month", "Month");
 		p.put("text.year", "Year");
-		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+		datePanel = new JDatePanelImpl(model, p);
 		datePicker = new JDatePickerImpl(datePanel, new AbstractFormatter(){
 			
 			private String datePattern = "yyyy-MM-dd";
@@ -228,7 +230,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		gbc_btnChooseFile.gridy = 7;
 		getContentPane().add(btnChooseFile, gbc_btnChooseFile);
 		
-		JLabel lblPath = new JLabel(VIEW_OPERATION_COMMON_LABEL_NO_PATH);
+		lblPath = new JLabel(VIEW_OPERATION_COMMON_LABEL_NO_PATH);
 		lblPath.setFont(new Font(FONT_USED, Font.PLAIN, 16));
 		GridBagConstraints gbc_lblPath = new GridBagConstraints();
 		gbc_lblPath.anchor = GridBagConstraints.WEST;
@@ -262,6 +264,9 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 				
 				String maison = textMaison.getText();
 				
+				//TODO
+				String filePath = null;
+				
 				Artiste artiste = (Artiste)comboBox.getSelectedItem();
 				
 				try{
@@ -291,7 +296,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 					case AJOUTER:
 						
 						Album nouvAlbum = new Album(database, titre, prix,
-								genre, annee, maison, null, artiste);
+								genre, annee, maison, filePath, artiste);
 						
 						vueAlbum.getTable().addItem(nouvAlbum);
 						
@@ -299,12 +304,11 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 						
 						break;
 					
-					//					case MODIFIER:
-					//						
-					//						artiste.modifyItem(nom, prenom, estMembre.isSelected(),
-					//								filePath);
-					//						
-					//						break;
+					case MODIFIER:
+
+						album.modifyItem(titre, prix, genre, annee, maison, filePath, artiste.getID());
+
+						break;
 					//					
 					//					case RECHERCHER:
 					//						
@@ -448,6 +452,14 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		textGenre.setText(album.getGenre());
 		
 		textMaison.setText(album.getMaisonDistribution());
+		
+		Calendar date = Calendar.getInstance();
+		
+		date.setTime(album.getAnneeSortie());
+		
+		model.setDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
+		
+		model.setSelected(true);
 		
 		comboBox.setSelectedItem(album.getArtiste());
 		
