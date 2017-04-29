@@ -62,6 +62,8 @@ public class VueAlbums extends VuesItems {
 			objetsTable.add(new Album(database, listeObjets.get(i)));
 		}
 		
+		tableAlbums.setSelectedItem(0);
+		
 		tableAlbums.setObjects(objetsTable);
 		
 	}
