@@ -24,9 +24,9 @@ public class OutilsFichiers {
 		
 	}
 	
-	public static boolean copyImageToProject(String filePath){
+	public static String copyImageToProject(String filePath){
 		
-		boolean success = true;
+		String newRelativeFilePath = "";
 		
 		Path origin = Paths.get(filePath);
 		Path destination = Paths.get("\\images");
@@ -39,11 +39,9 @@ public class OutilsFichiers {
 		try{
 			Files.copy(origin, destination, options);
 		}
-		catch(IOException e){
-			success = false;
-		}
+		catch(IOException e){}
 		
-		return success;
+		return newRelativeFilePath;
 		
 	}
 	
