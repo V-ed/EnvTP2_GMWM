@@ -129,7 +129,7 @@ class GestionImage extends MouseAdapter {
 
 		JLabel label = (JLabel) e.getSource();
 
-		if (label.getName().equals("artistes")) {
+		if (label.getName().equals("artiste")) {
 
 			new VueArtistes(vue.getDatabase(), vue);
 
