@@ -70,14 +70,30 @@ public class VueAlbums extends VuesItems {
 	
 	private void updateAlbum(Album nouvelAlbum){
 		
-		textAlbumNumero.setText(String.valueOf(nouvelAlbum.getID()));
-		textAlbumTitre.setText(nouvelAlbum.getTitre());
-		textAlbumPrix.setText(nouvelAlbum.getFormattedPrix());
-		textAlbumGenre.setText(nouvelAlbum.getGenre());
-		textAlbumDateSortie.setText(nouvelAlbum.getAnneeSortie().toString());
-		textAlbumMaison.setText(nouvelAlbum.getMaisonDistribution());
-		imageAlbum = OutilsFichiers
-				.getImageFromFile(nouvelAlbum.getImagePath());
+		if(nouvelAlbum == null){
+			
+			textAlbumNumero.setText("");
+			textAlbumTitre.setText("");
+			textAlbumPrix.setText("");
+			textAlbumGenre.setText("");
+			textAlbumDateSortie.setText("");
+			textAlbumMaison.setText("");
+			//			imageAlbum = OutilsFichiers.getImageFromFile(); // TODO add path to default NO_IMAGE file
+			
+		}
+		else{
+			
+			textAlbumNumero.setText(String.valueOf(nouvelAlbum.getID()));
+			textAlbumTitre.setText(nouvelAlbum.getTitre());
+			textAlbumPrix.setText(nouvelAlbum.getFormattedPrix());
+			textAlbumGenre.setText(nouvelAlbum.getGenre());
+			textAlbumDateSortie
+					.setText(nouvelAlbum.getAnneeSortie().toString());
+			textAlbumMaison.setText(nouvelAlbum.getMaisonDistribution());
+			imageAlbum = OutilsFichiers.getImageFromFile(nouvelAlbum
+					.getImagePath());
+			
+		}
 		
 	}
 	
@@ -101,15 +117,15 @@ public class VueAlbums extends VuesItems {
 		imageAlbumAffichage = new JLabel("", SwingConstants.CENTER);
 		labelAlbumNumero = new JLabel(VIEW_ARTISTE_LABEL_NUMERO);
 		textAlbumNumero = new JTextField();
-		labelAlbumTitre = new JLabel("Titre :");
+		labelAlbumTitre = new JLabel(VIEW_OPERATION_ALBUM_LABEL_TITLE);
 		textAlbumTitre = new JTextField();
-		labelAlbumPrix = new JLabel("Prix :");
+		labelAlbumPrix = new JLabel(VIEW_OPERATION_ALBUM_LABEL_PRICE);
 		textAlbumPrix = new JTextField();
-		labelAlbumGenre = new JLabel("Genre :");
+		labelAlbumGenre = new JLabel(VIEW_OPERATION_ALBUM_LABEL_GENRE);
 		textAlbumGenre = new JTextField();
-		labelAlbumDateSortie = new JLabel("Date de sortie :");
+		labelAlbumDateSortie = new JLabel(VIEW_OPERATION_ALBUM_LABEL_ANNEE);
 		textAlbumDateSortie = new JTextField();
-		lblMaison = new JLabel("Maison de distribution :");
+		lblMaison = new JLabel(VIEW_OPERATION_ALBUM_LABEL_MAISON);
 		textAlbumMaison = new JTextField();
 		
 		GridBagConstraints gbc_labelAlbumNumero = new GridBagConstraints();
@@ -270,9 +286,12 @@ public class VueAlbums extends VuesItems {
 			}
 			
 			@Override
-			protected void actionOnSelect(){
+			protected void actionOnSelect(boolean hasSelection){
 				
-				Album albumSelectionne = (Album)getSelectedItem();
+				Album albumSelectionne = null;
+				
+				if(hasSelection)
+					albumSelectionne = (Album)getSelectedItem();
 				
 				updateAlbum(albumSelectionne);
 				

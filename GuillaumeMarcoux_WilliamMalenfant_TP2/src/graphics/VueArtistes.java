@@ -193,15 +193,14 @@ public class VueArtistes extends VuesItems {
 			}
 			
 			@Override
-			protected void actionOnSelect(){
+			protected void actionOnSelect(boolean hasSelection){
 				
-				if(tableArtistes.getSelectedRow() != -1){
-					
-					Artiste artisteSelectionne = (Artiste)getSelectedItem();
-					
-					updateArtiste(artisteSelectionne);
-					
-				}
+				Artiste artisteSelectionne = null;
+				
+				if(hasSelection)
+					artisteSelectionne = (Artiste)getSelectedItem();
+				
+				updateArtiste(artisteSelectionne);
 				
 			}
 			

@@ -82,7 +82,7 @@ public abstract class SheetTable extends JTable {
 					@Override
 					public void valueChanged(ListSelectionEvent e){
 						if(getRowCount() != 0)
-							actionOnSelect();
+							actionOnSelect(true);
 					}
 				});
 		
@@ -111,7 +111,7 @@ public abstract class SheetTable extends JTable {
 		return super.getColumnClass(columnIndex);
 	}
 	
-	protected abstract void actionOnSelect();
+	protected abstract void actionOnSelect(boolean hasSelection);
 	
 	protected abstract void actionOnDoubleClick();
 	
@@ -146,7 +146,12 @@ public abstract class SheetTable extends JTable {
 	}
 	
 	public Object getItem(int index){
-		return items.get(index);
+		
+		if(index >= 0 && index < items.size())
+			return items.get(index);
+		else
+			return null;
+		
 	}
 	
 	public void setSelectedItem(int index){
@@ -154,6 +159,9 @@ public abstract class SheetTable extends JTable {
 		if(getRowCount() != 0){
 			setRowSelectionInterval(index, index);
 			requestFocus();
+		}
+		else{
+			actionOnSelect(false);
 		}
 		
 	}
