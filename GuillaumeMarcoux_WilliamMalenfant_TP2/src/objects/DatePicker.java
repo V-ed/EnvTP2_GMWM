@@ -25,7 +25,6 @@ public class DatePicker {
 	public DatePicker(){
 		
 		model = new UtilDateModel();
-		//model.setDate(20,04,2014);
 		Properties p = new Properties();
 		p.put("text.today", "Today");
 		p.put("text.month", "Month");

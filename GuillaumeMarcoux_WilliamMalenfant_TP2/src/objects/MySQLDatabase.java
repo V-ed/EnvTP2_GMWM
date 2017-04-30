@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Object used to deal with a MySQL Database.
  * 
- * @version 1.6
+ * @version 1.6.1
  * @author Guillaume Marcoux
  */
 public class MySQLDatabase {
@@ -305,7 +305,7 @@ public class MySQLDatabase {
 	 * </table>
 	 * 
 	 * @param tableName
-	 *            The name of the table in which reasearch will be made.
+	 *            The name of the table in which research will be made.
 	 * @param columnsToSearch
 	 *            A <code>String</code> array that will be used as the searching
 	 *            columns for matching values.

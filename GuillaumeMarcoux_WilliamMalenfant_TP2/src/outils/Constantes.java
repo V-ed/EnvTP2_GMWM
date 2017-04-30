@@ -17,10 +17,10 @@ public interface Constantes {
 	
 	final String FONT_USED = "Times New Roman";
 	
-	final static int AJOUTER = 0;
-	final static int MODIFIER = 1;
-	final static int RECHERCHER = 2;
+	final int AJOUTER = 0;
+	final int MODIFIER = 1;
+	final int RECHERCHER = 2;
 	
-	final static String PROJECT_IMAGES_FOLDER_NAME = "images";
+	final String PROJECT_IMAGES_FOLDER_NAME = "images";
 	
 }

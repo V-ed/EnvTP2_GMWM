@@ -95,17 +95,11 @@ public class VueConnexion extends JFrame implements Constantes,
 					new VuePrincipal(database, VueConnexion.this);
 					
 				}
-				catch(ClassNotFoundException e1){
-					System.out.println("this one");
-				}
+				catch(ClassNotFoundException e1){}
 				catch(SQLException e1){
-					// TODO Constante erreur connection
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"Erreur, Connection impossible (verifier l'identifiant et le mot de passe)",
-									"Erreur de connection",
-									JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,
+							ERROR_IMPOSSIBLE_CONNECTION,
+							TITLE_ERROR_CONNECTION, JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

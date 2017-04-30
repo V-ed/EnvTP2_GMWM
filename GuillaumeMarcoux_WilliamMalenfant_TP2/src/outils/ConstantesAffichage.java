@@ -59,6 +59,8 @@ public interface ConstantesAffichage {
 	final String ERROR_INVALID_MAISON = "La maison de distribution est invalide (Lettres, \"-\" et \" \" uniquement)";
 	final String ERROR_INVALID_DATE = "Veuillez entrer une date";
 	
+	final String ERROR_IMPOSSIBLE_CONNECTION = "Erreur, Connection impossible (verifier l'identifiant et le mot de passe)";
+	
 	// Titles
 	final String TITLE_PROJECT = "GMWM - TP2";
 	final String TITLE_AJOUT_ARTISTE = "Ajout d'un artiste";
@@ -68,6 +70,7 @@ public interface ConstantesAffichage {
 	final String TITLE_VUE_ALBUMS = "Les albums!";
 	final String TITLE_CONNECT = "Connexion";
 	final String TITLE_PRINCIPAL = "Menu Principal";
+	final String TITLE_ERROR_CONNECTION = "Erreur de connection";
 	
 	// Common messages
 	final String COMMON_ERROR = "Erreur";

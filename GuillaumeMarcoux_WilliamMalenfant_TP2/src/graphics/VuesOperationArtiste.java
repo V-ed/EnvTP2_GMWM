@@ -370,7 +370,10 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 		
 		this.estMembre.setSelected(artiste.isMembre());
 		
-		lblPath.setText(artiste.getImagePath());
+		if(artiste.getImagePath() == null)
+			lblPath.setText(VIEW_OPERATION_COMMON_LABEL_NO_PATH);
+		else
+			lblPath.setText(artiste.getImagePath());
 		
 	}
 	

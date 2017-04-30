@@ -309,7 +309,7 @@ public class VueArtistes extends VuesItems {
 						.convertToArrayList(database, database
 								.getAllContentWhere(Artiste.TABLE_NAME,
 										vue.getColumnNames(), vue.getValues(),
-										true));
+										false));
 				
 				objetsTable = artistesFound;
 				
