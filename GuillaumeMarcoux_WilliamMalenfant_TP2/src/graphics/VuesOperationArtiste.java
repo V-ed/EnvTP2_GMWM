@@ -233,9 +233,18 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 				
 				String prenom = textPrenom.getText();
 				
-				// TODO Copy image to source project and get filePath;
-				
 				String filePath = null;
+				
+				String currentArtisteImage = lblPath.getText();
+				
+				if(!currentArtisteImage
+						.equals(VIEW_OPERATION_COMMON_LABEL_NO_PATH)
+						|| currentArtisteImage.equals(artiste.getImagePath())){
+					
+					filePath = OutilsFichiers
+							.copyImageToProject(currentArtisteImage);
+					
+				}
 				
 				try{
 					if(typeOperation != RECHERCHER){

@@ -13,8 +13,10 @@ public interface Constantes {
 	
 	final String FONT_USED = "Times New Roman";
 	
-	public final static int AJOUTER = 0;
-	public final static int MODIFIER = 1;
-	public final static int RECHERCHER = 2;
+	final static int AJOUTER = 0;
+	final static int MODIFIER = 1;
+	final static int RECHERCHER = 2;
+	
+	final static String PROJECT_IMAGES_FOLDER_NAME = "images";
 	
 }

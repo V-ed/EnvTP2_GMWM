@@ -91,10 +91,17 @@ public class VueAlbums extends VuesItems {
 			textAlbumDateSortie
 					.setText(nouvelAlbum.getAnneeSortie().toString());
 			textAlbumMaison.setText(nouvelAlbum.getMaisonDistribution());
-			imageAlbum = OutilsFichiers.getImageFromFile(nouvelAlbum
+			imageAlbum = OutilsFichiers.getImageFromProject(nouvelAlbum
 					.getImagePath());
 			
+			repaint();
+			
 		}
+		
+	}
+	
+	@Override
+	public void windowRepainted(){
 		
 	}
 	

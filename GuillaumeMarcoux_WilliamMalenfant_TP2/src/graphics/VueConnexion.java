@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import objects.MySQLDatabase;
 import outils.ConstantesAffichage;
+import outils.OutilsFichiers;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -43,7 +44,8 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblUsername.setIcon(new ImageIcon(VueConnexion.class.getResource("/images/utilisateur.png")));
+		lblUsername.setIcon(new ImageIcon(VueConnexion.class
+				.getResource("/images/utilisateur.png")));
 		
 		lblUsername.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblUsername.setBounds(26, 63, 166, 24);
@@ -52,7 +54,8 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 		lblHeader.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		lblHeader.setBounds(50, 11, 335, 41);
 		contentPane.add(lblHeader);
-		lblPassword.setIcon(new ImageIcon(VueConnexion.class.getResource("/images/cle.png")));
+		lblPassword.setIcon(new ImageIcon(VueConnexion.class
+				.getResource("/images/cle.png")));
 		
 		lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblPassword.setBounds(60, 106, 132, 24);
@@ -62,11 +65,13 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 		textField.setBounds(202, 67, 157, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		btnValider.setIcon(new ImageIcon(VueConnexion.class.getResource("/images/crochet_1.png")));
+		btnValider.setIcon(new ImageIcon(VueConnexion.class
+				.getResource("/images/crochet_1.png")));
 		
 		btnValider.setBounds(90, 160, 100, 30);
 		contentPane.add(btnValider);
-		btnQuitter.setIcon(new ImageIcon(VueConnexion.class.getResource("/images/croix_1.png")));
+		btnQuitter.setIcon(new ImageIcon(VueConnexion.class
+				.getResource("/images/croix_1.png")));
 		
 		btnQuitter.setBounds(238, 160, 100, 30);
 		contentPane.add(btnQuitter);
@@ -79,8 +84,8 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 			
 			@Override
 			public void actionPerformed(ActionEvent e){
-				boolean valide = false;
 				try{
+					
 					MySQLDatabase database = new MySQLDatabase("localhost",
 							"gestionalbums", getUsername(), getPassword());
 					
@@ -93,7 +98,13 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 					System.out.println("this one");
 				}
 				catch(SQLException e1){
-					JOptionPane.showMessageDialog(null, "Erreur, Connection impossible (verifier l'identifiant et le mot de passe)", "Erreur de connection", JOptionPane.ERROR_MESSAGE);
+					// TODO Constante erreur connection
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"Erreur, Connection impossible (verifier l'identifiant et le mot de passe)",
+									"Erreur de connection",
+									JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

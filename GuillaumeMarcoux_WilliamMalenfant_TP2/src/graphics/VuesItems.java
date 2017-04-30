@@ -112,9 +112,17 @@ public abstract class VuesItems extends JDialog implements Constantes,
 		
 	}
 	
+	@Override
+	public void repaint(){
+		super.repaint();
+		windowRepainted();
+	}
+	
 	protected abstract JPanel createItemsView();
 	
 	protected abstract JPanel createChoixItemView();
+	
+	public abstract void windowRepainted();
 	
 	public abstract void actionAjouter();
 	

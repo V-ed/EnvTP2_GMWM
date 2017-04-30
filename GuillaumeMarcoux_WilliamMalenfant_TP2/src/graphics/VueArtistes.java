@@ -9,15 +9,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class VueArtistes extends VuesItems {
 	
-	private ImageIcon imageArtiste;
 	private JLabel labelArtisteNumero;
 	private JTextField textArtisteNumero;
 	private JLabel labelArtisteNom;
@@ -26,6 +27,8 @@ public class VueArtistes extends VuesItems {
 	private JCheckBox checkBoxArtisteEstMembre;
 	private JButton buttonArtisteAlbums;
 	private JLabel imageArtisteAffichage;
+	
+	private String imageArtiste;
 	
 	private SheetTable tableArtistes;
 	
@@ -52,6 +55,8 @@ public class VueArtistes extends VuesItems {
 			
 			//			imageArtiste = OutilsFichiers.getImageFromFile(); // TODO add path to default NO_IMAGE file
 			
+			repaint();
+			
 		}
 		else{
 			
@@ -60,8 +65,41 @@ public class VueArtistes extends VuesItems {
 			
 			checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
 			
-			imageArtiste = OutilsFichiers.getImageFromFile(nouvelArtiste
-					.getImagePath());
+			imageArtiste = nouvelArtiste.getImagePath();
+			
+			repaint();
+			
+		}
+		
+	}
+	
+	@Override
+	public void windowRepainted(){
+		
+		BufferedImage bImg = OutilsFichiers
+				.getBufferedImageFromProject(imageArtiste);
+		
+		if(bImg == null){
+			imageArtisteAffichage.setIcon(null);
+		}
+		else{
+			
+			// TODO Cure the cancer
+			
+			int width = imageArtisteAffichage.getWidth();
+			int height = imageArtisteAffichage.getHeight();
+			
+			if(width == 0)
+				width++;
+			if(height == 0)
+				height++;
+			
+			Image img = bImg.getScaledInstance(width, height,
+					Image.SCALE_SMOOTH);
+			
+			ImageIcon scaledImage = new ImageIcon(img);
+			
+			imageArtisteAffichage.setIcon(scaledImage);
 			
 		}
 		
@@ -75,7 +113,6 @@ public class VueArtistes extends VuesItems {
 		GridBagLayout gbl_panelAffichageArtiste = new GridBagLayout();
 		panelAffichageArtiste.setLayout(gbl_panelAffichageArtiste);
 		
-		imageArtiste = new ImageIcon();
 		labelArtisteNumero = new JLabel(VIEW_ARTISTE_LABEL_NUMERO);
 		textArtisteNumero = new JTextField();
 		labelArtisteNom = new JLabel(VIEW_ARTISTE_LABEL_NOM);
