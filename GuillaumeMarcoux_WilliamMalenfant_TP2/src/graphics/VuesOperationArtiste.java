@@ -45,14 +45,10 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 	private String[] columnNames;
 	private Object[] values;
 	
-	private Artiste artiste;
-	
 	public VuesOperationArtiste(MySQLDatabase database, VueArtistes vueArtiste,
 			int typeOperation, Artiste artiste){
 		
 		super(vueArtiste, true);
-		
-		this.artiste = artiste;
 		
 		setSize(550, 300);
 		setLocationRelativeTo(vueArtiste);
