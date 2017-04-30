@@ -97,9 +97,10 @@ public class Artiste extends TableObject {
 		
 		ArrayList<TableObject> newList = new ArrayList<>();
 		
-		for(int i = 0; i < rawList.size(); i++){
-			newList.add(new Artiste(database, rawList.get(i)));
-		}
+		if(rawList != null)
+			for(int i = 0; i < rawList.size(); i++){
+				newList.add(new Artiste(database, rawList.get(i)));
+			}
 		
 		return newList;
 		

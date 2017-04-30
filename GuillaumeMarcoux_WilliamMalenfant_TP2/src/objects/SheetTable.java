@@ -167,9 +167,17 @@ public abstract class SheetTable extends JTable {
 	}
 	
 	public void setObjects(ArrayList<TableObject> items){
-		this.items = items;
-		fireTableDataChanged();
-		setSelectedItem(0);
+		
+		if(items.size() > 0){
+			this.items = items;
+			fireTableDataChanged();
+			setSelectedItem(0);
+		}
+		else{
+			this.items.clear();
+			fireTableDataChanged();
+		}
+		
 	}
 	
 	public void fireTableDataChanged(){

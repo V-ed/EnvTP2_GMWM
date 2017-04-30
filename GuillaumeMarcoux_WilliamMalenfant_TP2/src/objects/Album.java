@@ -142,9 +142,10 @@ public class Album extends TableObject {
 		
 		ArrayList<TableObject> newList = new ArrayList<>();
 		
-		for(int i = 0; i < rawList.size(); i++){
-			newList.add(new Album(database, rawList.get(i)));
-		}
+		if(rawList != null)
+			for(int i = 0; i < rawList.size(); i++){
+				newList.add(new Album(database, rawList.get(i)));
+			}
 		
 		return newList;
 		

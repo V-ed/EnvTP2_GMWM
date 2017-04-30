@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Object used to deal with a MySQL Database.
  * 
- * @version 1.5.1
+ * @version 1.6
  * @author Guillaume Marcoux
  */
 public class MySQLDatabase {
@@ -322,7 +322,8 @@ public class MySQLDatabase {
 	 *         <code>ArrayList</code> represents a row of the results and each
 	 *         column of the <code>Object[]</code>'s array is a column of the
 	 *         table in the database. <code>null</code> if there is an
-	 *         <code>SQLException</code> error.
+	 *         <code>SQLException</code> error, if there's 0 columns / values or
+	 *         the amount of columns doesn't match the number of values.
 	 * @see {@link #getAllContentWhere(String tableName, Object... conditions)}
 	 */
 	public ArrayList<Object[]> getAllContentWhere(String tableName,
@@ -331,7 +332,8 @@ public class MySQLDatabase {
 		
 		ArrayList<Object[]> list = null;
 		
-		if(columnsToSearch.length == valuesToSearch.length){
+		if(columnsToSearch.length == valuesToSearch.length
+				&& columnsToSearch.length > 0){
 			
 			list = new ArrayList<>();
 			

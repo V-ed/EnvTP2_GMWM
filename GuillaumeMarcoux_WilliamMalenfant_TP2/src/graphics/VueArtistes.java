@@ -43,13 +43,27 @@ public class VueArtistes extends VuesItems {
 	
 	private void updateArtiste(Artiste nouvelArtiste){
 		
-		textArtisteNumero.setText(String.valueOf(nouvelArtiste.getID()));
-		textArtisteNom.setText(nouvelArtiste.getFullName());
-		
-		checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
-		
-		imageArtiste = OutilsFichiers.getImageFromFile(nouvelArtiste
-				.getImagePath());
+		if(nouvelArtiste == null){
+			
+			textArtisteNumero.setText(String.valueOf(""));
+			textArtisteNom.setText("");
+			
+			checkBoxArtisteEstMembre.setSelected(false);
+			
+			//			imageArtiste = OutilsFichiers.getImageFromFile(); // TODO add path to default NO_IMAGE file
+			
+		}
+		else{
+			
+			textArtisteNumero.setText(String.valueOf(nouvelArtiste.getID()));
+			textArtisteNom.setText(nouvelArtiste.getFullName());
+			
+			checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
+			
+			imageArtiste = OutilsFichiers.getImageFromFile(nouvelArtiste
+					.getImagePath());
+			
+		}
 		
 	}
 	
