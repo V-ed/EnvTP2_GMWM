@@ -10,7 +10,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import java.awt.GridBagLayout;
-
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
@@ -32,6 +31,7 @@ import org.jdatepicker.impl.*;
 import outils.*;
 import objects.Album;
 import objects.Artiste;
+import objects.DatePicker;
 import objects.MySQLDatabase;
 import objects.TableObject;
 
@@ -41,9 +41,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 	private JTextField textTitre;
 	private JTextField textPrix;
 	private JTextField textGenre;
-	private UtilDateModel model;
-	private JDatePanelImpl datePanel;
-	private JDatePickerImpl datePicker;
+	private DatePicker datePicker;
 	private JTextField textMaison;
 	private JComboBox<Artiste> comboBox;
 	private JLabel lblPath;
@@ -147,42 +145,13 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		gbc_lblAnneDeSortie.gridy = 4;
 		getContentPane().add(lblAnneDeSortie, gbc_lblAnneDeSortie);
 		
-		model = new UtilDateModel();
-		//model.setDate(20,04,2014);
-		// Need this...
-		Properties p = new Properties();
-		p.put("text.today", "Today");
-		p.put("text.month", "Month");
-		p.put("text.year", "Year");
-		datePanel = new JDatePanelImpl(model, p);
-		datePicker = new JDatePickerImpl(datePanel, new AbstractFormatter(){
-			
-			private String datePattern = "yyyy-MM-dd";
-			private SimpleDateFormat dateFormatter = new SimpleDateFormat(
-					datePattern);
-			
-			@Override
-			public Object stringToValue(String text) throws ParseException{
-				return dateFormatter.parseObject(text);
-			}
-			
-			@Override
-			public String valueToString(Object value) throws ParseException{
-				if(value != null){
-					Calendar cal = (Calendar)value;
-					return dateFormatter.format(cal.getTime());
-				}
-				
-				return "";
-			}
-			
-		});
+		datePicker = new DatePicker();
 		GridBagConstraints gbc_datePicker = new GridBagConstraints();
 		gbc_datePicker.fill = GridBagConstraints.HORIZONTAL;
 		gbc_datePicker.insets = new Insets(0, 0, 5, 5);
 		gbc_datePicker.gridx = 2;
 		gbc_datePicker.gridy = 4;
-		getContentPane().add(datePicker, gbc_datePicker);
+		getContentPane().add(datePicker.getInterface(), gbc_datePicker);
 		
 		JLabel lblMaisonDeDistribution = new JLabel(
 				VIEW_OPERATION_ALBUM_LABEL_MAISON);
@@ -221,6 +190,8 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		gbc_comboBox.gridy = 6;
 		getContentPane().add(comboBox, gbc_comboBox);
 		
+		if(typeOperation == RECHERCHER)
+			comboBox.addItem(null);
 		for(int i = 0; i < listArtistes.size(); i++){
 			comboBox.addItem((Artiste)listArtistes.get(i));
 		}
@@ -257,17 +228,21 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 				
 				String titre = textTitre.getText();
 				
-				String prix = textPrix.getText();
+				double prix = -1;
+				if(!textPrix.getText().isEmpty())
+					prix = Double.parseDouble(textPrix.getText());
 				
 				String genre = textGenre.getText();
 				
-				Date annee = Date.valueOf(datePicker.getModel().getYear() + "-"
-						+ datePicker.getModel().getMonth() + "-"
-						+ datePicker.getModel().getDay());
+				Date annee = null;
+				
+				if(datePicker.isChanged())
+					annee = datePicker.getDate();
 				
 				String maison = textMaison.getText();
 				
-				//TODO
+				// TODO Copy image to source project and get filePath;
+				
 				String filePath = null;
 				
 				Artiste artiste = (Artiste)comboBox.getSelectedItem();
@@ -298,7 +273,8 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 					switch(typeOperation){
 					case AJOUTER:
 						
-						Album nouvAlbum = new Album(database, titre, Double.parseDouble(prix), genre, annee, maison, filePath, artiste);
+						Album nouvAlbum = new Album(database, titre, prix,
+								genre, annee, maison, filePath, artiste);
 						
 						vueAlbum.getTable().addItem(nouvAlbum);
 						
@@ -307,55 +283,63 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 						break;
 					
 					case MODIFIER:
-
-						album.modifyItem(titre, prix, genre, annee, maison, filePath, artiste.getID());
-
+						
+						album.modifyItem(titre, prix, genre, annee, maison,
+								filePath, artiste.getID());
+						
 						break;
-
+					
 					case RECHERCHER:
-
+						
 						ArrayList<String> columnList = new ArrayList<>();
 						ArrayList<Object> valuesList = new ArrayList<>();
-
-						if (!titre.isEmpty()) {
-							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_TITLE]);
+						
+						if(!titre.isEmpty()){
+							columnList
+									.add(Album.COLUMN_NAMES[Album.COLUMN_TITLE]);
 							valuesList.add(titre);
 						}
 						
-						if (!String.valueOf(prix).isEmpty()) {
-							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_PRICE]);
+						if(prix != -1){
+							columnList
+									.add(Album.COLUMN_NAMES[Album.COLUMN_PRICE]);
 							valuesList.add(prix);
 						}
 						
 						if(!genre.isEmpty()){
-							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_GENRE]);
+							columnList
+									.add(Album.COLUMN_NAMES[Album.COLUMN_GENRE]);
 							valuesList.add(genre);
 						}
 						
-						if(!annee.toString().isEmpty()){
-							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_RELEASE_DATE]);
-							valuesList.add(genre);
+						if(annee != null){
+							columnList
+									.add(Album.COLUMN_NAMES[Album.COLUMN_RELEASE_DATE]);
+							valuesList.add(annee);
 						}
 						
 						if(!maison.isEmpty()){
-							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_DISTRIBUTION]);
+							columnList
+									.add(Album.COLUMN_NAMES[Album.COLUMN_DISTRIBUTION]);
 							valuesList.add(maison);
 						}
 						
 						if(filePath != null){
-							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_IMAGE_URL]);
+							columnList
+									.add(Album.COLUMN_NAMES[Album.COLUMN_IMAGE_URL]);
 							valuesList.add(filePath);
 						}
 						
-						//TODO risque de ne pas fonctionner
-						if(!artiste.toString().isEmpty()){
-							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_ARTIST]);
-							valuesList.add(artiste);
+						if(artiste != null){
+							columnList
+									.add(Album.COLUMN_NAMES[Album.COLUMN_ARTIST]);
+							valuesList.add(artiste.getID());
 						}
 						
-						columnNames = columnList.toArray(new String[columnList.size()]);
+						columnNames = columnList.toArray(new String[columnList
+								.size()]);
 						values = valuesList.toArray();
-
+						
 						break;
 					}
 					
@@ -372,7 +356,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 			
 		});
 		
-		JButton btnAnnuler = new JButton("Annuler");
+		JButton btnAnnuler = new JButton(VIEW_OPERATION_COMMON_BOUTON_ANNULER);
 		GridBagConstraints gbc_btnAnnuler = new GridBagConstraints();
 		gbc_btnAnnuler.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAnnuler.fill = GridBagConstraints.VERTICAL;
@@ -475,13 +459,13 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		
 		date.setTime(album.getAnneeSortie());
 		
-		model.setDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
-		
-		model.setSelected(true);
+		datePicker.setDate(date.get(Calendar.YEAR), date.get(Calendar.MONTH),
+				date.get(Calendar.DAY_OF_MONTH));
 		
 		comboBox.setSelectedItem(album.getArtiste());
 		
 		lblPath.setText(album.getImagePath());
+		
 	}
 	
 	public boolean hasConfirmed(){

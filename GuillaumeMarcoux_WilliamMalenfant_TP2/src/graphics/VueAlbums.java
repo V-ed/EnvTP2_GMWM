@@ -321,11 +321,14 @@ public class VueAlbums extends VuesItems {
 	@Override
 	public void actionModifier(){
 		
-		VuesOperationAlbum vue = new VuesOperationAlbum(database, this, VuesOperationAlbum.MODIFIER,
+		VuesOperationAlbum vue = new VuesOperationAlbum(database, this,
+				VuesOperationAlbum.MODIFIER,
 				(Album)tableAlbums.getSelectedItem());
 		
-		if(vue.hasConfirmed())
+		if(vue.hasConfirmed()){
 			tableAlbums.fireTableDataChanged();
+			tableAlbums.setSelectedItem(0);
+		}
 		
 	}
 	
@@ -333,7 +336,7 @@ public class VueAlbums extends VuesItems {
 	public void actionSupprimer(){
 		
 		if(JOptionPane.showConfirmDialog(this,
-				"Etes-vous sur de vouloir supprimer cet artiste?", "Supprimer",
+				"Êtes-vous sur de vouloir supprimer cet artiste?", "Supprimer",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 			
 			((Album)tableAlbums.getSelectedItem()).removeFromDatabase();
@@ -348,18 +351,23 @@ public class VueAlbums extends VuesItems {
 	@Override
 	public void actionRechercher(){
 		
-		
-if(getButtonRechercher().getText().equals(VIEW_OPERATIONS_RECHERCHER)){
+		if(getButtonRechercher().getText().equals(VIEW_OPERATIONS_RECHERCHER)){
 			
-			VuesOperationAlbum vue = new VuesOperationAlbum(database, this, VueAlbums.RECHERCHER, null);
+			VuesOperationAlbum vue = new VuesOperationAlbum(database, this,
+					VueAlbums.RECHERCHER, null);
 			
 			if(vue.hasConfirmed()){
 				
-				ArrayList<TableObject> AlbumsFound = Artiste.convertToArrayList(database, database.getAllContentWhere(Artiste.TABLE_NAME,vue.getColumnNames(), vue.getValues(),true));
+				ArrayList<Object[]> liste = database.getAllContentWhere(
+						Album.TABLE_NAME, vue.getColumnNames(),
+						vue.getValues(), true);
 				
-				objetsTable = AlbumsFound;
+				ArrayList<TableObject> albumsFound = Album.convertToArrayList(
+						database, liste);
 				
-				tableAlbums.setObjects(AlbumsFound);
+				objetsTable = albumsFound;
+				
+				tableAlbums.setObjects(albumsFound);
 				
 				getButtonRechercher().setText(
 						VIEW_OPERATIONS_RECHERCHER_ANNULER);
@@ -380,7 +388,6 @@ if(getButtonRechercher().getText().equals(VIEW_OPERATIONS_RECHERCHER)){
 			tableAlbums.setSelectedItem(0);
 			
 		}
-
 		
 	}
 	
@@ -391,7 +398,8 @@ if(getButtonRechercher().getText().equals(VIEW_OPERATIONS_RECHERCHER)){
 		tableAlbums.setObjects(objetsTable);
 		
 		getButtonRechercher().setText(VIEW_OPERATIONS_RECHERCHER);
-		getButtonRechercher().setFont(getButtonRechercher().getFont().deriveFont(Font.BOLD));
+		getButtonRechercher().setFont(
+				getButtonRechercher().getFont().deriveFont(Font.BOLD));
 		
 	}
 	
