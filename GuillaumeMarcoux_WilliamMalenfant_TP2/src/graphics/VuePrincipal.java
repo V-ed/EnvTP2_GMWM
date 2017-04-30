@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import objects.MySQLDatabase;
+import outils.Constantes;
 import outils.ConstantesAffichage;
 import outils.OutilsFichiers;
 
@@ -121,7 +122,7 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage {
 	}
 }
 
-class GestionImage extends MouseAdapter {
+class GestionImage extends MouseAdapter implements Constantes{
 	
 	VuePrincipal vue;
 	
@@ -134,7 +135,7 @@ class GestionImage extends MouseAdapter {
 		
 		JLabel label = (JLabel)e.getSource();
 		
-		if(label.getName().equals("artiste")){
+		if(label.getName().equals(LABEL_NAME)){
 			
 			new VueArtistes(vue.getDatabase(), vue);
 			
@@ -154,20 +155,19 @@ class GestionImage extends MouseAdapter {
 		
 		ImageIcon image;
 		
-		// TODO constante
-		if(label.getName().equals("artiste")){
+		if(label.getName().equals(LABEL_NAME)){
 			
 			BufferedImage img = null;
 			try{
 				img = ImageIO.read(OutilsFichiers
-						.getFileFromResources("/images/artiste_mouse_on.jpg"));
+						.getFileFromResources(IMAGE_ARTISTE_MOUSE_ON));
 			}
 			catch(IOException e1){
 				e1.printStackTrace();
 			}
-			Image lul = img.getScaledInstance(label.getWidth(),
+			Image temp = img.getScaledInstance(label.getWidth(),
 					label.getHeight(), Image.SCALE_SMOOTH);
-			image = new ImageIcon(lul);
+			image = new ImageIcon(temp);
 			label.setIcon(image);
 			
 		}
@@ -176,14 +176,14 @@ class GestionImage extends MouseAdapter {
 			BufferedImage img = null;
 			try{
 				img = ImageIO.read(OutilsFichiers
-						.getFileFromResources("/images/album_mouse_on.jpg"));
+						.getFileFromResources(IMAGE_ALBUM_MOUSE_ON));
 			}
 			catch(IOException e1){
 				e1.printStackTrace();
 			}
-			Image lul = img.getScaledInstance(label.getWidth(),
+			Image temp = img.getScaledInstance(label.getWidth(),
 					label.getHeight(), Image.SCALE_SMOOTH);
-			image = new ImageIcon(lul);
+			image = new ImageIcon(temp);
 			label.setIcon(image);
 			
 		}
@@ -199,13 +199,12 @@ class GestionImage extends MouseAdapter {
 		
 		ImageIcon image;
 		
-		// TODO constante
-		if(label.getName().equals("artiste")){
+		if(label.getName().equals(LABEL_NAME)){
 			
 			BufferedImage img = null;
 			try{
 				img = ImageIO.read(OutilsFichiers
-						.getFileFromResources("/images/artiste_mouse_out.jpg"));
+						.getFileFromResources(IMAGE_ARTISTE_MOUSE_OUT));
 			}
 			catch(IOException e1){
 				e1.printStackTrace();
@@ -221,7 +220,7 @@ class GestionImage extends MouseAdapter {
 			BufferedImage img = null;
 			try{
 				img = ImageIO.read(OutilsFichiers
-						.getFileFromResources("/images/album_mouse_out.jpg"));
+						.getFileFromResources(IMAGE_ALBUM_MOUSE_OUT));
 			}
 			catch(IOException e1){
 				e1.printStackTrace();

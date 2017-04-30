@@ -23,4 +23,11 @@ public interface Constantes {
 	
 	final String PROJECT_IMAGES_FOLDER_NAME = "images";
 	
+	final String LABEL_NAME = "artiste";
+	
+	final String IMAGE_ARTISTE_MOUSE_ON = "/images/artiste_mouse_on.jpg";
+	final String IMAGE_ALBUM_MOUSE_ON = "/images/album_mouse_on.jpg";
+	final String IMAGE_ARTISTE_MOUSE_OUT = "/images/artiste_mouse_out.jpg";
+	final String IMAGE_ALBUM_MOUSE_OUT = "/images/album_mouse_out.jpg";
+	
 }
