@@ -281,6 +281,9 @@ public class VueArtistes extends VuesItems {
 	@Override
 	public void actionSupprimer(){
 		
+		// TODO If there's Albums related to the wanna-be-deleted Artiste,
+		// we do not delete the Artiste and instead show an error.
+		
 		if(JOptionPane.showConfirmDialog(this,
 				"Etes-vous sur de vouloir supprimer cet artiste?", "Supprimer",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){

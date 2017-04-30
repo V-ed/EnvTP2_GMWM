@@ -300,6 +300,8 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 						Album nouvAlbum = new Album(database, titre, prix,
 								genre, annee, maison, filePath, artiste);
 						
+						// TODO Do not add the Album if the new Album already exists in the database.
+						
 						vueAlbum.getTable().addItem(nouvAlbum);
 						
 						nouvAlbum.addToDatabase();

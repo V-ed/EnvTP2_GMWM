@@ -283,6 +283,8 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 						Artiste nouvArtiste = new Artiste(database, nom,
 								prenom, estMembre.isSelected(), filePath);
 						
+						// TODO Don't add the current Artiste if it already exists in the database.
+						
 						vueArtiste.getTable().addItem(nouvArtiste);
 						
 						nouvArtiste.addToDatabase();

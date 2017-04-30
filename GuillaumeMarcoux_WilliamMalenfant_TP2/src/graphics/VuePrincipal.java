@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -187,6 +188,8 @@ class GestionImage extends MouseAdapter {
 			
 		}
 		
+		label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
 	}
 	
 	@Override
@@ -229,6 +232,9 @@ class GestionImage extends MouseAdapter {
 			label.setIcon(image);
 			
 		}
+		
+		label.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		
 	}
 	
 }

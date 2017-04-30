@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Object used to deal with a MySQL Database.
  * 
- * @version 1.6.1
+ * @version 1.7
  * @author Guillaume Marcoux
  */
 public class MySQLDatabase {
@@ -168,10 +168,8 @@ public class MySQLDatabase {
 		
 		Object[] rowContent = null;
 		
-		ResultSet resultSet = getAllContentWhere(tableName, columnName,
-				textToMatch);
-		
-		try{
+		try(ResultSet resultSet = getAllContentWhere(tableName, columnName,
+				textToMatch)){
 			
 			resultSet.next();
 			
@@ -430,6 +428,8 @@ public class MySQLDatabase {
 					idCreated = rs.getInt(1);
 				}
 				
+				rs.close();
+				
 			}
 			catch(SQLException e){}
 			
@@ -597,6 +597,8 @@ public class MySQLDatabase {
 					
 				}
 				
+				queryResults.close();
+				
 			}
 			catch(SQLException e){
 				table = null;
@@ -605,6 +607,26 @@ public class MySQLDatabase {
 		}
 		
 		return table;
+		
+	}
+	
+	/**
+	 * Closes the database.
+	 */
+	public void disconnect(){
+		
+		try{
+			
+			if(connection.isClosed())
+				connection.close();
+			
+		}
+		catch(SQLException e){
+			// In theory, it should never go in here because this object does
+			// not close if it already is, but the compiler doesn't care about
+			// our feelings of handling ourselves the exceptions, kinda like
+			// a mother. Compilers are mothers. Uh, interesting.
+		}
 		
 	}
 	

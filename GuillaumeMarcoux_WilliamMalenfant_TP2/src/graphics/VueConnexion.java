@@ -94,6 +94,8 @@ public class VueConnexion extends JFrame implements Constantes,
 					
 					new VuePrincipal(database, VueConnexion.this);
 					
+					database.disconnect();
+					
 				}
 				catch(ClassNotFoundException e1){}
 				catch(SQLException e1){
