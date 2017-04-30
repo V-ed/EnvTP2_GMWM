@@ -6,6 +6,7 @@ import outils.OutilsFichiers;
 import objects.*;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -347,7 +348,50 @@ public class VueAlbums extends VuesItems {
 	@Override
 	public void actionRechercher(){
 		
-		new VuesOperationAlbum(database, VueAlbums.this, RECHERCHER, null);
+		
+if(getButtonRechercher().getText().equals(VIEW_OPERATIONS_RECHERCHER)){
+			
+			VuesOperationAlbum vue = new VuesOperationAlbum(database, this, VueAlbums.RECHERCHER, null);
+			
+			if(vue.hasConfirmed()){
+				
+				ArrayList<TableObject> AlbumsFound = Artiste.convertToArrayList(database, database.getAllContentWhere(Artiste.TABLE_NAME,vue.getColumnNames(), vue.getValues(),true));
+				
+				objetsTable = AlbumsFound;
+				
+				tableAlbums.setObjects(AlbumsFound);
+				
+				getButtonRechercher().setText(
+						VIEW_OPERATIONS_RECHERCHER_ANNULER);
+				getButtonRechercher()
+						.setFont(
+								getButtonRechercher().getFont().deriveFont(
+										Font.ITALIC));
+				
+				tableAlbums.setSelectedItem(0);
+				
+			}
+			
+		}
+		else{
+			
+			restoreResearch();
+			
+			tableAlbums.setSelectedItem(0);
+			
+		}
+
+		
+	}
+	
+	private void restoreResearch(){
+		
+		objetsTable = Album.getAllAsArrayList(database);
+		
+		tableAlbums.setObjects(objetsTable);
+		
+		getButtonRechercher().setText(VIEW_OPERATIONS_RECHERCHER);
+		getButtonRechercher().setFont(getButtonRechercher().getFont().deriveFont(Font.BOLD));
 		
 	}
 	

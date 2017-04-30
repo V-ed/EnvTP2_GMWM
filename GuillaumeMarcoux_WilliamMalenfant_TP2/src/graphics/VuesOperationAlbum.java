@@ -51,6 +51,9 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 	
 	private boolean hasConfirmed = false;
 	
+	private String[] columnNames;
+	private Object[] values;
+	
 	public VuesOperationAlbum(MySQLDatabase database, VueAlbums vueAlbum,
 			int typeOperation, Album album){
 		
@@ -254,7 +257,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 				
 				String titre = textTitre.getText();
 				
-				double prix = Double.parseDouble(textPrix.getText());
+				String prix = textPrix.getText();
 				
 				String genre = textGenre.getText();
 				
@@ -295,8 +298,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 					switch(typeOperation){
 					case AJOUTER:
 						
-						Album nouvAlbum = new Album(database, titre, prix,
-								genre, annee, maison, filePath, artiste);
+						Album nouvAlbum = new Album(database, titre, Double.parseDouble(prix), genre, annee, maison, filePath, artiste);
 						
 						vueAlbum.getTable().addItem(nouvAlbum);
 						
@@ -309,36 +311,52 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 						album.modifyItem(titre, prix, genre, annee, maison, filePath, artiste.getID());
 
 						break;
-					//					
-					//					case RECHERCHER:
-					//						
-					//						ArrayList<String> columnList = new ArrayList<>();
-					//						ArrayList<Object> valuesList = new ArrayList<>();
-					//						
-					//						if(!nom.isEmpty()){
-					//							columnList
-					//									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_LAST_NAME]);
-					//							valuesList.add(nom);
-					//						}
-					//						if(!prenom.isEmpty()){
-					//							columnList
-					//									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_FIRST_NAME]);
-					//							valuesList.add(prenom);
-					//						}
-					//						columnList
-					//								.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_IS_MEMBER]);
-					//						valuesList.add(estMembre.isSelected());
-					//						if(filePath != null){
-					//							columnList
-					//									.add(Artiste.COLUMN_NAMES[Artiste.COLUMN_IMAGE_URL]);
-					//							valuesList.add(filePath);
-					//						}
-					//						
-					//						columnNames = columnList.toArray(new String[columnList
-					//								.size()]);
-					//						values = valuesList.toArray();
-					//						
-					//						break;
+
+					case RECHERCHER:
+
+						ArrayList<String> columnList = new ArrayList<>();
+						ArrayList<Object> valuesList = new ArrayList<>();
+
+						if (!titre.isEmpty()) {
+							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_TITLE]);
+							valuesList.add(titre);
+						}
+						
+						if (!String.valueOf(prix).isEmpty()) {
+							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_PRICE]);
+							valuesList.add(prix);
+						}
+						
+						if(!genre.isEmpty()){
+							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_GENRE]);
+							valuesList.add(genre);
+						}
+						
+						if(!annee.toString().isEmpty()){
+							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_RELEASE_DATE]);
+							valuesList.add(genre);
+						}
+						
+						if(!maison.isEmpty()){
+							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_DISTRIBUTION]);
+							valuesList.add(maison);
+						}
+						
+						if(filePath != null){
+							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_IMAGE_URL]);
+							valuesList.add(filePath);
+						}
+						
+						//TODO risque de ne pas fonctionner
+						if(!artiste.toString().isEmpty()){
+							columnList.add(Album.COLUMN_NAMES[Album.COLUMN_ARTIST]);
+							valuesList.add(artiste);
+						}
+						
+						columnNames = columnList.toArray(new String[columnList.size()]);
+						values = valuesList.toArray();
+
+						break;
 					}
 					
 					hasConfirmed = true;
@@ -468,6 +486,14 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 	
 	public boolean hasConfirmed(){
 		return hasConfirmed;
+	}
+	
+	public String[] getColumnNames(){
+		return columnNames;
+	}
+	
+	public Object[] getValues(){
+		return values;
 	}
 	
 }
