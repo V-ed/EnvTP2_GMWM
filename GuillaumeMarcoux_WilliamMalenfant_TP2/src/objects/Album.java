@@ -1,8 +1,8 @@
 package objects;
 
+import java.util.ArrayList;
 import java.sql.Date;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class Album extends TableObject {
 	
@@ -134,6 +134,19 @@ public class Album extends TableObject {
 		}
 		
 		return liste;
+		
+	}
+	
+	public static ArrayList<TableObject> convertToArrayList(
+			MySQLDatabase database, ArrayList<Object[]> rawList){
+		
+		ArrayList<TableObject> newList = new ArrayList<>();
+		
+		for(int i = 0; i < rawList.size(); i++){
+			newList.add(new Album(database, rawList.get(i)));
+		}
+		
+		return newList;
 		
 	}
 	
