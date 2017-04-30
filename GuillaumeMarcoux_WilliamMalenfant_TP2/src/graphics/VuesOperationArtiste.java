@@ -45,10 +45,14 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 	private String[] columnNames;
 	private Object[] values;
 	
+	private Artiste artiste;
+	
 	public VuesOperationArtiste(MySQLDatabase database, VueArtistes vueArtiste,
 			int typeOperation, Artiste artiste){
 		
 		super(vueArtiste, true);
+		
+		this.artiste = artiste;
 		
 		setSize(550, 300);
 		setLocationRelativeTo(vueArtiste);
@@ -238,11 +242,20 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 				String currentArtisteImage = lblPath.getText();
 				
 				if(!currentArtisteImage
-						.equals(VIEW_OPERATION_COMMON_LABEL_NO_PATH)
-						&& !currentArtisteImage.equals(artiste.getImagePath())){
+						.equals(VIEW_OPERATION_COMMON_LABEL_NO_PATH)){
 					
-					filePath = OutilsFichiers
-							.copyImageToProject(currentArtisteImage);
+					if(artiste == null){
+						
+						filePath = OutilsFichiers
+								.copyImageToProject(currentArtisteImage);
+						
+					}
+					else{
+						if(!currentArtisteImage.equals(artiste.getImagePath())){
+							filePath = OutilsFichiers
+									.copyImageToProject(currentArtisteImage);
+						}
+					}
 					
 				}
 				
