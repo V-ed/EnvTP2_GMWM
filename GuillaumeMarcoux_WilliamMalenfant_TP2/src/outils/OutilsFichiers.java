@@ -1,5 +1,6 @@
 package outils;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -47,16 +48,33 @@ public class OutilsFichiers implements Constantes {
 		
 	}
 	
-	public static ImageIcon getImageFromProject(String path){
+	public static File getFileFromResources(String path){
+		return new File(OutilsFichiers.class.getResource(path).getFile());
+	}
+	
+	public static Image getImageFromResources(String imageName){
+		return getImageIconFromResources(imageName).getImage();
+	}
+	
+	public static ImageIcon getImageIconFromResources(String imageName){
+		return new ImageIcon(OutilsFichiers.class.getResource("/images/"
+				+ imageName));
+	}
+	
+	public static Image getImageFromProject(String path){
+		return getImageIconFromProject(path).getImage();
+	}
+	
+	public static ImageIcon getImageIconFromProject(String path){
 		
 		String filePath = getExecutablePathDirectory() + "\\"
 				+ PROJECT_IMAGES_FOLDER_NAME + "\\" + path;
 		
-		return getImageFromAbsolutePath(filePath);
+		return getImageIconFromAbsolutePath(filePath);
 		
 	}
 	
-	public static ImageIcon getImageFromAbsolutePath(String filePath){
+	public static ImageIcon getImageIconFromAbsolutePath(String filePath){
 		return new ImageIcon(filePath);
 	}
 	

@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import objects.MySQLDatabase;
+import outils.Constantes;
 import outils.ConstantesAffichage;
 import outils.OutilsFichiers;
 
@@ -19,9 +20,9 @@ import java.sql.SQLException;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
-import javax.swing.ImageIcon;
 
-public class VueConnexion extends JFrame implements ConstantesAffichage {
+public class VueConnexion extends JFrame implements Constantes,
+		ConstantesAffichage {
 	
 	private JPanel contentPane;
 	private JTextField textField;
@@ -44,20 +45,20 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		lblUsername.setIcon(new ImageIcon(VueConnexion.class
-				.getResource("/images/utilisateur.png")));
+		lblUsername.setIcon(OutilsFichiers
+				.getImageIconFromResources("utilisateur.png"));
 		
-		lblUsername.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		lblUsername.setFont(new Font(FONT_USED, Font.PLAIN, 18));
 		lblUsername.setBounds(26, 63, 166, 24);
 		contentPane.add(lblUsername);
 		
-		lblHeader.setFont(new Font("Times New Roman", Font.BOLD, 30));
+		lblHeader.setFont(new Font(FONT_USED, Font.BOLD, 30));
 		lblHeader.setBounds(50, 11, 335, 41);
 		contentPane.add(lblHeader);
-		lblPassword.setIcon(new ImageIcon(VueConnexion.class
-				.getResource("/images/cle.png")));
+		lblPassword
+				.setIcon(OutilsFichiers.getImageIconFromResources("cle.png"));
 		
-		lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		lblPassword.setFont(new Font(FONT_USED, Font.PLAIN, 18));
 		lblPassword.setBounds(60, 106, 132, 24);
 		contentPane.add(lblPassword);
 		
@@ -65,13 +66,13 @@ public class VueConnexion extends JFrame implements ConstantesAffichage {
 		textField.setBounds(202, 67, 157, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		btnValider.setIcon(new ImageIcon(VueConnexion.class
-				.getResource("/images/crochet_1.png")));
+		btnValider.setIcon(OutilsFichiers
+				.getImageIconFromResources("crochet_1.png"));
 		
 		btnValider.setBounds(90, 160, 100, 30);
 		contentPane.add(btnValider);
-		btnQuitter.setIcon(new ImageIcon(VueConnexion.class
-				.getResource("/images/croix_1.png")));
+		btnQuitter.setIcon(OutilsFichiers
+				.getImageIconFromResources("croix_1.png"));
 		
 		btnQuitter.setBounds(238, 160, 100, 30);
 		contentPane.add(btnQuitter);

@@ -9,12 +9,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class VueArtistes extends VuesItems {
@@ -26,9 +24,8 @@ public class VueArtistes extends VuesItems {
 	private JLabel labelArtisteEstMembre;
 	private JCheckBox checkBoxArtisteEstMembre;
 	private JButton buttonArtisteAlbums;
-	private JLabel imageArtisteAffichage;
 	
-	private String imageArtiste;
+	private ImagePanel imageArtisteAffichage;
 	
 	private SheetTable tableArtistes;
 	
@@ -53,9 +50,7 @@ public class VueArtistes extends VuesItems {
 			
 			checkBoxArtisteEstMembre.setSelected(false);
 			
-			//			imageArtiste = OutilsFichiers.getImageFromFile(); // TODO add path to default NO_IMAGE file
-			
-			repaint();
+			imageArtisteAffichage.repaint();
 			
 		}
 		else{
@@ -65,41 +60,10 @@ public class VueArtistes extends VuesItems {
 			
 			checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
 			
-			imageArtiste = nouvelArtiste.getImagePath();
+			imageArtisteAffichage.setImageArtiste(OutilsFichiers
+					.getBufferedImageFromProject(nouvelArtiste.getImagePath()));
 			
-			repaint();
-			
-		}
-		
-	}
-	
-	@Override
-	public void windowRepainted(){
-		
-		BufferedImage bImg = OutilsFichiers
-				.getBufferedImageFromProject(imageArtiste);
-		
-		if(bImg == null){
-			imageArtisteAffichage.setIcon(null);
-		}
-		else{
-			
-			// TODO Cure the cancer
-			
-			int width = imageArtisteAffichage.getWidth();
-			int height = imageArtisteAffichage.getHeight();
-			
-			if(width == 0)
-				width++;
-			if(height == 0)
-				height++;
-			
-			Image img = bImg.getScaledInstance(width, height,
-					Image.SCALE_SMOOTH);
-			
-			ImageIcon scaledImage = new ImageIcon(img);
-			
-			imageArtisteAffichage.setIcon(scaledImage);
+			imageArtisteAffichage.repaint();
 			
 		}
 		
@@ -120,14 +84,17 @@ public class VueArtistes extends VuesItems {
 		labelArtisteEstMembre = new JLabel(VIEW_ARTISTE_LABEL_EST_MEMBRE);
 		checkBoxArtisteEstMembre = new JCheckBox("");
 		buttonArtisteAlbums = new JButton(VIEW_ARTISTE_BUTTON_ALBUMS);
-		imageArtisteAffichage = new JLabel("", SwingConstants.CENTER);
+		
+		imageArtisteAffichage = new ImagePanel(
+				OutilsFichiers.getImageFromResources("no_image.png"));
 		
 		buttonArtisteAlbums.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
 				
-				new VueAlbums(database, null, (Artiste)tableArtistes
-						.getSelectedItem()).setVisible(true);
+				new VueAlbums(database, (JFrame)VueArtistes.this.getParent(),
+						(Artiste)tableArtistes.getSelectedItem())
+						.setVisible(true);
 				
 			}
 		});
@@ -185,8 +152,6 @@ public class VueArtistes extends VuesItems {
 		gbc_imageArtisteAffichage.gridheight = 5;
 		gbc_imageArtisteAffichage.gridx = 2;
 		gbc_imageArtisteAffichage.gridy = 0;
-		imageArtisteAffichage.setBorder(BorderFactory
-				.createLineBorder(Color.BLACK));
 		panelAffichageArtiste.add(imageArtisteAffichage,
 				gbc_imageArtisteAffichage);
 		

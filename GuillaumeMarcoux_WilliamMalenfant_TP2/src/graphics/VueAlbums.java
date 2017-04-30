@@ -15,8 +15,6 @@ import java.util.ArrayList;
 
 public class VueAlbums extends VuesItems {
 	
-	private ImageIcon imageAlbum;
-	private JLabel imageAlbumAffichage;
 	private JLabel labelAlbumNumero;
 	private JTextField textAlbumNumero;
 	private JLabel labelAlbumTitre;
@@ -29,6 +27,8 @@ public class VueAlbums extends VuesItems {
 	private JTextField textAlbumGenre;
 	private JTextField textAlbumDateSortie;
 	private JTextField textAlbumMaison;
+	
+	private ImagePanel imageAlbumAffichage;
 	
 	private SheetTable tableAlbums;
 	
@@ -79,7 +79,6 @@ public class VueAlbums extends VuesItems {
 			textAlbumGenre.setText("");
 			textAlbumDateSortie.setText("");
 			textAlbumMaison.setText("");
-			//			imageAlbum = OutilsFichiers.getImageFromFile(); // TODO add path to default NO_IMAGE file
 			
 		}
 		else{
@@ -91,17 +90,12 @@ public class VueAlbums extends VuesItems {
 			textAlbumDateSortie
 					.setText(nouvelAlbum.getAnneeSortie().toString());
 			textAlbumMaison.setText(nouvelAlbum.getMaisonDistribution());
-			imageAlbum = OutilsFichiers.getImageFromProject(nouvelAlbum
-					.getImagePath());
-			
-			repaint();
+			imageAlbumAffichage.setImageArtiste(OutilsFichiers
+					.getBufferedImageFromProject(nouvelAlbum.getImagePath()));
 			
 		}
 		
-	}
-	
-	@Override
-	public void windowRepainted(){
+		repaint();
 		
 	}
 	
@@ -121,8 +115,6 @@ public class VueAlbums extends VuesItems {
 		};
 		panelAffichageAlbum.setLayout(gbl_panelAffichageArtiste);
 		
-		imageAlbum = new ImageIcon();
-		imageAlbumAffichage = new JLabel("", SwingConstants.CENTER);
 		labelAlbumNumero = new JLabel(VIEW_ARTISTE_LABEL_NUMERO);
 		textAlbumNumero = new JTextField();
 		labelAlbumTitre = new JLabel(VIEW_OPERATION_ALBUM_LABEL_TITLE);
@@ -135,6 +127,9 @@ public class VueAlbums extends VuesItems {
 		textAlbumDateSortie = new JTextField();
 		lblMaison = new JLabel(VIEW_OPERATION_ALBUM_LABEL_MAISON);
 		textAlbumMaison = new JTextField();
+		
+		imageAlbumAffichage = new ImagePanel(
+				OutilsFichiers.getImageFromResources("no_image.png"));
 		
 		GridBagConstraints gbc_labelAlbumNumero = new GridBagConstraints();
 		gbc_labelAlbumNumero.insets = new Insets(0, 0, 5, 5);
@@ -369,7 +364,8 @@ public class VueAlbums extends VuesItems {
 						Album.TABLE_NAME, vue.getColumnNames(),
 						vue.getValues(), true);
 				
-				ArrayList<TableObject> albumsFound = Album.convertToArrayList(database, liste);
+				ArrayList<TableObject> albumsFound = Album.convertToArrayList(
+						database, liste);
 				
 				objetsTable = albumsFound;
 				

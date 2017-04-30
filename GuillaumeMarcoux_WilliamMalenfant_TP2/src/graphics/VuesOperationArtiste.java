@@ -239,7 +239,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 				
 				if(!currentArtisteImage
 						.equals(VIEW_OPERATION_COMMON_LABEL_NO_PATH)
-						|| currentArtisteImage.equals(artiste.getImagePath())){
+						&& !currentArtisteImage.equals(artiste.getImagePath())){
 					
 					filePath = OutilsFichiers
 							.copyImageToProject(currentArtisteImage);
