@@ -343,7 +343,7 @@ public class VueAlbums extends VuesItems {
 	public void actionSupprimer(){
 		
 		if(JOptionPane.showConfirmDialog(this,
-				"Êtes-vous sur de vouloir supprimer cet artiste?", "Supprimer",
+				"Êtes-vous sur de vouloir supprimer cet album?", "Supprimer",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 			
 			((Album)tableAlbums.getSelectedItem()).removeFromDatabase();
@@ -369,8 +369,7 @@ public class VueAlbums extends VuesItems {
 						Album.TABLE_NAME, vue.getColumnNames(),
 						vue.getValues(), true);
 				
-				ArrayList<TableObject> albumsFound = Album.convertToArrayList(
-						database, liste);
+				ArrayList<TableObject> albumsFound = Album.convertToArrayList(database, liste);
 				
 				objetsTable = albumsFound;
 				
