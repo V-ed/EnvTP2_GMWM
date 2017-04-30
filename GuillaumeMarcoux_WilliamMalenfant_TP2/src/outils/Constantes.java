@@ -4,7 +4,11 @@ public interface Constantes {
 	
 	final int ID_COLUMN = 0;
 	
-	final String REGEX_NAME = "^[A-Z]([A-Za-z]|-)+$";
+	final String REGEX_NAME = "^[A-Z]([A-Za-z]|-| )+$";
+	
+	final String REGEX_TITRE = "^[A-Z]([A-Za-z]|-| )+$";
+	final String REGEX_GENRE = "^[A-Z]([A-Za-z]|-| )+$";
+	final String REGEX_MAISON = "^[A-Z]([a-zA-Z]|-| )*$";
 	
 	final String[] POSSIBLE_EXTENSIONS =
 	{

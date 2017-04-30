@@ -48,10 +48,16 @@ public interface ConstantesAffichage {
 	final String VIEW_OPERATION_COMMON_BOUTON_ANNULER = "Annuler";
 	
 	// Error messages
-	final String ERROR_INVALID_NOM_PRENOM = "Le nom et le prenom sont invalide. (lettres et \"-\" uniquement)";
-	final String ERROR_INVALID_NOM = "Le nom est invalide. (lettres et \"-\" uniquement)";
-	final String ERROR_INVALID_PRENOM = "Le prenom est invalide. (lettres et \"-\" uniquement)";
+	final String ERROR_INVALID_NOM_PRENOM = "Le nom et le prenom sont invalide. (lettres et \"-\" uniquement et doit commencer par une majuscule)";
+	final String ERROR_INVALID_NOM = "Le nom est invalide. (lettres et \"-\" uniquement et doit commencer par une majuscule)";
+	final String ERROR_INVALID_PRENOM = "Le prenom est invalide. (lettres et \"-\" uniquement et doit commencer par une majuscule)";
 	final String ERROR_FILE_NOT_EXIST = "Le fichier n'existe pas";
+	
+	final String ERROR_INVALID_FIELDS = "Certains champs sont invalide (Lettres, \"-\" et \" \" uniquement)";
+	final String ERROR_INVALID_TITRE = "Le titre est invalide (Lettres, \"-\" et \" \" uniquement)";
+	final String ERROR_INVALID_GENRE = "Le genre est invalide (Lettres, \"-\" et \" \" uniquement)";
+	final String ERROR_INVALID_MAISON = "La maison de distribution est invalide (Lettres, \"-\" et \" \" uniquement)";
+	final String ERROR_INVALID_DATE = "Veuillez entrer une date";
 	
 	// Titles
 	final String TITLE_PROJECT = "GMWM - TP2";
