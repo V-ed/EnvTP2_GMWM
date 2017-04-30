@@ -107,6 +107,8 @@ public class VueConnexion extends JFrame implements Constantes,
 			}
 		});
 		
+		getRootPane().setDefaultButton(btnValider);
+		
 		btnQuitter.addActionListener(new ActionListener(){
 			
 			@Override
