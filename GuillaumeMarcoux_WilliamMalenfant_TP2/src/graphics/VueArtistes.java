@@ -6,6 +6,7 @@ import outils.OutilsFichiers;
 import objects.*;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -173,6 +174,7 @@ public class VueArtistes extends VuesItems {
 		gbc_buttonArtisteAlbums.gridx = 2;
 		gbc_buttonArtisteAlbums.gridy = 5;
 		panelAffichageArtiste.add(buttonArtisteAlbums, gbc_buttonArtisteAlbums);
+		buttonArtisteAlbums.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		return panelAffichageArtiste;
 		
@@ -281,14 +283,34 @@ public class VueArtistes extends VuesItems {
 	@Override
 	public void actionSupprimer(){
 		
-		// TODO If there's Albums related to the wanna-be-deleted Artiste,
-		// we do not delete the Artiste and instead show an error.
+		boolean peutContinuer = true;
 		
-		if(JOptionPane.showConfirmDialog(this,
-				"Etes-vous sur de vouloir supprimer cet artiste?", "Supprimer",
+		Artiste artisteASupprimer = (Artiste)tableArtistes.getSelectedItem();
+		
+		Object[] albumsID = database.getAllContentOfColumn(
+				database.selectEverythingFrom(Album.TABLE_NAME),
+				Album.COLUMN_NAMES[Album.COLUMN_ARTIST]);
+		
+		for(int i = 0; i < albumsID.length; i++){
+			if(artisteASupprimer.getID() == Integer
+					.parseInt((String)albumsID[i])){
+				peutContinuer = false;
+				break;
+			}
+		}
+		
+		if(!peutContinuer){
+			JOptionPane
+					.showMessageDialog(
+							VueArtistes.this,
+							"Cet artiste est relié à au moins un album et ne peut être supprimé!",
+							COMMON_ERROR, JOptionPane.ERROR_MESSAGE);
+		}
+		else if(JOptionPane.showConfirmDialog(this,
+				"Êtes-vous sûr de vouloir supprimer cet artiste?", "Supprimer",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 			
-			((Artiste)tableArtistes.getSelectedItem()).removeFromDatabase();
+			artisteASupprimer.removeFromDatabase();
 			
 			tableArtistes.removeItem(tableArtistes.getSelectedRow());
 			

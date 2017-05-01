@@ -1,11 +1,9 @@
 package objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class ImagePanel extends JPanel {
@@ -19,9 +17,6 @@ public class ImagePanel extends JPanel {
 		super();
 		
 		this.imageNoImage = imageNoImage;
-		
-		// TODO remove border?
-		setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 	}
 	

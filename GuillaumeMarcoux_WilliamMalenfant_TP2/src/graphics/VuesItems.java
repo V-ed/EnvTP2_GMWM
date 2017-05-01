@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -101,6 +102,12 @@ public abstract class VuesItems extends JDialog implements Constantes,
 		btnSupprimer.addActionListener(gestionnaire);
 		btnRechercher.addActionListener(gestionnaire);
 		btnQuitter.addActionListener(gestionnaire);
+		
+		btnAjouter.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnModifier.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnSupprimer.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnRechercher.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnQuitter.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		panelOperations.add(btnAjouter);
 		panelOperations.add(btnModifier);
