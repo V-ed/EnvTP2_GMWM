@@ -91,7 +91,8 @@ public class VueAlbums extends VuesItems {
 					.setText(nouvelAlbum.getAnneeSortie().toString());
 			textAlbumMaison.setText(nouvelAlbum.getMaisonDistribution());
 			imageAlbumAffichage.setImageArtiste(OutilsFichiers
-					.getBufferedImageFromProject(nouvelAlbum.getImagePath()));
+					.getBufferedImageFromProject(DOSSIER_ALBUMS + "\\"
+							+ nouvelAlbum.getImagePath()));
 			
 		}
 		
@@ -129,7 +130,7 @@ public class VueAlbums extends VuesItems {
 		textAlbumMaison = new JTextField();
 		
 		imageAlbumAffichage = new ImagePanel(
-				OutilsFichiers.getImageFromResources("no_image.png"));
+				OutilsFichiers.getImageFromResources(IMAGE_NO_IMAGE));
 		
 		GridBagConstraints gbc_labelAlbumNumero = new GridBagConstraints();
 		gbc_labelAlbumNumero.insets = new Insets(0, 0, 5, 5);
@@ -177,9 +178,6 @@ public class VueAlbums extends VuesItems {
 		gbc_imageAlbumAffichage.gridheight = 6;
 		gbc_imageAlbumAffichage.gridx = 2;
 		gbc_imageAlbumAffichage.gridy = 0;
-		
-		imageAlbumAffichage.setBorder(BorderFactory
-				.createLineBorder(Color.BLACK));
 		
 		panelAffichageAlbum.add(imageAlbumAffichage, gbc_imageAlbumAffichage);
 		
@@ -316,7 +314,11 @@ public class VueAlbums extends VuesItems {
 	@Override
 	public void actionAjouter(){
 		
-		new VuesOperationAlbum(database, VueAlbums.this, AJOUTER, null);
+		if(Artiste.getAllAsArrayList(database).size() != 0)
+			new VuesOperationAlbum(database, VueAlbums.this, AJOUTER, null);
+		else
+			JOptionPane.showMessageDialog(this, ERROR_ALBUM_AJOUT_NO_ARTISTE,
+					COMMON_ERROR, JOptionPane.ERROR_MESSAGE);
 		
 	}
 	
@@ -337,9 +339,8 @@ public class VueAlbums extends VuesItems {
 	@Override
 	public void actionSupprimer(){
 		
-		if(JOptionPane.showConfirmDialog(this,
-				"Êtes-vous sur de vouloir supprimer cet album?", "Supprimer",
-				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+		if(JOptionPane.showConfirmDialog(this, CONFIRM_DELETE_ALBUM,
+				COMMON_DELETE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 			
 			((Album)tableAlbums.getSelectedItem()).removeFromDatabase();
 			

@@ -189,7 +189,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 						.getFileSystemView().getHomeDirectory()
 						.getAbsolutePath());
 				filechooser.addChoosableFileFilter(new FileNameExtensionFilter(
-						"Images", POSSIBLE_EXTENSIONS));
+						FILECHOOSER_DISPLAY_IMAGES, POSSIBLE_EXTENSIONS));
 				filechooser.setAcceptAllFileFilterUsed(false);
 				
 				if(filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
@@ -245,15 +245,13 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 					
 					if(artiste == null){
 						
-						filePath = OutilsFichiers
-								.copyImageToProject(currentArtisteImage);
+						filePath = OutilsFichiers.copyImageToProject(
+								currentArtisteImage, DOSSIER_ARTISTES);
 						
 					}
-					else{
-						if(!currentArtisteImage.equals(artiste.getImagePath())){
-							filePath = OutilsFichiers
-									.copyImageToProject(currentArtisteImage);
-						}
+					else if(!currentArtisteImage.equals(artiste.getImagePath())){
+						filePath = OutilsFichiers.copyImageToProject(
+								currentArtisteImage, DOSSIER_ARTISTES);
 					}
 					
 				}
@@ -286,8 +284,6 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 						Artiste nouvArtiste = new Artiste(database, nom,
 								prenom, estMembre.isSelected(), filePath);
 						
-						// TODO Copy this in VuesOperationAlbum.
-						
 						ResultSet allArtistsForLastNames = database
 								.selectEverythingFrom(Artiste.TABLE_NAME);
 						
@@ -318,12 +314,10 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 						
 						if(!hasConfirmed){
 							
-							JOptionPane
-									.showMessageDialog(
-											VuesOperationArtiste.this,
-											"Un artiste ayant ce prénom et ce nom existe déjà!",
-											COMMON_ERROR,
-											JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(
+									VuesOperationArtiste.this,
+									ERROR_ARTISTE_ALREADY_EXISTS, COMMON_ERROR,
+									JOptionPane.ERROR_MESSAGE);
 							
 						}
 						else{

@@ -15,7 +15,6 @@ public interface ConstantesAffichage {
 	final String VIEW_ARTISTE_LABEL_NOM = "Nom :";
 	final String VIEW_ARTISTE_LABEL_EST_MEMBRE = "Membre?";
 	final String VIEW_ARTISTE_BUTTON_ALBUMS = "Albums";
-	final String VIEW_ARTISTE_NO_IMAGE = "<HTML><I>pas d'image</I></HTML>";
 	
 	// View connection
 	final String VIEW_CONNECT_HEADER = "Connexion au Programme";
@@ -58,8 +57,16 @@ public interface ConstantesAffichage {
 	final String ERROR_INVALID_GENRE = "Le genre est invalide (Lettres, \"-\" et \" \" uniquement)";
 	final String ERROR_INVALID_MAISON = "La maison de distribution est invalide (Lettres, \"-\" et \" \" uniquement)";
 	final String ERROR_INVALID_DATE = "Veuillez entrer une date";
-	
+	final String ERROR_ALBUM_AJOUT_NO_ARTISTE = "Vous ne pouvez pas créer d'album sans avoir au moins un artiste!";
 	final String ERROR_IMPOSSIBLE_CONNECTION = "Erreur, Connection impossible (verifier l'identifiant et le mot de passe)";
+	final String ERROR_ARTISTE_LINKED_TO_ALBUMS = "Cet artiste est relié à au moins un album et ne peut être supprimé!";
+	final String ERROR_ARTISTE_ALREADY_EXISTS = "Un artiste ayant ce prénom et ce nom existe déjà!";
+	final String ERROR_ALBUM_ALREADY_EXISTS = "Un album ayant ce titre existe déjà!";
+	
+	// Confirmations
+	final String CONFIRM_DELETE_ARTISTE = "Êtes-vous sûr de vouloir supprimer cet artiste?";
+	final String CONFIRM_DELETE_ALBUM = "Êtes-vous sur de vouloir supprimer cet album?";
+	final String CONFIRM_QUIT = "Voulez-vous vraiment quitter?";
 	
 	// Titles
 	final String TITLE_PROJECT = "GMWM - TP2";
@@ -74,5 +81,7 @@ public interface ConstantesAffichage {
 	
 	// Common messages
 	final String COMMON_ERROR = "Erreur";
+	final String COMMON_DELETE = "Supprimer";
+	final String COMMON_QUIT = "Quitter";
 	
 }

@@ -18,7 +18,7 @@ public class OutilsFichiers implements Constantes {
 	
 	private OutilsFichiers(){}
 	
-	public static String copyImageToProject(String filePath){
+	public static String copyImageToProject(String filePath, String folder){
 		
 		Path origin = Paths.get(filePath);
 		
@@ -28,9 +28,13 @@ public class OutilsFichiers implements Constantes {
 		String projectPath = projectFilePath.getParent() + "\\"
 				+ PROJECT_IMAGES_FOLDER_NAME;
 		
-		createDirIfNotExists(projectPath);
-		
 		String fileName = new File(filePath).getName();
+		
+		if(folder != null){
+			projectPath += "\\" + folder;
+		}
+		
+		createDirsIfNotExists(projectPath);
 		
 		Path destination = Paths.get(projectPath + "\\" + fileName);
 		
@@ -52,13 +56,13 @@ public class OutilsFichiers implements Constantes {
 		return new File(OutilsFichiers.class.getResource(path).getFile());
 	}
 	
-	public static Image getImageFromResources(String imageName){
-		return getImageIconFromResources(imageName).getImage();
+	public static Image getImageFromResources(String imagePath){
+		return getImageIconFromResources(imagePath).getImage();
 	}
 	
-	public static ImageIcon getImageIconFromResources(String imageName){
+	public static ImageIcon getImageIconFromResources(String imagePath){
 		return new ImageIcon(OutilsFichiers.class.getResource("/images/"
-				+ imageName));
+				+ imagePath));
 	}
 	
 	public static Image getImageFromProject(String path){
@@ -101,12 +105,12 @@ public class OutilsFichiers implements Constantes {
 		return getExecutablePathDirectoryAsFile().getParent();
 	}
 	
-	private static void createDirIfNotExists(String directoryPath){
+	private static void createDirsIfNotExists(String directoryPath){
 		
 		File file = new File(directoryPath);
 		
 		if(!file.isDirectory()){
-			file.mkdir();
+			file.mkdirs();
 		}
 		
 	}

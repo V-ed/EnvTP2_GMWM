@@ -62,7 +62,8 @@ public class VueArtistes extends VuesItems {
 			checkBoxArtisteEstMembre.setSelected(nouvelArtiste.isMembre());
 			
 			imageArtisteAffichage.setImageArtiste(OutilsFichiers
-					.getBufferedImageFromProject(nouvelArtiste.getImagePath()));
+					.getBufferedImageFromProject(DOSSIER_ARTISTES + "\\"
+							+ nouvelArtiste.getImagePath()));
 			
 			imageArtisteAffichage.repaint();
 			
@@ -87,7 +88,7 @@ public class VueArtistes extends VuesItems {
 		buttonArtisteAlbums = new JButton(VIEW_ARTISTE_BUTTON_ALBUMS);
 		
 		imageArtisteAffichage = new ImagePanel(
-				OutilsFichiers.getImageFromResources("no_image.png"));
+				OutilsFichiers.getImageFromResources(IMAGE_NO_IMAGE));
 		
 		buttonArtisteAlbums.addActionListener(new ActionListener(){
 			@Override
@@ -300,15 +301,12 @@ public class VueArtistes extends VuesItems {
 		}
 		
 		if(!peutContinuer){
-			JOptionPane
-					.showMessageDialog(
-							VueArtistes.this,
-							"Cet artiste est relié à au moins un album et ne peut être supprimé!",
-							COMMON_ERROR, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(VueArtistes.this,
+					ERROR_ARTISTE_LINKED_TO_ALBUMS, COMMON_ERROR,
+					JOptionPane.ERROR_MESSAGE);
 		}
-		else if(JOptionPane.showConfirmDialog(this,
-				"Êtes-vous sûr de vouloir supprimer cet artiste?", "Supprimer",
-				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+		else if(JOptionPane.showConfirmDialog(this, CONFIRM_DELETE_ARTISTE,
+				COMMON_DELETE, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
 			
 			artisteASupprimer.removeFromDatabase();
 			

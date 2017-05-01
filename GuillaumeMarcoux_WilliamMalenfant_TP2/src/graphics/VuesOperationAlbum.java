@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -41,6 +42,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 	private JComboBox<Artiste> comboBox;
 	private JLabel lblPath;
 	private ArrayList<TableObject> listArtistes;
+	private JButton btnConfirmer;
 	
 	private boolean hasConfirmed = false;
 	
@@ -191,7 +193,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 			comboBox.addItem((Artiste)listArtistes.get(i));
 		}
 		
-		JButton btnChooseFile = new JButton("Choisir Image");
+		JButton btnChooseFile = new JButton(VIEW_OPERATION_COMMON_BOUTON_IMAGE);
 		GridBagConstraints gbc_btnChooseFile = new GridBagConstraints();
 		gbc_btnChooseFile.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnChooseFile.insets = new Insets(0, 0, 5, 5);
@@ -208,7 +210,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 		gbc_lblPath.gridy = 7;
 		getContentPane().add(lblPath, gbc_lblPath);
 		
-		JButton btnConfirmer = new JButton();
+		btnConfirmer = new JButton();
 		GridBagConstraints gbc_btnConfirmer = new GridBagConstraints();
 		gbc_btnConfirmer.fill = GridBagConstraints.BOTH;
 		gbc_btnConfirmer.insets = new Insets(0, 0, 5, 5);
@@ -220,6 +222,8 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 			
 			@Override
 			public void actionPerformed(ActionEvent e){
+				
+				hasConfirmed = true;
 				
 				String titre = textTitre.getText();
 				
@@ -245,15 +249,13 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 					
 					if(album == null){
 						
-						filePath = OutilsFichiers
-								.copyImageToProject(currentAlbumImage);
+						filePath = OutilsFichiers.copyImageToProject(
+								currentAlbumImage, DOSSIER_ALBUMS);
 						
 					}
-					else{
-						if(!currentAlbumImage.equals(album.getImagePath())){
-							filePath = OutilsFichiers
-									.copyImageToProject(currentAlbumImage);
-						}
+					else if(!currentAlbumImage.equals(album.getImagePath())){
+						filePath = OutilsFichiers.copyImageToProject(
+								currentAlbumImage, DOSSIER_ALBUMS);
 					}
 					
 				}
@@ -300,11 +302,37 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 						Album nouvAlbum = new Album(database, titre, prix,
 								genre, annee, maison, filePath, artiste);
 						
-						// TODO Do not add the Album if the new Album already exists in the database.
+						ResultSet allAlbumForTitles = database
+								.selectEverythingFrom(Album.TABLE_NAME);
 						
-						vueAlbum.getTable().addItem(nouvAlbum);
+						Object[] albumsTitles = database.getAllContentOfColumn(
+								allAlbumForTitles,
+								Album.COLUMN_NAMES[Album.COLUMN_TITLE]);
 						
-						nouvAlbum.addToDatabase();
+						for(int i = 0; i < albumsTitles.length; i++){
+							if(albumsTitles[i].equals(nouvAlbum.getTitre())){
+								
+								hasConfirmed = false;
+								break;
+								
+							}
+						}
+						
+						if(!hasConfirmed){
+							
+							JOptionPane.showMessageDialog(
+									VuesOperationAlbum.this,
+									ERROR_ALBUM_ALREADY_EXISTS, COMMON_ERROR,
+									JOptionPane.ERROR_MESSAGE);
+							
+						}
+						else{
+							
+							vueAlbum.getTable().addItem(nouvAlbum);
+							
+							nouvAlbum.addToDatabase();
+							
+						}
 						
 						break;
 					
@@ -369,9 +397,8 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 						break;
 					}
 					
-					hasConfirmed = true;
-					
-					dispose();
+					if(hasConfirmed)
+						dispose();
 					
 				}
 				catch(Exception error){
@@ -411,7 +438,7 @@ public class VuesOperationAlbum extends JDialog implements Constantes,
 						.getFileSystemView().getHomeDirectory()
 						.getAbsolutePath());
 				filechooser.addChoosableFileFilter(new FileNameExtensionFilter(
-						PROJECT_IMAGES_FOLDER_NAME, POSSIBLE_EXTENSIONS));
+						FILECHOOSER_DISPLAY_IMAGES, POSSIBLE_EXTENSIONS));
 				filechooser.setAcceptAllFileFilterUsed(false);
 				
 				if(filechooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
