@@ -29,7 +29,8 @@ import javax.swing.SwingConstants;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class VuePrincipal extends JFrame implements ConstantesAffichage, WindowListener {
+public class VuePrincipal extends JFrame implements Constantes,
+		ConstantesAffichage, WindowListener {
 	
 	private MySQLDatabase database;
 	
@@ -68,7 +69,7 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage, WindowL
 		BufferedImage bImg1 = null;
 		try{
 			bImg1 = ImageIO.read(OutilsFichiers
-					.getFileFromResources("/images/artiste_mouse_out.jpg"));
+					.getFileFromResources(IMAGE_ARTISTE_MOUSE_OUT));
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -90,7 +91,7 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage, WindowL
 		BufferedImage bImg2 = null;
 		try{
 			bImg2 = ImageIO.read(OutilsFichiers
-					.getFileFromResources("/images/album_mouse_out.jpg"));
+					.getFileFromResources(IMAGE_ARTISTE_MOUSE_OUT));
 		}
 		catch(IOException e1){
 			e1.printStackTrace();
@@ -128,32 +129,32 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage, WindowL
 		setVisible(true);
 		
 	}
-
+	
 	@Override
-	public void windowActivated(WindowEvent e) {}
-
+	public void windowActivated(WindowEvent e){}
+	
 	@Override
-	public void windowClosed(WindowEvent e) {}
-
+	public void windowClosed(WindowEvent e){}
+	
 	@Override
-	public void windowClosing(WindowEvent e) {
-		if (JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment quitter?", "Quitter",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+	public void windowClosing(WindowEvent e){
+		if(JOptionPane.showConfirmDialog(null, CONFIRM_QUIT, COMMON_QUIT,
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
 			System.exit(0);
 		}
 	}
-
+	
 	@Override
-	public void windowDeactivated(WindowEvent e) {}
-
+	public void windowDeactivated(WindowEvent e){}
+	
 	@Override
-	public void windowDeiconified(WindowEvent e) {}
-
+	public void windowDeiconified(WindowEvent e){}
+	
 	@Override
-	public void windowIconified(WindowEvent e) {}
-
+	public void windowIconified(WindowEvent e){}
+	
 	@Override
-	public void windowOpened(WindowEvent e) {}
+	public void windowOpened(WindowEvent e){}
 }
 
 class GestionImage extends MouseAdapter implements Constantes {
