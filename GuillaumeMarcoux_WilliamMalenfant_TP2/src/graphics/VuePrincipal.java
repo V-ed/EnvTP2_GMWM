@@ -91,7 +91,7 @@ public class VuePrincipal extends JFrame implements Constantes,
 		BufferedImage bImg2 = null;
 		try{
 			bImg2 = ImageIO.read(OutilsFichiers
-					.getFileFromResources(IMAGE_ARTISTE_MOUSE_OUT));
+					.getFileFromResources(IMAGE_ALBUM_MOUSE_OUT));
 		}
 		catch(IOException e1){
 			e1.printStackTrace();
