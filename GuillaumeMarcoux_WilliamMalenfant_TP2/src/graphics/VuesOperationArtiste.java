@@ -17,6 +17,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import objects.Artiste;
@@ -229,6 +230,8 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 			@Override
 			public void actionPerformed(ActionEvent e){
 				
+				hasConfirmed = true;
+				
 				String nom = textNom.getText();
 				
 				String prenom = textPrenom.getText();
@@ -283,13 +286,53 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 						Artiste nouvArtiste = new Artiste(database, nom,
 								prenom, estMembre.isSelected(), filePath);
 						
-						// TODO Don't add the current Artiste if it already exists in the database.
+						// TODO Copy this in VuesOperationAlbum.
 						
-						database.selectEverythingFrom(Artiste.TABLE_NAME);
+						ResultSet allArtistsForLastNames = database
+								.selectEverythingFrom(Artiste.TABLE_NAME);
 						
-						vueArtiste.getTable().addItem(nouvArtiste);
+						Object[] artistsLastNames = database
+								.getAllContentOfColumn(
+										allArtistsForLastNames,
+										Artiste.COLUMN_NAMES[Artiste.COLUMN_LAST_NAME]);
 						
-						nouvArtiste.addToDatabase();
+						ResultSet allArtistsForFirstNames = database
+								.selectEverythingFrom(Artiste.TABLE_NAME);
+						
+						Object[] artistsFirstNames = database
+								.getAllContentOfColumn(
+										allArtistsForFirstNames,
+										Artiste.COLUMN_NAMES[Artiste.COLUMN_FIRST_NAME]);
+						
+						for(int i = 0; i < artistsFirstNames.length; i++){
+							if(artistsFirstNames[i].equals(nouvArtiste
+									.getPrenom())
+									&& artistsLastNames[i].equals(nouvArtiste
+											.getNom())){
+								
+								hasConfirmed = false;
+								break;
+								
+							}
+						}
+						
+						if(!hasConfirmed){
+							
+							JOptionPane
+									.showMessageDialog(
+											VuesOperationArtiste.this,
+											"Un artiste ayant ce prénom et ce nom existe déjà!",
+											COMMON_ERROR,
+											JOptionPane.ERROR_MESSAGE);
+							
+						}
+						else{
+							
+							vueArtiste.getTable().addItem(nouvArtiste);
+							
+							nouvArtiste.addToDatabase();
+							
+						}
 						
 						break;
 					
@@ -331,9 +374,8 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 						break;
 					}
 					
-					hasConfirmed = true;
-					
-					dispose();
+					if(hasConfirmed)
+						dispose();
 					
 				}
 				catch(Exception error){
