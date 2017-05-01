@@ -276,8 +276,13 @@ public class VueArtistes extends VuesItems {
 				VuesOperationArtiste.MODIFIER,
 				(Artiste)tableArtistes.getSelectedItem());
 		
-		if(vue.hasConfirmed())
+		if(vue.hasConfirmed()){
+			
 			tableArtistes.fireTableDataChanged();
+			
+			tableArtistes.setSelectedItem(0);
+			
+		}
 		
 	}
 	
