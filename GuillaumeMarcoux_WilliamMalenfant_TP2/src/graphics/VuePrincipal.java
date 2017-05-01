@@ -10,6 +10,7 @@ import outils.ConstantesAffichage;
 import outils.OutilsFichiers;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
 import java.awt.Color;
@@ -19,6 +20,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -26,7 +29,7 @@ import javax.swing.SwingConstants;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class VuePrincipal extends JFrame implements ConstantesAffichage {
+public class VuePrincipal extends JFrame implements ConstantesAffichage, WindowListener {
 	
 	private MySQLDatabase database;
 	
@@ -47,7 +50,7 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage {
 		this.database = database;
 		
 		setResizable(false);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setTitle(TITLE_PRINCIPAL + " - " + TITLE_PROJECT);
 		setSize(450, 516);
 		setLocationRelativeTo(parentFrame);
@@ -113,13 +116,41 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage {
 		btnQuitter.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				System.exit(0);
+				windowClosing(null);
 			}
 		});
+		
+		addWindowListener(this);
 		
 		setVisible(true);
 		
 	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {}
+
+	@Override
+	public void windowClosed(WindowEvent e) {}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		if (JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment quitter?", "Quitter",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+			System.exit(0);
+		}
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {}
+
+	@Override
+	public void windowIconified(WindowEvent e) {}
+
+	@Override
+	public void windowOpened(WindowEvent e) {}
 }
 
 class GestionImage extends MouseAdapter implements Constantes{
