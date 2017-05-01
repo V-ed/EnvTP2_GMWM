@@ -286,8 +286,6 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 						Artiste nouvArtiste = new Artiste(database, nom,
 								prenom, estMembre.isSelected(), filePath);
 						
-						// TODO Copy this in VuesOperationAlbum.
-						
 						ResultSet allArtistsForLastNames = database
 								.selectEverythingFrom(Artiste.TABLE_NAME);
 						
@@ -321,7 +319,7 @@ public class VuesOperationArtiste extends JDialog implements Constantes,
 							JOptionPane
 									.showMessageDialog(
 											VuesOperationArtiste.this,
-											"Un artiste ayant ce prÈnom et ce nom existe dÈj‡!",
+											"Un artiste ayant ce pr√©nom et ce nom existe d√©j√†!",
 											COMMON_ERROR,
 											JOptionPane.ERROR_MESSAGE);
 							
