@@ -30,6 +30,6 @@ INSERT INTO artiste (nom, prenom, estMembre, image) VALUES ('Morrison', 'Seth', 
 
 INSERT INTO album (titre, prix, genre, anneeSortie, maisonDistribution, image, idArtiste) Values ('Rise', 50.99, 'Rock', '2013-06-25', 'CPM Distribution', null, 1);
 INSERT INTO album (titre, prix, genre, anneeSortie, maisonDistribution, image, idArtiste) Values ('Collide', 25, 'Classique', '2003-11-18', 'Tonality', null, 2);
-INSERT INTO album (titre, prix, genre, anneeSortie, maisonDistribution, image, idArtiste) Values ('Alien Youth', 50.99, '', '2001-08-28', 'TRX Distribution', null, 3);
+INSERT INTO album (titre, prix, genre, anneeSortie, maisonDistribution, image, idArtiste) Values ('Alien Youth', 50.99, 'Punk', '2001-08-28', 'TRX Distribution', null, 3);
 INSERT INTO album (titre, prix, genre, anneeSortie, maisonDistribution, image, idArtiste) Values ('Awake', 45.99, 'Rock', '2009-08-25', 'Howard Benson', null, 4);
 INSERT INTO album (titre, prix, genre, anneeSortie, maisonDistribution, image, idArtiste) Values ('Comatose', 70.99, 'Rock', '2006-10-03', 'Howard Benson', null, 4);

@@ -47,9 +47,9 @@ public interface ConstantesAffichage {
 	final String VIEW_OPERATION_COMMON_BOUTON_ANNULER = "Annuler";
 	
 	// Error messages
-	final String ERROR_INVALID_NOM_PRENOM = "Le nom et le prenom sont invalide. (lettres et \"-\" uniquement et doit commencer par une majuscule)";
+	final String ERROR_INVALID_NOM_PRENOM = "Le nom et le pr\u00E9nom sont invalide. (lettres et \"-\" uniquement et doit commencer par une majuscule)";
 	final String ERROR_INVALID_NOM = "Le nom est invalide. (lettres et \"-\" uniquement et doit commencer par une majuscule)";
-	final String ERROR_INVALID_PRENOM = "Le prenom est invalide. (lettres et \"-\" uniquement et doit commencer par une majuscule)";
+	final String ERROR_INVALID_PRENOM = "Le pr\u00E9nom est invalide. (lettres et \"-\" uniquement et doit commencer par une majuscule)";
 	final String ERROR_FILE_NOT_EXIST = "Le fichier n'existe pas";
 	
 	final String ERROR_INVALID_FIELDS = "Certains champs sont invalide (Lettres, \"-\" et \" \" uniquement)";
@@ -57,15 +57,15 @@ public interface ConstantesAffichage {
 	final String ERROR_INVALID_GENRE = "Le genre est invalide (Lettres, \"-\" et \" \" uniquement)";
 	final String ERROR_INVALID_MAISON = "La maison de distribution est invalide (Lettres, \"-\" et \" \" uniquement)";
 	final String ERROR_INVALID_DATE = "Veuillez entrer une date";
-	final String ERROR_ALBUM_AJOUT_NO_ARTISTE = "Vous ne pouvez pas créer d'album sans avoir au moins un artiste!";
+	final String ERROR_ALBUM_AJOUT_NO_ARTISTE = "Vous ne pouvez pas cr\u00E9er d'album sans avoir au moins un artiste!";
 	final String ERROR_IMPOSSIBLE_CONNECTION = "Erreur, Connection impossible (verifier l'identifiant et le mot de passe)";
-	final String ERROR_ARTISTE_LINKED_TO_ALBUMS = "Cet artiste est relié à au moins un album et ne peut être supprimé!";
-	final String ERROR_ARTISTE_ALREADY_EXISTS = "Un artiste ayant ce prénom et ce nom existe déjà!";
-	final String ERROR_ALBUM_ALREADY_EXISTS = "Un album ayant ce titre existe déjà!";
+	final String ERROR_ARTISTE_LINKED_TO_ALBUMS = "Cet artiste est reli\u00E9 \u00E0 au moins un album et ne peut \u00EAtre supprim\u00E9!";
+	final String ERROR_ARTISTE_ALREADY_EXISTS = "Un artiste ayant ce pr\u00E9nom et ce nom existe d\u00E9j\u00E0!";
+	final String ERROR_ALBUM_ALREADY_EXISTS = "Un album ayant ce titre existe d\u00E9j\u00E0!";
 	
 	// Confirmations
-	final String CONFIRM_DELETE_ARTISTE = "Êtes-vous sûr de vouloir supprimer cet artiste?";
-	final String CONFIRM_DELETE_ALBUM = "Êtes-vous sur de vouloir supprimer cet album?";
+	final String CONFIRM_DELETE_ARTISTE = "\u00CAtes-vous s\u00FBr de vouloir supprimer cet artiste?";
+	final String CONFIRM_DELETE_ALBUM = "\u00CAtes-vous sur de vouloir supprimer cet album?";
 	final String CONFIRM_QUIT = "Voulez-vous vraiment quitter?";
 	
 	// Titles
