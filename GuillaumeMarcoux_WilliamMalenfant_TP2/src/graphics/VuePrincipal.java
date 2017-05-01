@@ -123,6 +123,8 @@ public class VuePrincipal extends JFrame implements ConstantesAffichage, WindowL
 		lblArtiste.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblAlbum.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
+		addWindowListener(this);
+		
 		setVisible(true);
 		
 	}
