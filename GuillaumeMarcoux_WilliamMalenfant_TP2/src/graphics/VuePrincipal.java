@@ -23,10 +23,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.swing.SwingConstants;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class VuePrincipal extends JFrame implements Constantes,
@@ -66,14 +64,8 @@ public class VuePrincipal extends JFrame implements Constantes,
 		lblArtiste.setBounds(99, 11, 233, 177);
 		lblArtiste.setOpaque(true);
 		
-		BufferedImage bImg1 = null;
-		try{
-			bImg1 = ImageIO.read(OutilsFichiers
-					.getFileFromResources(IMAGE_ARTISTE_MOUSE_OUT));
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
+		BufferedImage bImg1 = OutilsFichiers
+				.getBufferedImageFromProject(IMAGE_ARTISTE_MOUSE_OUT);
 		Image img1 = bImg1.getScaledInstance(lblArtiste.getWidth(),
 				lblArtiste.getHeight(), Image.SCALE_SMOOTH);
 		artisteOut = new ImageIcon(img1);
@@ -88,14 +80,8 @@ public class VuePrincipal extends JFrame implements Constantes,
 		lblAlbum.setBounds(99, 239, 233, 155);
 		lblAlbum.setOpaque(true);
 		
-		BufferedImage bImg2 = null;
-		try{
-			bImg2 = ImageIO.read(OutilsFichiers
-					.getFileFromResources(IMAGE_ALBUM_MOUSE_OUT));
-		}
-		catch(IOException e1){
-			e1.printStackTrace();
-		}
+		BufferedImage bImg2 = OutilsFichiers
+				.getBufferedImageFromProject(IMAGE_ALBUM_MOUSE_OUT);
 		Image img2 = bImg2.getScaledInstance(lblAlbum.getWidth(),
 				lblAlbum.getHeight(), Image.SCALE_SMOOTH);
 		albumOut = new ImageIcon(img2);
@@ -192,14 +178,8 @@ class GestionImage extends MouseAdapter implements Constantes {
 		
 		if(label.getName().equals(LABEL_NAME)){
 			
-			BufferedImage img = null;
-			try{
-				img = ImageIO.read(OutilsFichiers
-						.getFileFromResources(IMAGE_ARTISTE_MOUSE_ON));
-			}
-			catch(IOException e1){
-				e1.printStackTrace();
-			}
+			BufferedImage img = OutilsFichiers
+					.getBufferedImageFromProject(IMAGE_ARTISTE_MOUSE_ON);
 			Image temp = img.getScaledInstance(label.getWidth(),
 					label.getHeight(), Image.SCALE_SMOOTH);
 			image = new ImageIcon(temp);
@@ -208,14 +188,8 @@ class GestionImage extends MouseAdapter implements Constantes {
 		}
 		else{
 			
-			BufferedImage img = null;
-			try{
-				img = ImageIO.read(OutilsFichiers
-						.getFileFromResources(IMAGE_ALBUM_MOUSE_ON));
-			}
-			catch(IOException e1){
-				e1.printStackTrace();
-			}
+			BufferedImage img = OutilsFichiers
+					.getBufferedImageFromProject(IMAGE_ALBUM_MOUSE_ON);
 			Image temp = img.getScaledInstance(label.getWidth(),
 					label.getHeight(), Image.SCALE_SMOOTH);
 			image = new ImageIcon(temp);
@@ -234,14 +208,8 @@ class GestionImage extends MouseAdapter implements Constantes {
 		
 		if(label.getName().equals(LABEL_NAME)){
 			
-			BufferedImage img = null;
-			try{
-				img = ImageIO.read(OutilsFichiers
-						.getFileFromResources(IMAGE_ARTISTE_MOUSE_OUT));
-			}
-			catch(IOException e1){
-				e1.printStackTrace();
-			}
+			BufferedImage img = OutilsFichiers
+					.getBufferedImageFromProject(IMAGE_ARTISTE_MOUSE_OUT);
 			Image lul = img.getScaledInstance(label.getWidth(),
 					label.getHeight(), Image.SCALE_SMOOTH);
 			image = new ImageIcon(lul);
@@ -250,14 +218,8 @@ class GestionImage extends MouseAdapter implements Constantes {
 		}
 		else{
 			
-			BufferedImage img = null;
-			try{
-				img = ImageIO.read(OutilsFichiers
-						.getFileFromResources(IMAGE_ALBUM_MOUSE_OUT));
-			}
-			catch(IOException e1){
-				e1.printStackTrace();
-			}
+			BufferedImage img = OutilsFichiers
+					.getBufferedImageFromProject(IMAGE_ALBUM_MOUSE_OUT);
 			Image lul = img.getScaledInstance(label.getWidth(),
 					label.getHeight(), Image.SCALE_SMOOTH);
 			image = new ImageIcon(lul);
